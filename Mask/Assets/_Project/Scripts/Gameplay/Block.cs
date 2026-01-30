@@ -12,11 +12,6 @@ public class Block : MonoBehaviour
     {
         SetType(BlockType.One);
     }
-        
-    public void SetSelected(bool selected)
-    {
-        _view.SetSelected(selected);
-    }
 
     public void Change()
     {
