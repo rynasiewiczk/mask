@@ -1,15 +1,21 @@
 namespace _Project.Scripts.Gameplay.Input
 {
-    using System;
+    using DG.Tweening;
     using UnityEngine;
 
     public class InputRow : MonoBehaviour
     {
+        [SerializeField] private InputRowView _view;
         [SerializeField] private InputManager _inputManager;
         [SerializeField] private Block[] _inputBlocks;
+        [SerializeField] private float _cooldown = 0.75f;
 
         private Block CurrentBlock => _inputBlocks[_selectedBlockIndex];
+        private int _prevSelectedBlockIndex = 0;
         private int _selectedBlockIndex = 0;
+
+        private bool _locked = false;
+        private Tween _cooldownTween;
 
         private void Awake()
         {
@@ -18,6 +24,7 @@ namespace _Project.Scripts.Gameplay.Input
             _inputManager.OnConfirm += OnConfirm;
             _inputManager.OnChange += OnChange;
 
+            _view.SetSelectionPos(_inputBlocks[_selectedBlockIndex].transform.position, true);
             UpdateCurrentBlock();
         }
 
@@ -28,40 +35,68 @@ namespace _Project.Scripts.Gameplay.Input
 
         private void OnConfirm()
         {
-            //todo: add cooldown
+            if (_locked)
+            {
+                return;
+            }
             CreateFlyRow();
         }
 
         private void OnRight()
         {
+            _prevSelectedBlockIndex = _selectedBlockIndex;
             _selectedBlockIndex = (_selectedBlockIndex + 1) % _inputBlocks.Length;
             UpdateCurrentBlock();
         }
 
         private void OnLeft()
         {
+            _prevSelectedBlockIndex = _selectedBlockIndex;
             _selectedBlockIndex = (_selectedBlockIndex - 1 + _inputBlocks.Length) % _inputBlocks.Length;
             UpdateCurrentBlock();
         }
 
         private void UpdateCurrentBlock()
         {
+            bool instant = Mathf.Abs(_prevSelectedBlockIndex - _selectedBlockIndex) > 1;
+            
             for (int i = 0; i < _inputBlocks.Length; i++)
             {
-                _inputBlocks[i].SetSelected(i == _selectedBlockIndex);
+                if (i == _selectedBlockIndex)
+                {
+                    _view.SetSelectionPos(_inputBlocks[i].transform.position, instant);
+                }
             }
         }
         
         public void CreateFlyRow()
         {
-            for (int i = 0; i < _inputBlocks.Length; i++)
+            _view.SetSelectionVisible(false);
+            
+            _locked = true;
+            _cooldownTween = DOVirtual.DelayedCall(_cooldown, Unlock);
+            
+            foreach (var templateBlock in _inputBlocks)
             {
                 var newBlock = BlockFactory.Instance.CreateBlock();
-                newBlock.transform.parent = transform;
-                newBlock.transform.localPosition = Vector3.zero;
+                newBlock.transform.localPosition = templateBlock.transform.position;
                 newBlock.transform.localRotation = Quaternion.identity;
                 newBlock.transform.localScale = Vector3.one;
+                
+                newBlock.SetType(templateBlock.BlockType);
+                templateBlock.gameObject.SetActive(false);
             }
+        }
+        
+        private void Unlock()
+        {
+            foreach (var templateBlock in _inputBlocks)
+            {
+                templateBlock.gameObject.SetActive(true);
+            }
+                    _view.SetSelectionVisible(true);
+            
+            _locked = false;
         }
     }
 }

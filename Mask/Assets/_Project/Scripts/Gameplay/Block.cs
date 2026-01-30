@@ -1,32 +1,33 @@
+using System;
 using _Project.Scripts.Gameplay.Input;
 using UnityEngine;
 
 public class Block : MonoBehaviour
 {
+    [SerializeField] private float _moveSpeed = 4f;
     [SerializeField] private BlockView _view;
-    private BlockType _blockType;
-    
+    public BlockType BlockType { get; private set; }
+
     private void Awake()
     {
         SetType(BlockType.One);
     }
-        
-    public void SetSelected(bool selected)
-    {
-        _view.SetSelected(selected);
-    }
 
     public void Change()
     {
-        if (_blockType == BlockType.One) SetType(BlockType.Zero);
-        else if (_blockType == BlockType.Zero) SetType(BlockType.One);
+        if (BlockType == BlockType.One) SetType(BlockType.Zero);
+        else if (BlockType == BlockType.Zero) SetType(BlockType.One);
     }
 
     public void SetType(BlockType blockType)
     {
-        _blockType = blockType;
-        _view.SetBlockType(_blockType);
-        
+        BlockType = blockType;
+        _view.SetBlockType(BlockType);
+    }
+
+    private void Update()
+    {
+        transform.Translate(Vector3.up * (_moveSpeed * Time.deltaTime));
     }
 
     public Vector2 GetSize()
