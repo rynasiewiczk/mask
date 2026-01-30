@@ -28,6 +28,16 @@ public class Block : MonoBehaviour
         _view.SetBlockType(_blockType);
         
     }
+
+    public Vector2 GetSize()
+    {
+        return Vector2.one;
+    }
+
+    public void Fall(float distance)
+    {
+        transform.position += Vector3.down * distance;
+    }
 }
 
 public enum BlockType
