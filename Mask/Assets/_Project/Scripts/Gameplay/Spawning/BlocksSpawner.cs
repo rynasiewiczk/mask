@@ -61,7 +61,7 @@ namespace _Project.Scripts.Gameplay.Spawning
             block.transform.position = position;
             
             var isSelected = Random.value < .5f;
-            block.SetSelected(isSelected);
+            block.SetType(isSelected ? BlockType.One : BlockType.Zero);
             
             return block;
         }
