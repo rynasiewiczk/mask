@@ -54,13 +54,15 @@ namespace _Project.Scripts.Gameplay.Input
         
         public void CreateFlyRow()
         {
-            for (int i = 0; i < _inputBlocks.Length; i++)
+            foreach (var templateBlock in _inputBlocks)
             {
                 var newBlock = BlockFactory.Instance.CreateBlock();
-                newBlock.transform.parent = transform;
-                newBlock.transform.localPosition = Vector3.zero;
+                newBlock.transform.localPosition = templateBlock.transform.position;
                 newBlock.transform.localRotation = Quaternion.identity;
                 newBlock.transform.localScale = Vector3.one;
+                
+                newBlock.SetType(templateBlock.BlockType);
+                newBlock.SetSelected(false);
             }
         }
     }

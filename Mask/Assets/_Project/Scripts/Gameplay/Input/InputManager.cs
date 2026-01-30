@@ -20,7 +20,7 @@ public class InputManager : MonoBehaviour
             OnRight?.Invoke();
         }
         
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             OnConfirm?.Invoke();
         }

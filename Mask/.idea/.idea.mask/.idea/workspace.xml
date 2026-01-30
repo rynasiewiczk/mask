@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86ba699f-da05-42f4-9ca3-924c686fe27c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/BlockView.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/BlockView.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Input/InputRow.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Input/InputRow.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.mask/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.mask/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Block.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Block.cs" afterDir="false" />
-    </list>
+    <list default="true" id="86ba699f-da05-42f4-9ca3-924c686fe27c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,7 +23,9 @@
     <option name="defaultAccountId" value="2d9e1df3-2a40-4bdc-8d40-a6147f3e2b93" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/_Project/Prefabs/Block.prefab" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scenes/Game.unity" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Input/BlockFactory.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Input/InputManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Input/InputRow.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -110,7 +105,7 @@
       <option name="presentableId" value="Default" />
       <updated>1769809312273</updated>
       <workItem from="1769809313328" duration="883000" />
-      <workItem from="1769810291542" duration="2832000" />
+      <workItem from="1769810291542" duration="3482000" />
     </task>
     <task id="LOCAL-00001" summary="Block base">
       <option name="closed" value="true" />
@@ -128,7 +123,15 @@
       <option name="project" value="LOCAL" />
       <updated>1769810483661</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="in progress">
+      <option name="closed" value="true" />
+      <created>1769813370705</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1769813370705</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -157,7 +160,8 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Block base" />
     <MESSAGE value="Add game scene" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add game scene" />
+    <MESSAGE value="in progress" />
+    <option name="LAST_COMMIT_MESSAGE" value="in progress" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
