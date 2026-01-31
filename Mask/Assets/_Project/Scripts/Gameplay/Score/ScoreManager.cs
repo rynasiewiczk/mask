@@ -75,16 +75,19 @@ namespace _Project.Scripts.Gameplay.Input.Score
         private void AddBreakBlockPoints(FallingBlock block)
         {
             _score.Value += _config.BreakPoints;
+            Debug.LogWarning("BLOCK");
         }
 
         private void AddClearedLinePoints(FallingBlock block)
         {
             _score.Value += _config.ClearLinePoints;
+            Debug.LogWarning("LINE");
         }
         
         public void AddPerfectMovePoints(UserBlocksSequence sequence)
         {
             _score.Value += _config.PerfectPoints;
+            Debug.LogWarning("PERFECT");
         }
     }
 }

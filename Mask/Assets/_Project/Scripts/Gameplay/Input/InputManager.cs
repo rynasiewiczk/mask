@@ -48,12 +48,12 @@ public class InputManager : MonoBehaviour
             OnNumber?.Invoke(4);
         }
         
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetButtonDown("Jump"))
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.UpArrow) )
         {
             OnConfirm?.Invoke();
         }
         
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Submit"))
+        if (Input.GetKeyDown(KeyCode.Space) )
         {
             OnChange?.Invoke();
         }

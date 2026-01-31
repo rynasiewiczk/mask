@@ -8,7 +8,7 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
         private List<UserBlock> _blocks;
         public IReadOnlyList<UserBlock> Blocks => _blocks;
 
-        public bool DidAnyJoinFalling { get; private set; }
+        public bool DidAnyMissmatch { get; private set; }
 
         public event Action<UserBlocksSequence> OnAllDestroyed;
         
@@ -19,7 +19,7 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
             foreach (var userBlock in _blocks)
             {
                 userBlock.OnDestroying += HandleDestroy;
-                userBlock.OnJoinedFall += HandleFallJoin;
+                userBlock.OnMissmatched += HandleMissmatch;
             }
         }
 
@@ -32,9 +32,9 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
             }
         }
 
-        public void HandleFallJoin()
+        private void HandleMissmatch()
         {
-            DidAnyJoinFalling = true;
+            DidAnyMissmatch = true;
         }
     }
 }

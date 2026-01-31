@@ -11,6 +11,7 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
         private FallingBlock _targetBlock;
         private bool _canDestroy;
         public event Action OnJoinedFall;
+        public event Action OnMissmatched;
         public event Action<UserBlock> OnDestroying;
 
         public void SetTargetBlock(FallingBlock targetBlock)
@@ -62,6 +63,7 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
                     // FallingBlocksModel.Instance.AddBlock(newFallingBlock);
                     // OnJoinedFall?.Invoke();
                     
+                    OnMissmatched?.Invoke();
                     _targetBlock.HandleMissmatchedUserBlock();
                 }
                 
