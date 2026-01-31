@@ -1,16 +1,18 @@
 namespace _Project.Scripts.Gameplay.Input
 {
-    using System;
     using System.Linq;
     using DG.Tweening;
+    using LazySloth.Utilities.DoTween;
     using UnityEngine;
 
     public class CameraView : MonoBehaviour
     {
         public static CameraView Instance { get; private set; }
-        
+
+        [SerializeField] private Camera _camera;
         [SerializeField] private InputRow _inputRow;
         [SerializeField] private Transform _cameraShake;
+        [SerializeField] private Transform _cameraDangerShake;
         
         private void Awake()
         {
@@ -40,6 +42,21 @@ namespace _Project.Scripts.Gameplay.Input
                 DoSakeNow();
             }
             
+        }
+
+        public Tween DoDangerShake(DOTweenShakeSettings settings)
+        {
+            return _cameraDangerShake.DOShakePosition(settings);
+        }
+        
+        public Tween DoSize(float size, float duration, Ease ease)
+        {
+            return _camera.DOOrthoSize(size, duration).SetEase(ease);
+        }
+
+        public Tween DoResetShake(float toDefaultDuration)
+        {
+            return _cameraDangerShake.DOLocalMove(Vector3.zero, toDefaultDuration);
         }
     }
 }
