@@ -11,6 +11,7 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
         public FallingBlock TargetBlock;
         private bool _canDestroy;
         public event Action OnJoinedFall;
+        public event Action OnMissmatched;
         public event Action<UserBlock> OnDestroying;
 
         public void SetTargetBlock(FallingBlock targetBlock)
@@ -45,28 +46,26 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
 
             if (TargetBlock.BottomBlockPosition.position.y <= transform.position.y)
             {
-                if (_canDestroy)
+                if (_targetBlock.BlockType == BlockType)
                 {
                     ClearHittedBlock(TargetBlock);
                 }
-                
-                // if (_targetBlock.BlockType == BlockType)
-                // {
-                //     ClearHittedBlock(_targetBlock);
-                // }
-                // else
-                // {
-                //     if (_targetBlock.BlockMechanicType == BlockMechanicType.Unknown)
-                //     {
-                //         _targetBlock.SetMechanic(BlockMechanicType.None);
-                //     }
-                //     var newFallingBlock = BlockFactory.Instance.CreateFallingBlock();
-                //     newFallingBlock.SetType(BlockType);
-                //     newFallingBlock.SetMechanic(BlockMechanicType.None);
-                //     newFallingBlock.transform.position = _targetBlock.BottomBlockPosition.position;
-                //     FallingBlocksModel.Instance.AddBlock(newFallingBlock);
-                //     OnJoinedFall?.Invoke();
-                // }
+                else
+                {
+                    if (_targetBlock.BlockMechanicType == BlockMechanicType.Unknown)
+                    {
+                        _targetBlock.SetMechanic(BlockMechanicType.None);
+                    }
+                    // var newFallingBlock = BlockFactory.Instance.CreateFallingBlock();
+                    // newFallingBlock.SetType(BlockType);
+                    // newFallingBlock.SetMechanic(BlockMechanicType.None);
+                    // newFallingBlock.transform.position = _targetBlock.BottomBlockPosition.position;
+                    // FallingBlocksModel.Instance.AddBlock(newFallingBlock);
+                    // OnJoinedFall?.Invoke();
+                    
+                    OnMissmatched?.Invoke();
+                    _targetBlock.HandleMissmatchedUserBlock();
+                }
                 
                 OnDestroying?.Invoke(this);
                 Destroy(gameObject);

@@ -26,8 +26,9 @@ namespace _Project.Scripts.Gameplay.Input.Score
 
         private void HandleSequence(UserBlocksSequence sequence)
         {
-            if (sequence.DidAnyJoinFalling)
+            if (sequence.DidAnyMissmatch)
             {
+                _scoreManager.ResetCombo();
                 return;
             }
             

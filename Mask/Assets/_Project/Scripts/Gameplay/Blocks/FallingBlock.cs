@@ -9,6 +9,10 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
             transform.position += Vector3.down * distance;
         }
 
-        
+
+        public void HandleMissmatchedUserBlock()
+        {
+            _view.ShowMissplay();
+        }
     }
 }
