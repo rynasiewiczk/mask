@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance { get; private set; }
 
     [SerializeField] private InputManager _input;
+    [SerializeField] private Transform _horizontalOrigin;
     
     private StartLevelSystem _startLevelSystem;
     private ResetLevelSystem _resetLevelSystem;
@@ -16,6 +17,7 @@ public class LevelManager : MonoBehaviour
     public IObservableProperty<LevelState> State => _state;
 
     public bool IsPlaying => State.Value == LevelState.Playing;
+    public Transform HorizontalOrigin => _horizontalOrigin;
 
     private void Awake()
     {

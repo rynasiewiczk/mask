@@ -4,16 +4,15 @@ namespace _Project.Scripts.Gameplay.Spawning
     using Input;
     using Input.Blocks;
     using UnityEngine;
-    using UnityEngine.Serialization;
 
     public class BlocksSpawner : MonoBehaviour
     {
         [SerializeField] private FallingBlocksModel _model;
         [SerializeField] private GridConfig _gridConfig;
         [SerializeField] private float _heightGap = .5f;
-        
-        [FormerlySerializedAs("_prefab")] [SerializeField] private Block _blockPrefab;
-        
+
+        [SerializeField] private Block _blockPrefab;
+
         [SerializeField] private Transform _spawnPosition;
 
         private void Start()
@@ -28,7 +27,7 @@ namespace _Project.Scripts.Gameplay.Spawning
 
         private void SpawnInitialRows()
         {
-            SpawnRows(_gridConfig.rowsPerSpawn);
+            SpawnRows(_gridConfig.RowsPerSpawn);
         }
 
         private void SpawnRows(int count)
@@ -42,21 +41,20 @@ namespace _Project.Scripts.Gameplay.Spawning
         private void SpawnRow()
         {
             var currentTopBlock = _model.GetTopBlock();
-            var spawnHeight = currentTopBlock == null 
-                ? _spawnPosition.position.y 
-                : currentTopBlock.transform.position.y + _blockPrefab.GetSize().y + _heightGap;
+            var spawnHeight = currentTopBlock == null
+                ? _spawnPosition.position.y
+                : currentTopBlock.TopBlockPosition.position.y;
 
-            var horizontalPosition = -2.25f;
-            var delta = 1.5f;
-            for (int i = 0; i < 4; i++)
+            var horizontalOrigin = LevelManager.Instance.HorizontalOrigin.transform.position.x;
+            for (int i = 0; i < _gridConfig.Columns; i++)
             {
 
                 var isUnknown = Random.Range(0, 100) < 10;
                 
-                var horizontal = horizontalPosition + delta * i * _blockPrefab.GetSize().x;
-                var spawnPos =  new Vector3(horizontal, spawnHeight);
+                var horizontal = horizontalOrigin + (_gridConfig.HorizontalGap + _blockPrefab.GetSize().x) * i;
+                var spawnPos = new Vector3(horizontal, spawnHeight);
                 var block = SpawnBlock(spawnPos);
-                block.SetMechanic(isUnknown ? BlockMechanicType.Unknown : BlockMechanicType.None);
+                block.SetUnknown(isUnknown);
                 _model.AddBlock(block);
             }
         }
@@ -65,10 +63,10 @@ namespace _Project.Scripts.Gameplay.Spawning
         {
             var block = BlockFactory.Instance.CreateFallingBlock();
             block.transform.position = position;
-            
-            var isOne = Random.value < .5f;
-            block.SetType(isOne ? BlockType.One : BlockType.Zero);
-            
+
+            var isSelected = Random.value < .5f;
+            block.SetType(isSelected ? BlockType.One : BlockType.Zero);
+
             return block;
         }
 
@@ -77,13 +75,13 @@ namespace _Project.Scripts.Gameplay.Spawning
             var topBlock = _model.GetTopBlock();
             if (topBlock == null)
             {
-                SpawnRows(_gridConfig.rowsPerSpawn);
+                SpawnRows(_gridConfig.RowsPerSpawn);
                 return;
             }
-            
+
             if (topBlock.transform.position.y < _spawnPosition.position.y)
             {
-                SpawnRows(_gridConfig.rowsPerSpawn);
+                SpawnRows(_gridConfig.RowsPerSpawn);
             }
         }
     }

@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ec4c3e4c2a11f438e45f177a39a165, type: 3}
   m_Name: GridConfig
   m_EditorClassIdentifier: 
-  rowsPerSpawn: 3
-  fallSpeed: 0.6
+  Columns: 4
+  RowsPerSpawn: 4
+  FallSpeed: .6
+  HorizontalGap: 0.2

@@ -59,8 +59,11 @@ namespace _Project.Scripts.Gameplay.Input
         [SerializeField] private GameObject _oneObject;
         [SerializeField] private GameObject _zeroObject;
         [SerializeField] private GameObject _unknownObject;
-        [SerializeField] private Transform _nextBlockPosition;
-        public Transform NextBlockPosition => _nextBlockPosition;
+        [SerializeField] private Transform _topBlockPosition;
+        [SerializeField] private Transform _bottomBlockPosition;
+        
+        public Transform TopBlockPosition => _topBlockPosition;
+        public Transform BottomBlockPosition => _bottomBlockPosition;
         
         private BlockType _blockType;
         

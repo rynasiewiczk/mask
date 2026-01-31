@@ -7,7 +7,8 @@ public class Block : MonoBehaviour
     public BlockType BlockType { get; private set; }
     public BlockMechanicType BlockMechanicType { get; private set; }
     
-    public Transform NextBlockPosition => _view.NextBlockPosition;
+    public Transform TopBlockPosition => _view.TopBlockPosition;
+    public Transform BottomBlockPosition => _view.BottomBlockPosition;
 
     private void Awake()
     {
