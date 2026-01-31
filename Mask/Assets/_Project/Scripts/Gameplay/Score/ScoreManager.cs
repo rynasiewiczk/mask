@@ -1,5 +1,6 @@
 namespace _Project.Scripts.Gameplay.Input.Score
 {
+    using System;
     using System.Linq;
     using Blocks;
     using LazySloth.Observable;
@@ -21,6 +22,8 @@ namespace _Project.Scripts.Gameplay.Input.Score
 
         public IObservableProperty<int> Score => _score;
         public IObservableProperty<int> Combo => _combo;
+
+        public event Action<Vector2, int> OnLineCleared;
 
         private void Awake()
         {
@@ -82,6 +85,8 @@ namespace _Project.Scripts.Gameplay.Input.Score
         private void AddClearedLinePoints(FallingBlock block)
         {
             AddPointsWithCombo(_config.ClearLinePoints);
+            var points = _config.ClearLinePoints * _combo.Value;
+            OnLineCleared?.Invoke(block.transform.position, points);
         }
         
         public void AddPerfectMovePoints(UserBlocksSequence sequence)
