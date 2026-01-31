@@ -59,7 +59,7 @@ namespace _Project.Scripts.Gameplay.Spawning
             var columnToUseIndex = 0;
             for (int i = 0; i < toSpawn; i++)
             {
-                if(Random.value < .05f) { continue; }
+                //if(Random.value < .05f) { continue; }
                 
                 var rowToUse = shuffeldRows[rowToUseIndex];
                 var columnToUse = suffeldColumns[columnToUseIndex];

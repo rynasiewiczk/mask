@@ -146,6 +146,18 @@ namespace _Project.Scripts.Gameplay.Input
                 }
             }
 
+            var allAreCorrect = true;
+            foreach (var newBlock in newBlocks)
+            {
+                if (!newBlock.CanDestroyTarget())
+                {
+                    allAreCorrect = false;
+                    break;
+                }
+            }
+            
+            newBlocks.ForEach(x => x.SetCanDestroyTarget(allAreCorrect));
+
             var sequence = new UserBlocksSequence(newBlocks);
             sequence.OnAllDestroyed += HandleSequenceComplete;
             
