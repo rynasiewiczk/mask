@@ -4,32 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86ba699f-da05-42f4-9ca3-924c686fe27c" name="Changes" comment="add ls tools">
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/LevelEndSystem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/LevelEndSystem.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/LevelManager.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/LevelManager/ResetLevelSystem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/LevelManager/ResetLevelSystem.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/LevelManager/StartLevelSystem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/LevelManager/StartLevelSystem.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Spawning/ResetFallingBlocksSystem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Spawning/ResetFallingBlocksSystem.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Ui.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Ui/UiLevelFinishedPanelPresenter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Ui/UiLevelFinishedPanelPresenter.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Ui/UiLevelStatePresenter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Ui/UiLevelStatePresenter.cs.meta" afterDir="false" />
+    <list default="true" id="86ba699f-da05-42f4-9ca3-924c686fe27c" name="Changes" comment="update finding target for new blocks">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.mask/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.mask/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/InputRow.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/InputRow.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/UserBlock.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/UserBlock.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scenes/Game.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scenes/Game.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Blocks/UserBlock.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Blocks/UserBlock.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/GridManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/GridManager.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Input/InputRow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Input/InputRow.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/LevelManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/LevelManager/LevelManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/LevelManager.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/LevelManager/LevelManager.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Spawning/FallingBlocksModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Spawning/FallingBlocksModel.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +24,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="main" />
+        <entry key="$PROJECT_DIR$/.." value="moje" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -71,6 +47,7 @@
     <setting file="mock://E:/karol/mask/Mask/Assets/Scenes/SampleScene.unity" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://E:/karol/mask/Mask/Assets/Scenes/SampleScene.unity" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://E:/karol/mask/Mask/Assets/Scenes/SampleScene.unity" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/karol/mask/Mask/Assets/_Project/Prefabs/FallingBlock.prefab" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://E:/karol/mask/Mask/Assets/_Project/Scenes/Game.unity" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://E:/karol/mask/Mask/Assets/_Project/Scripts/Gameplay/Block.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://E:/karol/mask/Mask/Assets/_Project/Scripts/Gameplay/Block.cs" root0="SKIP_HIGHLIGHTING" />
@@ -78,7 +55,11 @@
     <setting file="mock://E:/karol/mask/Mask/Assets/_Project/Scripts/Gameplay/Block.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://E:/karol/mask/Mask/Assets/_Project/Scripts/Gameplay/Block.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/BlockView.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/BlocksFallSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://E:/karol/mask/Mask/Assets/_Project/Scripts/Gameplay/Blocks/UserBlock.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/FallingBlocks/BlocksFallSystem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/FallingBlocks/FallingBlocksModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://E:/karol/mask/Mask/Assets/_Project/Scripts/Gameplay/Input/InputRow.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/karol/mask/Mask/ProjectSettings/TagManager.asset" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -103,7 +84,7 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "git-widget-placeholder": "moje",
+    "git-widget-placeholder": "4__blocks",
     "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -173,7 +154,7 @@
       <workItem from="1769809313328" duration="883000" />
       <workItem from="1769811918673" duration="19000" />
       <workItem from="1769812413616" duration="5609000" />
-      <workItem from="1769818261703" duration="5760000" />
+      <workItem from="1769818261703" duration="7693000" />
     </task>
     <task id="LOCAL-00001" summary="blocks spawn and fall WIP">
       <option name="closed" value="true" />
@@ -223,7 +204,31 @@
       <option name="project" value="LOCAL" />
       <updated>1769821145067</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="set base game loop">
+      <option name="closed" value="true" />
+      <created>1769824256169</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1769824256169</updated>
+    </task>
+    <task id="LOCAL-00008" summary="cleanup">
+      <option name="closed" value="true" />
+      <created>1769824284721</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1769824284721</updated>
+    </task>
+    <task id="LOCAL-00009" summary="update finding target for new blocks">
+      <option name="closed" value="true" />
+      <created>1769825858305</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1769825858305</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -255,23 +260,26 @@
     <MESSAGE value="spawn blocks" />
     <MESSAGE value="blocks" />
     <MESSAGE value="add ls tools" />
-    <option name="LAST_COMMIT_MESSAGE" value="add ls tools" />
+    <MESSAGE value="set base game loop" />
+    <MESSAGE value="cleanup" />
+    <MESSAGE value="update finding target for new blocks" />
+    <option name="LAST_COMMIT_MESSAGE" value="update finding target for new blocks" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Input/InputRow.cs</url>
-          <line>43</line>
-          <properties documentPath="E:\karol\mask\Mask\Assets\_Project\Scripts\Gameplay\Input\InputRow.cs" containingFunctionPresentation="Method 'OnConfirm'">
+          <line>125</line>
+          <properties documentPath="E:\karol\mask\Mask\Assets\_Project\Scripts\Gameplay\Input\InputRow.cs" containingFunctionPresentation="Method 'TryFindTargetBlock'">
             <startOffsets>
-              <option value="1266" />
+              <option value="4150" />
             </startOffsets>
             <endOffsets>
-              <option value="1303" />
+              <option value="4163" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="2" />
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

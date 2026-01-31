@@ -46,9 +46,9 @@ namespace _Project.Scripts.Gameplay.Spawning
                 ? _spawnPosition.position.y 
                 : currentTopBlock.transform.position.y + _blockPrefab.GetSize().y + _heightGap;
 
-            var horizontalPosition = -3;
+            var horizontalPosition = -2.25f;
             var delta = 1.5f;
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 4; i++)
             {
                 var horizontal = horizontalPosition + delta * i * _blockPrefab.GetSize().x;
                 var spawnPos =  new Vector3(horizontal, spawnHeight);
