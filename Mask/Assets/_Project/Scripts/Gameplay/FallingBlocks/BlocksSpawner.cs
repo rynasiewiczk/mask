@@ -56,7 +56,7 @@ namespace _Project.Scripts.Gameplay.Spawning
                 var horizontal = horizontalPosition + delta * i * _blockPrefab.GetSize().x;
                 var spawnPos =  new Vector3(horizontal, spawnHeight);
                 var block = SpawnBlock(spawnPos);
-                block.SetUnknown(isUnknown);
+                block.SetMechanic(isUnknown ? BlockMechanicType.Unknown : BlockMechanicType.None);
                 _model.AddBlock(block);
             }
         }
@@ -66,8 +66,8 @@ namespace _Project.Scripts.Gameplay.Spawning
             var block = BlockFactory.Instance.CreateFallingBlock();
             block.transform.position = position;
             
-            var isSelected = Random.value < .5f;
-            block.SetType(isSelected ? BlockType.One : BlockType.Zero);
+            var isOne = Random.value < .5f;
+            block.SetType(isOne ? BlockType.One : BlockType.Zero);
             
             return block;
         }
