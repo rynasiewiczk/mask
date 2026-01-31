@@ -305,6 +305,7 @@ GameObject:
   - component: {fileID: 3218902226305726070}
   - component: {fileID: 7145398621650934543}
   - component: {fileID: 7075441201225162267}
+  - component: {fileID: 4830068506614716979}
   m_Layer: 0
   m_Name: Block
   m_TagString: Untagged
@@ -356,6 +357,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _oneObject: {fileID: 1677505501312294189}
   _zeroObject: {fileID: 5333597139952461953}
+  _unknownObject: {fileID: 6686846209441717387}
   _nextBlockPosition: {fileID: 2856208326174919682}
 --- !u!61 &7075441201225162267
 BoxCollider2D:
@@ -403,6 +405,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!210 &4830068506614716979
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110117946723843223}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &2908824976702006295
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,7 +523,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -5382654861691925582, guid: 60a4372e693e646f0ba6f57b64877841, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

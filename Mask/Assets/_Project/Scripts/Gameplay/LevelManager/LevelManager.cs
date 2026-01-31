@@ -2,6 +2,7 @@ using System;
 using LazySloth.Observable;
 using UnityEngine;
 
+[DefaultExecutionOrder(-1000)]
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; private set; }

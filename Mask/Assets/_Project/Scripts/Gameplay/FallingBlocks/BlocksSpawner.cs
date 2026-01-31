@@ -51,12 +51,12 @@ namespace _Project.Scripts.Gameplay.Spawning
             for (int i = 0; i < 4; i++)
             {
 
-                var skipBlock = Random.Range(0, 100) < 10;
-                if (skipBlock) { continue; }
+                var isUnknown = Random.Range(0, 100) < 10;
                 
                 var horizontal = horizontalPosition + delta * i * _blockPrefab.GetSize().x;
                 var spawnPos =  new Vector3(horizontal, spawnHeight);
                 var block = SpawnBlock(spawnPos);
+                block.SetUnknown(isUnknown);
                 _model.AddBlock(block);
             }
         }
