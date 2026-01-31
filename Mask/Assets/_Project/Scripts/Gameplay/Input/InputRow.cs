@@ -12,6 +12,7 @@ namespace _Project.Scripts.Gameplay.Input
 
     public class InputRow : MonoBehaviour
     {
+        [SerializeField] private BlockDestroyParticles _rowDestroy;
         [SerializeField] private GridConfig _gridConfig;
         [SerializeField] private Block _blockPrefab;
         [SerializeField] private Transform _verticalOrigin;
@@ -140,6 +141,10 @@ namespace _Project.Scripts.Gameplay.Input
 
             for (var i = 0; i < 5; i++)
             {
+                var effect = Instantiate(_rowDestroy, new Vector3(0, rowPosition), Quaternion.identity);
+                effect.Setup(Color.red);
+                yield return new WaitForSeconds(0.1f);
+                CameraView.Instance.DoShake(0.3f, 0.4f);
                 var allInRow = FallingBlocksModel.Instance.GetAllBlocksAtSameLine(rowPosition);
                 foreach (var block in allInRow)
                 {
