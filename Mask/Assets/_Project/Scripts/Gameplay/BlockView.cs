@@ -7,18 +7,19 @@ namespace _Project.Scripts.Gameplay.Input
     {
         [SerializeField] private BlockPassView _passView;
         [SerializeField] private BlockInvertedView _invertedView;
-        
+        [SerializeField] private BlockChainView _chainView;
+
         [SerializeField] private GameObject _oneObject;
         [SerializeField] private GameObject _zeroObject;
         [SerializeField] private GameObject _unknownObject;
         [SerializeField] private Transform _topBlockPosition;
         [SerializeField] private Transform _bottomBlockPosition;
-        
+
         public Transform TopBlockPosition => _topBlockPosition;
         public Transform BottomBlockPosition => _bottomBlockPosition;
-        
+
         private BlockType _blockType;
-        
+
         public void SetBlockType(BlockType blockType)
         {
             _blockType = blockType;
@@ -37,6 +38,7 @@ namespace _Project.Scripts.Gameplay.Input
             switch (blockMechanic)
             {
                 case BlockMechanicType.None:
+                case BlockMechanicType.ChainEnd:
                     break;
                 case BlockMechanicType.LeftPass:
                 case BlockMechanicType.RightPass:
@@ -52,6 +54,12 @@ namespace _Project.Scripts.Gameplay.Input
                     _invertedView.SetActive(true);
                     _invertedView.SetInverted(_blockType);
                     break;
+                case BlockMechanicType.ChainLeft:
+                case BlockMechanicType.ChainRight:
+                case BlockMechanicType.ChainBoth:
+                    _chainView.SetActive(true);
+                    _chainView.SetupChain(blockMechanic);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(blockMechanic), blockMechanic, null);
             }
@@ -62,6 +70,7 @@ namespace _Project.Scripts.Gameplay.Input
             SetUnknown(false);
             _invertedView.SetActive(false);
             _passView.SetActive(false);
+            _chainView.SetActive(false);
         }
     }
 }

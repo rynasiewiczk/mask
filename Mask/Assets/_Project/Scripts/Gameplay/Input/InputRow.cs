@@ -2,8 +2,10 @@ namespace _Project.Scripts.Gameplay.Input
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Blocks;
     using DG.Tweening;
+    using Spawning;
     using UnityEngine;
 
     public class InputRow : MonoBehaviour
@@ -156,6 +158,9 @@ namespace _Project.Scripts.Gameplay.Input
                     break;
                 }
             }
+            
+            // newBlocks.Where(x => x.TargetBlock.BlockMechanicType.IsChainPart())
+            //     .All(x => FallingBlocksModel.Instance.GetAll x.TargetBlock.BottomBlockPosition.);
             
             newBlocks.ForEach(x => x.SetCanDestroyTarget(allAreCorrect));
 

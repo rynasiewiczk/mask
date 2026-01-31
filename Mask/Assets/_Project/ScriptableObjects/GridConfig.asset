@@ -16,5 +16,23 @@ MonoBehaviour:
   RowsPerSpawn: 5
   FallSpeed: 0.6
   HorizontalGap: 0.2
-  PassProbability: 0.2
-  InvertedProbability: 0.15
+  Start:
+    PassProbability: 0
+    InvertedProbability: 0
+    ChainProbability: 0.5
+    InvertedPassProbability: 0
+  Easy:
+    PassProbability: 0.05
+    InvertedProbability: 0.05
+    ChainProbability: 0.05
+    InvertedPassProbability: 0.05
+  Medium:
+    PassProbability: 0.15
+    InvertedProbability: 0.1
+    ChainProbability: 0.05
+    InvertedPassProbability: 0.05
+  Hard:
+    PassProbability: 0.05
+    InvertedProbability: 0.05
+    ChainProbability: 0.05
+    InvertedPassProbability: 0.05

@@ -24,4 +24,26 @@ public static class BlockMechanicTypeExtensions
                 return Vector2Int.zero;
         }
     }
+    
+    public static Vector2Int GetChainDirectionVector(this BlockMechanicType blockMechanicType)
+    {
+        switch (blockMechanicType)
+        {
+            case BlockMechanicType.ChainLeft:
+                return Vector2Int.left;
+            case BlockMechanicType.ChainRight:
+                return  Vector2Int.right;
+            default:
+                Debug.LogError($"BlockMechanicType {blockMechanicType} is not a chain type");
+                return Vector2Int.zero;
+        }
+    }
+    
+    public static bool IsChainPart(this BlockMechanicType blockMechanicType)
+    {
+        return blockMechanicType == BlockMechanicType.ChainLeft 
+               || blockMechanicType == BlockMechanicType.ChainRight 
+               || blockMechanicType == BlockMechanicType.ChainBoth
+               || blockMechanicType == BlockMechanicType.ChainEnd;
+    }
 }

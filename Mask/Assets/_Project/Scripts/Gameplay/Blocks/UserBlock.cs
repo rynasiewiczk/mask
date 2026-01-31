@@ -8,14 +8,14 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
     {
         [SerializeField] private float _moveSpeed = 4f;
 
-        private FallingBlock _targetBlock;
+        public FallingBlock TargetBlock;
         private bool _canDestroy;
         public event Action OnJoinedFall;
         public event Action<UserBlock> OnDestroying;
 
         public void SetTargetBlock(FallingBlock targetBlock)
         {
-            _targetBlock = targetBlock;
+            TargetBlock = targetBlock;
         }
 
         public void SetCanDestroyTarget(bool canDestroyTarget)
@@ -25,7 +25,7 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
 
         public bool CanDestroyTarget()
         {
-            return _targetBlock.BlockType == BlockType;
+            return TargetBlock.BlockType == BlockType;
         }
         
         private void FixedUpdate()
@@ -36,18 +36,18 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
                 return;
             }
 
-            if (_targetBlock == null)
+            if (TargetBlock == null)
             {
                 return;
             }
 
             transform.Translate(Vector3.up * (_moveSpeed * Time.deltaTime));
 
-            if (_targetBlock.BottomBlockPosition.position.y <= transform.position.y)
+            if (TargetBlock.BottomBlockPosition.position.y <= transform.position.y)
             {
                 if (_canDestroy)
                 {
-                    ClearHittedBlock(_targetBlock);
+                    ClearHittedBlock(TargetBlock);
                 }
                 
                 // if (_targetBlock.BlockType == BlockType)
