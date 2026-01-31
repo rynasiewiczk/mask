@@ -45,28 +45,23 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
 
             if (_targetBlock.BottomBlockPosition.position.y <= transform.position.y)
             {
-                if (_canDestroy)
+                if (_targetBlock.BlockType == BlockType)
                 {
                     ClearHittedBlock(_targetBlock);
                 }
-                
-                // if (_targetBlock.BlockType == BlockType)
-                // {
-                //     ClearHittedBlock(_targetBlock);
-                // }
-                // else
-                // {
-                //     if (_targetBlock.BlockMechanicType == BlockMechanicType.Unknown)
-                //     {
-                //         _targetBlock.SetMechanic(BlockMechanicType.None);
-                //     }
-                //     var newFallingBlock = BlockFactory.Instance.CreateFallingBlock();
-                //     newFallingBlock.SetType(BlockType);
-                //     newFallingBlock.SetMechanic(BlockMechanicType.None);
-                //     newFallingBlock.transform.position = _targetBlock.BottomBlockPosition.position;
-                //     FallingBlocksModel.Instance.AddBlock(newFallingBlock);
-                //     OnJoinedFall?.Invoke();
-                // }
+                else
+                {
+                    if (_targetBlock.BlockMechanicType == BlockMechanicType.Unknown)
+                    {
+                        _targetBlock.SetMechanic(BlockMechanicType.None);
+                    }
+                    // var newFallingBlock = BlockFactory.Instance.CreateFallingBlock();
+                    // newFallingBlock.SetType(BlockType);
+                    // newFallingBlock.SetMechanic(BlockMechanicType.None);
+                    // newFallingBlock.transform.position = _targetBlock.BottomBlockPosition.position;
+                    // FallingBlocksModel.Instance.AddBlock(newFallingBlock);
+                    // OnJoinedFall?.Invoke();
+                }
                 
                 OnDestroying?.Invoke(this);
                 Destroy(gameObject);
