@@ -50,6 +50,10 @@ namespace _Project.Scripts.Gameplay.Spawning
             var delta = 1.5f;
             for (int i = 0; i < 4; i++)
             {
+
+                var skipBlock = Random.Range(0, 100) < 10;
+                if (skipBlock) { continue; }
+                
                 var horizontal = horizontalPosition + delta * i * _blockPrefab.GetSize().x;
                 var spawnPos =  new Vector3(horizontal, spawnHeight);
                 var block = SpawnBlock(spawnPos);
