@@ -1,5 +1,6 @@
 namespace _Project.Scripts.Gameplay.Input.Blocks
 {
+    using System;
     using Spawning;
     using UnityEngine;
 
@@ -8,6 +9,8 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
         [SerializeField] private float _moveSpeed = 4f;
 
         private FallingBlock _targetBlock;
+        public event Action OnJoinedFall;
+        public event Action<UserBlock> OnDestroying;
 
         public void SetTargetBlock(FallingBlock targetBlock)
         {
@@ -46,15 +49,17 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
                     newFallingBlock.SetMechanic(BlockMechanicType.None);
                     newFallingBlock.transform.position = _targetBlock.BottomBlockPosition.position;
                     FallingBlocksModel.Instance.AddBlock(newFallingBlock);
+                    OnJoinedFall?.Invoke();
                 }
                 
+                OnDestroying?.Invoke(this);
                 Destroy(gameObject);
             }
         }
 
         private void ClearHittedBlock(FallingBlock otherBlock)
         {
-            FallingBlocksModel.Instance.DestroyBlock(otherBlock);
+            FallingBlocksModel.Instance.BreakBlock(otherBlock);
         }
     }
 }

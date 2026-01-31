@@ -8,6 +8,9 @@ namespace _Project.Scripts.Gameplay.Spawning
 
     public class FallingBlocksModel : MonoBehaviour
     {
+        public event Action<FallingBlock> OnBlockAdded;
+        public event Action<FallingBlock> OnBlockBreak;
+        
         public static FallingBlocksModel Instance { get; private set; }
 
         private List<FallingBlock> _fallingBlocks = new();
@@ -30,7 +33,11 @@ namespace _Project.Scripts.Gameplay.Spawning
             _resetBlocksSystem.Dispose();
         }
 
-        public void AddBlock(FallingBlock block) => _fallingBlocks.Add(block);
+        public void AddBlock(FallingBlock block)
+        {
+            _fallingBlocks.Add(block);
+            OnBlockAdded?.Invoke(block);
+        }
 
         public FallingBlock GetTopBlock()
         {
@@ -53,7 +60,13 @@ namespace _Project.Scripts.Gameplay.Spawning
             return block;
         }
 
-        public void DestroyBlock(FallingBlock block)
+        public void BreakBlock(FallingBlock block)
+        {
+            OnBlockBreak?.Invoke(block);
+            DestroyBlock(block);
+        }
+        
+        private void DestroyBlock(FallingBlock block)
         {
             if (!_fallingBlocks.Contains(block))
             {

@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37ec4c3e4c2a11f438e45f177a39a165, type: 3}
-  m_Name: GridConfig
+  m_Script: {fileID: 11500000, guid: f53ddf4120364f48a8fb9009ae054f9a, type: 3}
+  m_Name: ScoreConfig
   m_EditorClassIdentifier: 
-  Columns: 5
-  RowsPerSpawn: 4
-  FallSpeed: 0.6
-  HorizontalGap: 0.2
-  PassProbability: 0.05
-  InvertedProbability: 0.15
+  BreakPoints: 1
+  ClearLinePoints: 2
+  PerfectPoints: 3
