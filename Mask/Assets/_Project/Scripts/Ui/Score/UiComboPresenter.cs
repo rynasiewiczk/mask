@@ -10,6 +10,7 @@ namespace _Project.Scripts.Ui
     {
         [SerializeField] private DOTweenPunchSettings _punchSettings;
         [SerializeField] private TextMeshProUGUI _comboText;
+        [SerializeField] private Transform _comboContainer;
         
         private Tween _tween;
 
@@ -37,11 +38,11 @@ namespace _Project.Scripts.Ui
         private void HandlePunch(int combo)
         {
             _tween?.Kill();
-            _comboText.transform.localScale = Vector3.one;
+            _comboContainer.transform.localScale = Vector3.one;
 
             if (combo > 1)
             {
-                _tween = _comboText.transform.DOPunchScale(_punchSettings);
+                _tween = _comboContainer.transform.DOPunchScale(_punchSettings);
             }
         }
     }
