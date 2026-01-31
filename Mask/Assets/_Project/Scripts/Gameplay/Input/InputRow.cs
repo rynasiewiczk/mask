@@ -9,6 +9,7 @@ namespace _Project.Scripts.Gameplay.Input
         [SerializeField] private InputManager _inputManager;
         [SerializeField] private Block[] _inputBlocks;
         [SerializeField] private float _cooldown = 0.75f;
+        [SerializeField] private Transform _underScreenPosition;
 
         private Block CurrentBlock => _inputBlocks[_selectedBlockIndex];
         private int _prevSelectedBlockIndex = 0;
@@ -39,6 +40,12 @@ namespace _Project.Scripts.Gameplay.Input
             {
                 return;
             }
+
+            if (!LevelManager.Instance.IsPlaying)
+            {
+                return;
+            }
+
             CreateFlyRow();
         }
 
@@ -58,8 +65,13 @@ namespace _Project.Scripts.Gameplay.Input
 
         private void UpdateCurrentBlock()
         {
+            if (!LevelManager.Instance.IsPlaying)
+            {
+                return;
+            }
+
             bool instant = Mathf.Abs(_prevSelectedBlockIndex - _selectedBlockIndex) > 1;
-            
+
             for (int i = 0; i < _inputBlocks.Length; i++)
             {
                 if (i == _selectedBlockIndex)
@@ -68,34 +80,32 @@ namespace _Project.Scripts.Gameplay.Input
                 }
             }
         }
-        
+
         public void CreateFlyRow()
         {
             _view.SetSelectionVisible(false);
-            
+
             _locked = true;
             _cooldownTween = DOVirtual.DelayedCall(_cooldown, Unlock);
-            
+
             foreach (var templateBlock in _inputBlocks)
             {
                 var newBlock = BlockFactory.Instance.CreateUserBlock();
                 newBlock.transform.localPosition = templateBlock.transform.position;
                 newBlock.transform.localRotation = Quaternion.identity;
                 newBlock.transform.localScale = Vector3.one;
-                
+
                 newBlock.SetType(templateBlock.BlockType);
-                templateBlock.gameObject.SetActive(false);
+                var originalHeight = templateBlock.transform.position.y;
+                templateBlock.transform.position =
+                    new Vector2(templateBlock.transform.position.x, _underScreenPosition.position.y);
+                templateBlock.transform.DOMoveY(originalHeight, _cooldown);
             }
         }
-        
+
         private void Unlock()
         {
-            foreach (var templateBlock in _inputBlocks)
-            {
-                templateBlock.gameObject.SetActive(true);
-            }
-                    _view.SetSelectionVisible(true);
-            
+            _view.SetSelectionVisible(true);
             _locked = false;
         }
     }

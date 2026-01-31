@@ -4,7 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86ba699f-da05-42f4-9ca3-924c686fe27c" name="Changes" comment="" />
+    <list default="true" id="86ba699f-da05-42f4-9ca3-924c686fe27c" name="Changes" comment="add ls tools">
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/LevelEndSystem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/LevelEndSystem.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/LevelManager.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/LevelManager/ResetLevelSystem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/LevelManager/ResetLevelSystem.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/LevelManager/StartLevelSystem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/LevelManager/StartLevelSystem.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Spawning/ResetFallingBlocksSystem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Spawning/ResetFallingBlocksSystem.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Ui.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Ui/UiLevelFinishedPanelPresenter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Ui/UiLevelFinishedPanelPresenter.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Ui/UiLevelStatePresenter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Ui/UiLevelStatePresenter.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.mask/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.mask/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/InputRow.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/InputRow.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/UserBlock.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/UserBlock.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scenes/Game.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scenes/Game.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Blocks/UserBlock.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Blocks/UserBlock.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/GridManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/GridManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Input/InputRow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Input/InputRow.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/LevelManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/LevelManager/LevelManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/LevelManager.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/LevelManager/LevelManager.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Spawning/FallingBlocksModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Spawning/FallingBlocksModel.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,18 +46,39 @@
     <option name="firstShow" value="false" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="2d9e1df3-2a40-4bdc-8d40-a6147f3e2b93" />
-  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;karolr440&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/rynasiewiczk/mask.git&quot;,
+    &quot;accountId&quot;: &quot;f87ff225-1880-49d9-995e-82f845f50fc4&quot;
+  }
+}</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/_Project/Prefabs/Block.prefab" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/_Project/Scenes/Game.unity" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Input/BlockFactory.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Input/InputManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Input/InputRow.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Input/InputRowView.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://E:/karol/mask/Mask/Assets/DOTween/Editor/Imgs/DOTweenMiniIcon.png.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/LazySlothTools/Runtime/Scripts/Ranges/Range.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://E:/karol/mask/Mask/Assets/Scenes/SampleScene.unity" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/karol/mask/Mask/Assets/Scenes/SampleScene.unity" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/karol/mask/Mask/Assets/Scenes/SampleScene.unity" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/karol/mask/Mask/Assets/_Project/Scenes/Game.unity" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/karol/mask/Mask/Assets/_Project/Scripts/Gameplay/Block.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/karol/mask/Mask/Assets/_Project/Scripts/Gameplay/Block.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Block.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://E:/karol/mask/Mask/Assets/_Project/Scripts/Gameplay/Block.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://E:/karol/mask/Mask/Assets/_Project/Scripts/Gameplay/Block.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/BlockView.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/BlocksFallSystem.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -39,6 +86,7 @@
 }</component>
   <component name="ProjectId" id="38zjUuBxz6Et19pbaWDJ6iSVEC1" />
   <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="false" id="Update" />
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -55,7 +103,8 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "moje",
+    "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -66,29 +115,38 @@
 }]]></component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="/Applications/Unity/Hub/Editor/6000.0.33f1/Unity.app/Contents/MacOS/Unity" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.0.33f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath $PROJECT_DIR$ -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="PASS_PARENT_ENVS" value="1" />
-      <option name="ENV_FILE_PATHS" value="" />
-      <option name="REDIRECT_INPUT_PATH" value="" />
-      <option name="MIXED_MODE_DEBUG" value="0" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <method v="2" />
     </configuration>
     <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="/Applications/Unity/Hub/Editor/6000.0.33f1/Unity.app/Contents/MacOS/Unity" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\6000.0.33f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath $PROJECT_DIR$ -testResults Logs/results.xml -logFile Logs/Editor.log -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="PASS_PARENT_ENVS" value="1" />
-      <option name="ENV_FILE_PATHS" value="" />
-      <option name="REDIRECT_INPUT_PATH" value="" />
-      <option name="MIXED_MODE_DEBUG" value="0" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" useMixedMode="false" ignored-value-for-modified-check="16453">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="16453" />
+      <option name="pid" />
+      <option name="projectPathOnTarget" />
+      <option name="runtimes">
+        <list />
+      </option>
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="22592">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" value="22592" />
       <option name="projectPathOnTarget" />
       <option name="runtimes">
         <list>
@@ -104,6 +162,7 @@
       <method v="2" />
     </configuration>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="86ba699f-da05-42f4-9ca3-924c686fe27c" name="Changes" comment="" />
@@ -112,55 +171,57 @@
       <option name="presentableId" value="Default" />
       <updated>1769809312273</updated>
       <workItem from="1769809313328" duration="883000" />
-      <workItem from="1769810291542" duration="7019000" />
+      <workItem from="1769811918673" duration="19000" />
+      <workItem from="1769812413616" duration="5609000" />
+      <workItem from="1769818261703" duration="5760000" />
     </task>
-    <task id="LOCAL-00001" summary="Block base">
+    <task id="LOCAL-00001" summary="blocks spawn and fall WIP">
       <option name="closed" value="true" />
-      <created>1769810326174</created>
+      <created>1769813207479</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1769810326175</updated>
+      <updated>1769813207480</updated>
     </task>
-    <task id="LOCAL-00002" summary="Add game scene">
+    <task id="LOCAL-00002" summary="add spawning and falling">
       <option name="closed" value="true" />
-      <created>1769810483661</created>
+      <created>1769816850714</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1769810483661</updated>
+      <updated>1769816850714</updated>
     </task>
-    <task id="LOCAL-00003" summary="in progress">
+    <task id="LOCAL-00003" summary="add spawning and falling">
       <option name="closed" value="true" />
-      <created>1769813370705</created>
+      <created>1769817068949</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1769813370705</updated>
+      <updated>1769817068949</updated>
     </task>
-    <task id="LOCAL-00004" summary="Fly row">
+    <task id="LOCAL-00004" summary="spawn blocks">
       <option name="closed" value="true" />
-      <created>1769813848221</created>
+      <created>1769817429917</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1769813848221</updated>
+      <updated>1769817429917</updated>
     </task>
-    <task id="LOCAL-00005" summary="Do tween and confirm adjusted">
+    <task id="LOCAL-00005" summary="blocks">
       <option name="closed" value="true" />
-      <created>1769815534028</created>
+      <created>1769819994451</created>
       <option name="number" value="00005" />
       <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1769815534028</updated>
+      <updated>1769819994451</updated>
     </task>
-    <task id="LOCAL-00006" summary="Amend">
+    <task id="LOCAL-00006" summary="add ls tools">
       <option name="closed" value="true" />
-      <created>1769815546189</created>
+      <created>1769821145067</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1769815546189</updated>
+      <updated>1769821145067</updated>
     </task>
     <option name="localTasksCounter" value="7" />
     <servers />
@@ -189,29 +250,29 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Block base" />
-    <MESSAGE value="Add game scene" />
-    <MESSAGE value="in progress" />
-    <MESSAGE value="Fly row" />
-    <MESSAGE value="Do tween and confirm adjusted" />
-    <MESSAGE value="Amend" />
-    <option name="LAST_COMMIT_MESSAGE" value="Amend" />
+    <MESSAGE value="blocks spawn and fall WIP" />
+    <MESSAGE value="add spawning and falling" />
+    <MESSAGE value="spawn blocks" />
+    <MESSAGE value="blocks" />
+    <MESSAGE value="add ls tools" />
+    <option name="LAST_COMMIT_MESSAGE" value="add ls tools" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
-          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
-          <option name="timeStamp" value="1" />
-        </breakpoint>
-        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
-          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Input/InputRow.cs</url>
+          <line>43</line>
+          <properties documentPath="E:\karol\mask\Mask\Assets\_Project\Scripts\Gameplay\Input\InputRow.cs" containingFunctionPresentation="Method 'OnConfirm'">
+            <startOffsets>
+              <option value="1266" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1303" />
+            </endOffsets>
+          </properties>
           <option name="timeStamp" value="2" />
-        </breakpoint>
-        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
-          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
-          <option name="timeStamp" value="3" />
-        </breakpoint>
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

@@ -31,6 +31,7 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
                     var newFallingBlock = BlockFactory.Instance.CreateFallingBlock();
                     newFallingBlock.SetType(BlockType);
                     newFallingBlock.transform.position = otherBlock.NextBlockPosition.position;
+                    FallingBlocksModel.Instance.AddBlock(newFallingBlock);
                 }
                 
                 Destroy(gameObject);
