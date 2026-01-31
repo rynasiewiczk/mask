@@ -5,9 +5,11 @@ public class Block : MonoBehaviour
 {
     [SerializeField] private BlockView _view;
     public BlockType BlockType { get; private set; }
+    public BlockMechanicType BlockMechanicType { get; private set; }
     
     public Transform TopBlockPosition => _view.TopBlockPosition;
     public Transform BottomBlockPosition => _view.BottomBlockPosition;
+    public float VerticalGap => Mathf.Abs(BottomBlockPosition.localPosition.y); 
 
     private void Awake()
     {
@@ -30,13 +32,28 @@ public class Block : MonoBehaviour
     {
         return Vector2.one;
     }
-    
-    public void SetUnknown(bool isUnknown) => _view.SetUnknown(isUnknown);
+
+    public void SetMechanic(BlockMechanicType blockMechanic)
+    {
+        BlockMechanicType = blockMechanic;
+        _view.SetMechanic(BlockMechanicType);
+    }
 }
 
 public enum BlockType
 {
     One,
     Zero,
-    Unknown,
 }
+
+public enum BlockMechanicType
+{
+    None,
+    LeftPass,
+    RightPass,
+    UpPass,
+    DownPass,
+    Unknown,
+    Inverted,
+}
+

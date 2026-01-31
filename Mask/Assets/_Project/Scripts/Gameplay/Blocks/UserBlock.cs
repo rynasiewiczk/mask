@@ -40,7 +40,10 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
                 }
                 else
                 {
-                    _targetBlock.SetUnknown(false);
+                    if (_targetBlock.BlockMechanicType == BlockMechanicType.Unknown)
+                    {
+                        _targetBlock.SetMechanic(BlockMechanicType.None);
+                    }
                     var newFallingBlock = BlockFactory.Instance.CreateFallingBlock();
                     newFallingBlock.SetType(BlockType);
                     newFallingBlock.transform.position = _targetBlock.BottomBlockPosition.position;
