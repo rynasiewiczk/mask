@@ -1,0 +1,1169 @@
+Index: ../Mask/Assets/_Project/Scripts/Gameplay/Block.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>using System;\nusing _Project.Scripts.Gameplay.Input;\nusing UnityEngine;\n\npublic class Block : MonoBehaviour\n{\n    [SerializeField] private float _moveSpeed = 4f;\n    [SerializeField] private BlockView _view;\n    public BlockType BlockType { get; private set; }\n    \n    public Transform NextBlockPosition => _view.NextBlockPosition;\n\n    private void Awake()\n    {\n        SetType(BlockType.One);\n    }\n\n    public void Change()\n    {\n        if (BlockType == BlockType.One) SetType(BlockType.Zero);\n        else if (BlockType == BlockType.Zero) SetType(BlockType.One);\n    }\n\n    public void SetType(BlockType blockType)\n    {\n        BlockType = blockType;\n        _view.SetBlockType(BlockType);\n    }\n\n    private void Update()\n    {\n        transform.Translate(Vector3.up * (_moveSpeed * Time.deltaTime));\n    }\n\n    private void FixedUpdate()\n    {\n        var hit = Physics2D.Raycast(transform.position, Vector3.up, 20f, LayerMask.GetMask(\"Default\"));\n        if (hit.collider && hit.transform.TryGetComponent(out Block otherBlock)\n            && hit.distance < Mathf.Abs(NextBlockPosition.localPosition.y))\n        {\n            Debug.Log(\"Block hit\");\n            transform.position = otherBlock.NextBlockPosition.position;\n            _moveSpeed = 0f;\n            //add to move system\n        }\n    }\n}\n\npublic enum BlockType\n{\n    One,\n    Zero,\n    Unknown,\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Mask/Assets/_Project/Scripts/Gameplay/Block.cs b/../Mask/Assets/_Project/Scripts/Gameplay/Block.cs
+--- a/../Mask/Assets/_Project/Scripts/Gameplay/Block.cs	(revision 19cbac5da054ad4f6fe3ff6ef7fe00135f2ac943)
++++ b/../Mask/Assets/_Project/Scripts/Gameplay/Block.cs	(date 1769818071117)
+@@ -44,6 +44,16 @@
+             //add to move system
+         }
+     }
++
++    public Vector2 GetSize()
++    {
++        return Vector2.one;
++    }
++
++    public void Fall(float distance)
++    {
++        transform.position += Vector3.down * distance;
++    }
+ }
+ 
+ public enum BlockType
+Index: ../.claude/settings.local.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../.claude/settings.local.json b/../.claude/settings.local.json
+new file mode 100644
+--- /dev/null	(date 1769818015697)
++++ b/../.claude/settings.local.json	(date 1769818015697)
+@@ -0,0 +1,7 @@
++{
++  "permissions": {
++    "allow": [
++      "Bash(dir:*)"
++    ]
++  }
++}
+Index: ../Mask/Assets/Scenes/SampleScene.unity
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>%YAML 1.1\n%TAG !u! tag:unity3d.com,2011:\n--- !u!29 &1\nOcclusionCullingSettings:\n  m_ObjectHideFlags: 0\n  serializedVersion: 2\n  m_OcclusionBakeSettings:\n    smallestOccluder: 5\n    smallestHole: 0.25\n    backfaceThreshold: 100\n  m_SceneGUID: 00000000000000000000000000000000\n  m_OcclusionCullingData: {fileID: 0}\n--- !u!104 &2\nRenderSettings:\n  m_ObjectHideFlags: 0\n  serializedVersion: 9\n  m_Fog: 0\n  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}\n  m_FogMode: 3\n  m_FogDensity: 0.01\n  m_LinearFogStart: 0\n  m_LinearFogEnd: 300\n  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}\n  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}\n  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}\n  m_AmbientIntensity: 1\n  m_AmbientMode: 3\n  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}\n  m_SkyboxMaterial: {fileID: 0}\n  m_HaloStrength: 0.5\n  m_FlareStrength: 1\n  m_FlareFadeSpeed: 3\n  m_HaloTexture: {fileID: 0}\n  m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}\n  m_DefaultReflectionMode: 0\n  m_DefaultReflectionResolution: 128\n  m_ReflectionBounces: 1\n  m_ReflectionIntensity: 1\n  m_CustomReflection: {fileID: 0}\n  m_Sun: {fileID: 0}\n  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}\n  m_UseRadianceAmbientProbe: 0\n--- !u!157 &3\nLightmapSettings:\n  m_ObjectHideFlags: 0\n  serializedVersion: 12\n  m_GIWorkflowMode: 1\n  m_GISettings:\n    serializedVersion: 2\n    m_BounceScale: 1\n    m_IndirectOutputScale: 1\n    m_AlbedoBoost: 1\n    m_EnvironmentLightingMode: 0\n    m_EnableBakedLightmaps: 0\n    m_EnableRealtimeLightmaps: 0\n  m_LightmapEditorSettings:\n    serializedVersion: 12\n    m_Resolution: 2\n    m_BakeResolution: 40\n    m_AtlasSize: 1024\n    m_AO: 0\n    m_AOMaxDistance: 1\n    m_CompAOExponent: 1\n    m_CompAOExponentDirect: 0\n    m_ExtractAmbientOcclusion: 0\n    m_Padding: 2\n    m_LightmapParameters: {fileID: 0}\n    m_LightmapsBakeMode: 1\n    m_TextureCompression: 1\n    m_FinalGather: 0\n    m_FinalGatherFiltering: 1\n    m_FinalGatherRayCount: 256\n    m_ReflectionCompression: 2\n    m_MixedBakeMode: 2\n    m_BakeBackend: 1\n    m_PVRSampling: 1\n    m_PVRDirectSampleCount: 32\n    m_PVRSampleCount: 512\n    m_PVRBounces: 2\n    m_PVREnvironmentSampleCount: 256\n    m_PVREnvironmentReferencePointCount: 2048\n    m_PVRFilteringMode: 1\n    m_PVRDenoiserTypeDirect: 1\n    m_PVRDenoiserTypeIndirect: 1\n    m_PVRDenoiserTypeAO: 1\n    m_PVRFilterTypeDirect: 0\n    m_PVRFilterTypeIndirect: 0\n    m_PVRFilterTypeAO: 0\n    m_PVREnvironmentMIS: 1\n    m_PVRCulling: 1\n    m_PVRFilteringGaussRadiusDirect: 1\n    m_PVRFilteringGaussRadiusIndirect: 5\n    m_PVRFilteringGaussRadiusAO: 2\n    m_PVRFilteringAtrousPositionSigmaDirect: 0.5\n    m_PVRFilteringAtrousPositionSigmaIndirect: 2\n    m_PVRFilteringAtrousPositionSigmaAO: 1\n    m_ExportTrainingData: 0\n    m_TrainingDataDestination: TrainingData\n    m_LightProbeSampleCountMultiplier: 4\n  m_LightingDataAsset: {fileID: 0}\n  m_LightingSettings: {fileID: 0}\n--- !u!196 &4\nNavMeshSettings:\n  serializedVersion: 2\n  m_ObjectHideFlags: 0\n  m_BuildSettings:\n    serializedVersion: 2\n    agentTypeID: 0\n    agentRadius: 0.5\n    agentHeight: 2\n    agentSlope: 45\n    agentClimb: 0.4\n    ledgeDropHeight: 0\n    maxJumpAcrossDistance: 0\n    minRegionArea: 2\n    manualCellSize: 0\n    cellSize: 0.16666667\n    manualTileSize: 0\n    tileSize: 256\n    accuratePlacement: 0\n    maxJobWorkers: 0\n    preserveTilesOutsideBounds: 0\n    debug:\n      m_Flags: 0\n  m_NavMeshData: {fileID: 0}\n--- !u!1 &519420028\nGameObject:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  serializedVersion: 6\n  m_Component:\n  - component: {fileID: 519420032}\n  - component: {fileID: 519420031}\n  - component: {fileID: 519420029}\n  - component: {fileID: 519420030}\n  m_Layer: 0\n  m_Name: Main Camera\n  m_TagString: MainCamera\n  m_Icon: {fileID: 0}\n  m_NavMeshLayer: 0\n  m_StaticEditorFlags: 0\n  m_IsActive: 1\n--- !u!81 &519420029\nAudioListener:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_GameObject: {fileID: 519420028}\n  m_Enabled: 1\n--- !u!114 &519420030\nMonoBehaviour:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_GameObject: {fileID: 519420028}\n  m_Enabled: 1\n  m_EditorHideFlags: 0\n  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}\n  m_Name: \n  m_EditorClassIdentifier: \n  m_RenderShadows: 1\n  m_RequiresDepthTextureOption: 2\n  m_RequiresOpaqueTextureOption: 2\n  m_CameraType: 0\n  m_Cameras: []\n  m_RendererIndex: -1\n  m_VolumeLayerMask:\n    serializedVersion: 2\n    m_Bits: 1\n  m_VolumeTrigger: {fileID: 0}\n  m_RenderPostProcessing: 0\n  m_Antialiasing: 0\n  m_AntialiasingQuality: 2\n  m_StopNaN: 0\n  m_Dithering: 0\n  m_ClearDepth: 1\n  m_AllowXRRendering: 1\n  m_RequiresDepthTexture: 0\n  m_RequiresColorTexture: 0\n  m_Version: 2\n--- !u!20 &519420031\nCamera:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_GameObject: {fileID: 519420028}\n  m_Enabled: 1\n  serializedVersion: 2\n  m_ClearFlags: 2\n  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}\n  m_projectionMatrixMode: 1\n  m_GateFitMode: 2\n  m_FOVAxisMode: 0\n  m_SensorSize: {x: 36, y: 24}\n  m_LensShift: {x: 0, y: 0}\n  m_FocalLength: 50\n  m_NormalizedViewPortRect:\n    serializedVersion: 2\n    x: 0\n    y: 0\n    width: 1\n    height: 1\n  near clip plane: 0.3\n  far clip plane: 1000\n  field of view: 34\n  orthographic: 1\n  orthographic size: 5\n  m_Depth: -1\n  m_CullingMask:\n    serializedVersion: 2\n    m_Bits: 4294967295\n  m_RenderingPath: -1\n  m_TargetTexture: {fileID: 0}\n  m_TargetDisplay: 0\n  m_TargetEye: 0\n  m_HDR: 1\n  m_AllowMSAA: 0\n  m_AllowDynamicResolution: 0\n  m_ForceIntoRT: 0\n  m_OcclusionCulling: 0\n  m_StereoConvergence: 10\n  m_StereoSeparation: 0.022\n--- !u!4 &519420032\nTransform:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_GameObject: {fileID: 519420028}\n  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}\n  m_LocalPosition: {x: 0, y: 0, z: -10}\n  m_LocalScale: {x: 1, y: 1, z: 1}\n  m_ConstrainProportionsScale: 0\n  m_Children: []\n  m_Father: {fileID: 0}\n  m_RootOrder: 0\n  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}\n--- !u!1 &619394800\nGameObject:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  serializedVersion: 6\n  m_Component:\n  - component: {fileID: 619394802}\n  - component: {fileID: 619394801}\n  m_Layer: 0\n  m_Name: Global Light 2D\n  m_TagString: Untagged\n  m_Icon: {fileID: 0}\n  m_NavMeshLayer: 0\n  m_StaticEditorFlags: 0\n  m_IsActive: 1\n--- !u!114 &619394801\nMonoBehaviour:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_GameObject: {fileID: 619394800}\n  m_Enabled: 1\n  m_EditorHideFlags: 0\n  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}\n  m_Name: \n  m_EditorClassIdentifier: \n  m_ComponentVersion: 1\n  m_LightType: 4\n  m_BlendStyleIndex: 0\n  m_FalloffIntensity: 0.5\n  m_Color: {r: 1, g: 1, b: 1, a: 1}\n  m_Intensity: 1\n  m_LightVolumeIntensity: 1\n  m_LightVolumeIntensityEnabled: 0\n  m_ApplyToSortingLayers: 00000000\n  m_LightCookieSprite: {fileID: 0}\n  m_DeprecatedPointLightCookieSprite: {fileID: 0}\n  m_LightOrder: 0\n  m_OverlapOperation: 0\n  m_NormalMapDistance: 3\n  m_NormalMapQuality: 2\n  m_UseNormalMap: 0\n  m_ShadowIntensityEnabled: 0\n  m_ShadowIntensity: 0.75\n  m_ShadowVolumeIntensityEnabled: 0\n  m_ShadowVolumeIntensity: 0.75\n  m_Vertices:\n  - position: {x: 0.9985302, y: 0.9985302, z: 0}\n    color: {r: 0.70710677, g: 0.70710677, b: 0, a: 0}\n    uv: {x: 0, y: 0}\n  - position: {x: 0.9985302, y: 0.9985302, z: 0}\n    color: {r: 0, g: 0, b: 0, a: 1}\n    uv: {x: 0, y: 0}\n  - position: {x: -0.9985302, y: 0.9985302, z: 0}\n    color: {r: -0.70710677, g: 0.70710677, b: 0, a: 0}\n    uv: {x: 0, y: 0}\n  - position: {x: -0.9985302, y: 0.9985302, z: 0}\n    color: {r: 0, g: 0, b: 0, a: 1}\n    uv: {x: 0, y: 0}\n  - position: {x: -0.99853003, y: -0.9985304, z: 0}\n    color: {r: -0.70710665, g: -0.7071069, b: 0, a: 0}\n    uv: {x: 0, y: 0}\n  - position: {x: -0.99853003, y: -0.9985304, z: 0}\n    color: {r: 0, g: 0, b: 0, a: 1}\n    uv: {x: 0, y: 0}\n  - position: {x: 0.99853003, y: -0.9985304, z: 0}\n    color: {r: 0.70710665, g: -0.7071069, b: 0, a: 0}\n    uv: {x: 0, y: 0}\n  - position: {x: 0.99853003, y: -0.9985304, z: 0}\n    color: {r: 0, g: 0, b: 0, a: 1}\n    uv: {x: 0, y: 0}\n  - position: {x: 0, y: 0, z: 0}\n    color: {r: 0, g: 0, b: 0, a: 1}\n    uv: {x: 0, y: 0}\n  m_Triangles: 030001000800020000000100030002000100050003000800040002000300050004000300070005000800060004000500070006000500010007000800000006000700010000000700\n  m_LocalBounds:\n    m_Center: {x: 0, y: -0.00000011920929, z: 0}\n    m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}\n  m_PointLightInnerAngle: 360\n  m_PointLightOuterAngle: 360\n  m_PointLightInnerRadius: 0\n  m_PointLightOuterRadius: 1\n  m_ShapeLightParametricSides: 5\n  m_ShapeLightParametricAngleOffset: 0\n  m_ShapeLightParametricRadius: 1\n  m_ShapeLightFalloffSize: 0.5\n  m_ShapeLightFalloffOffset: {x: 0, y: 0}\n  m_ShapePath:\n  - {x: -0.5, y: -0.5, z: 0}\n  - {x: 0.5, y: -0.5, z: 0}\n  - {x: 0.5, y: 0.5, z: 0}\n  - {x: -0.5, y: 0.5, z: 0}\n--- !u!4 &619394802\nTransform:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_GameObject: {fileID: 619394800}\n  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}\n  m_LocalPosition: {x: 0, y: 0, z: 0}\n  m_LocalScale: {x: 1, y: 1, z: 1}\n  m_ConstrainProportionsScale: 0\n  m_Children: []\n  m_Father: {fileID: 0}\n  m_RootOrder: 1\n  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Mask/Assets/Scenes/SampleScene.unity b/../Mask/Assets/Scenes/SampleScene.unity
+--- a/../Mask/Assets/Scenes/SampleScene.unity	(revision 19cbac5da054ad4f6fe3ff6ef7fe00135f2ac943)
++++ b/../Mask/Assets/Scenes/SampleScene.unity	(date 1769818015698)
+@@ -13,7 +13,7 @@
+ --- !u!104 &2
+ RenderSettings:
+   m_ObjectHideFlags: 0
+-  serializedVersion: 9
++  serializedVersion: 10
+   m_Fog: 0
+   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+   m_FogMode: 3
+@@ -38,13 +38,12 @@
+   m_ReflectionIntensity: 1
+   m_CustomReflection: {fileID: 0}
+   m_Sun: {fileID: 0}
+-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+   m_UseRadianceAmbientProbe: 0
+ --- !u!157 &3
+ LightmapSettings:
+   m_ObjectHideFlags: 0
+-  serializedVersion: 12
+-  m_GIWorkflowMode: 1
++  serializedVersion: 13
++  m_BakeOnSceneLoad: 0
+   m_GISettings:
+     serializedVersion: 2
+     m_BounceScale: 1
+@@ -67,9 +66,6 @@
+     m_LightmapParameters: {fileID: 0}
+     m_LightmapsBakeMode: 1
+     m_TextureCompression: 1
+-    m_FinalGather: 0
+-    m_FinalGatherFiltering: 1
+-    m_FinalGatherRayCount: 256
+     m_ReflectionCompression: 2
+     m_MixedBakeMode: 2
+     m_BakeBackend: 1
+@@ -104,7 +100,7 @@
+   serializedVersion: 2
+   m_ObjectHideFlags: 0
+   m_BuildSettings:
+-    serializedVersion: 2
++    serializedVersion: 3
+     agentTypeID: 0
+     agentRadius: 0.5
+     agentHeight: 2
+@@ -117,12 +113,89 @@
+     cellSize: 0.16666667
+     manualTileSize: 0
+     tileSize: 256
+-    accuratePlacement: 0
++    buildHeightMesh: 0
+     maxJobWorkers: 0
+     preserveTilesOutsideBounds: 0
+     debug:
+       m_Flags: 0
+   m_NavMeshData: {fileID: 0}
++--- !u!1 &379901520
++GameObject:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  serializedVersion: 6
++  m_Component:
++  - component: {fileID: 379901522}
++  - component: {fileID: 379901521}
++  m_Layer: 0
++  m_Name: FallSystem
++  m_TagString: Untagged
++  m_Icon: {fileID: 0}
++  m_NavMeshLayer: 0
++  m_StaticEditorFlags: 0
++  m_IsActive: 1
++--- !u!114 &379901521
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 379901520}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 983a086527604a7881a812b1c09d953b, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++  _gridConfig: {fileID: 11400000, guid: d4ed44b0821005d4795db459fe96e120, type: 2}
++  _model: {fileID: 1314879258}
++--- !u!4 &379901522
++Transform:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 379901520}
++  serializedVersion: 2
++  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
++  m_LocalPosition: {x: 0.10477189, y: 21.005764, z: -0.056124493}
++  m_LocalScale: {x: 1, y: 1, z: 1}
++  m_ConstrainProportionsScale: 0
++  m_Children: []
++  m_Father: {fileID: 0}
++  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
++--- !u!1 &424064542
++GameObject:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  serializedVersion: 6
++  m_Component:
++  - component: {fileID: 424064543}
++  m_Layer: 0
++  m_Name: SpawnPosition
++  m_TagString: Untagged
++  m_Icon: {fileID: 0}
++  m_NavMeshLayer: 0
++  m_StaticEditorFlags: 0
++  m_IsActive: 1
++--- !u!4 &424064543
++Transform:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 424064542}
++  serializedVersion: 2
++  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
++  m_LocalPosition: {x: -3, y: 7, z: 0}
++  m_LocalScale: {x: 1, y: 1, z: 1}
++  m_ConstrainProportionsScale: 0
++  m_Children: []
++  m_Father: {fileID: 2024097240}
++  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+ --- !u!1 &519420028
+ GameObject:
+   m_ObjectHideFlags: 0
+@@ -172,6 +245,7 @@
+     serializedVersion: 2
+     m_Bits: 1
+   m_VolumeTrigger: {fileID: 0}
++  m_VolumeFrameworkUpdateModeOption: 2
+   m_RenderPostProcessing: 0
+   m_Antialiasing: 0
+   m_AntialiasingQuality: 2
+@@ -179,9 +253,20 @@
+   m_Dithering: 0
+   m_ClearDepth: 1
+   m_AllowXRRendering: 1
++  m_AllowHDROutput: 1
++  m_UseScreenCoordOverride: 0
++  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
++  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+   m_RequiresDepthTexture: 0
+   m_RequiresColorTexture: 0
+   m_Version: 2
++  m_TaaSettings:
++    m_Quality: 3
++    m_FrameInfluence: 0.1
++    m_JitterScale: 1
++    m_MipBias: 0
++    m_VarianceClampScale: 0.9
++    m_ContrastAdaptiveSharpening: 0
+ --- !u!20 &519420031
+ Camera:
+   m_ObjectHideFlags: 0
+@@ -196,9 +281,17 @@
+   m_projectionMatrixMode: 1
+   m_GateFitMode: 2
+   m_FOVAxisMode: 0
++  m_Iso: 200
++  m_ShutterSpeed: 0.005
++  m_Aperture: 16
++  m_FocusDistance: 10
++  m_FocalLength: 50
++  m_BladeCount: 5
++  m_Curvature: {x: 2, y: 11}
++  m_BarrelClipping: 0.25
++  m_Anamorphism: 0
+   m_SensorSize: {x: 36, y: 24}
+   m_LensShift: {x: 0, y: 0}
+-  m_FocalLength: 50
+   m_NormalizedViewPortRect:
+     serializedVersion: 2
+     x: 0
+@@ -232,13 +325,13 @@
+   m_PrefabInstance: {fileID: 0}
+   m_PrefabAsset: {fileID: 0}
+   m_GameObject: {fileID: 519420028}
++  serializedVersion: 2
+   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+   m_LocalPosition: {x: 0, y: 0, z: -10}
+   m_LocalScale: {x: 1, y: 1, z: 1}
+   m_ConstrainProportionsScale: 0
+   m_Children: []
+   m_Father: {fileID: 0}
+-  m_RootOrder: 0
+   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+ --- !u!1 &619394800
+ GameObject:
+@@ -269,55 +362,29 @@
+   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+   m_Name: 
+   m_EditorClassIdentifier: 
+-  m_ComponentVersion: 1
++  m_ComponentVersion: 2
+   m_LightType: 4
+   m_BlendStyleIndex: 0
+   m_FalloffIntensity: 0.5
+   m_Color: {r: 1, g: 1, b: 1, a: 1}
+   m_Intensity: 1
+   m_LightVolumeIntensity: 1
+-  m_LightVolumeIntensityEnabled: 0
++  m_LightVolumeEnabled: 0
+   m_ApplyToSortingLayers: 00000000
+   m_LightCookieSprite: {fileID: 0}
+   m_DeprecatedPointLightCookieSprite: {fileID: 0}
+   m_LightOrder: 0
++  m_AlphaBlendOnOverlap: 0
+   m_OverlapOperation: 0
+   m_NormalMapDistance: 3
+   m_NormalMapQuality: 2
+   m_UseNormalMap: 0
+-  m_ShadowIntensityEnabled: 0
++  m_ShadowsEnabled: 0
+   m_ShadowIntensity: 0.75
++  m_ShadowSoftness: 0
++  m_ShadowSoftnessFalloffIntensity: 0.5
+   m_ShadowVolumeIntensityEnabled: 0
+   m_ShadowVolumeIntensity: 0.75
+-  m_Vertices:
+-  - position: {x: 0.9985302, y: 0.9985302, z: 0}
+-    color: {r: 0.70710677, g: 0.70710677, b: 0, a: 0}
+-    uv: {x: 0, y: 0}
+-  - position: {x: 0.9985302, y: 0.9985302, z: 0}
+-    color: {r: 0, g: 0, b: 0, a: 1}
+-    uv: {x: 0, y: 0}
+-  - position: {x: -0.9985302, y: 0.9985302, z: 0}
+-    color: {r: -0.70710677, g: 0.70710677, b: 0, a: 0}
+-    uv: {x: 0, y: 0}
+-  - position: {x: -0.9985302, y: 0.9985302, z: 0}
+-    color: {r: 0, g: 0, b: 0, a: 1}
+-    uv: {x: 0, y: 0}
+-  - position: {x: -0.99853003, y: -0.9985304, z: 0}
+-    color: {r: -0.70710665, g: -0.7071069, b: 0, a: 0}
+-    uv: {x: 0, y: 0}
+-  - position: {x: -0.99853003, y: -0.9985304, z: 0}
+-    color: {r: 0, g: 0, b: 0, a: 1}
+-    uv: {x: 0, y: 0}
+-  - position: {x: 0.99853003, y: -0.9985304, z: 0}
+-    color: {r: 0.70710665, g: -0.7071069, b: 0, a: 0}
+-    uv: {x: 0, y: 0}
+-  - position: {x: 0.99853003, y: -0.9985304, z: 0}
+-    color: {r: 0, g: 0, b: 0, a: 1}
+-    uv: {x: 0, y: 0}
+-  - position: {x: 0, y: 0, z: 0}
+-    color: {r: 0, g: 0, b: 0, a: 1}
+-    uv: {x: 0, y: 0}
+-  m_Triangles: 030001000800020000000100030002000100050003000800040002000300050004000300070005000800060004000500070006000500010007000800000006000700010000000700
+   m_LocalBounds:
+     m_Center: {x: 0, y: -0.00000011920929, z: 0}
+     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
+@@ -342,11 +409,113 @@
+   m_PrefabInstance: {fileID: 0}
+   m_PrefabAsset: {fileID: 0}
+   m_GameObject: {fileID: 619394800}
++  serializedVersion: 2
+   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+   m_LocalPosition: {x: 0, y: 0, z: 0}
+   m_LocalScale: {x: 1, y: 1, z: 1}
+   m_ConstrainProportionsScale: 0
+   m_Children: []
+   m_Father: {fileID: 0}
+-  m_RootOrder: 1
+   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
++--- !u!1 &1314879257
++GameObject:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  serializedVersion: 6
++  m_Component:
++  - component: {fileID: 1314879259}
++  - component: {fileID: 1314879258}
++  m_Layer: 0
++  m_Name: Model
++  m_TagString: Untagged
++  m_Icon: {fileID: 0}
++  m_NavMeshLayer: 0
++  m_StaticEditorFlags: 0
++  m_IsActive: 1
++--- !u!114 &1314879258
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 1314879257}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 7a4b653468f44aec96ab4d5249e93e2e, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++--- !u!4 &1314879259
++Transform:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 1314879257}
++  serializedVersion: 2
++  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
++  m_LocalPosition: {x: -1.7168318, y: 1.8529263, z: 0.055491522}
++  m_LocalScale: {x: 1, y: 1, z: 1}
++  m_ConstrainProportionsScale: 0
++  m_Children: []
++  m_Father: {fileID: 0}
++  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
++--- !u!1 &2024097238
++GameObject:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  serializedVersion: 6
++  m_Component:
++  - component: {fileID: 2024097240}
++  - component: {fileID: 2024097239}
++  m_Layer: 0
++  m_Name: Spawner
++  m_TagString: Untagged
++  m_Icon: {fileID: 0}
++  m_NavMeshLayer: 0
++  m_StaticEditorFlags: 0
++  m_IsActive: 1
++--- !u!114 &2024097239
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 2024097238}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: bedb2b73dacd4e6c9eacc4fb15f93b3e, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++  _model: {fileID: 1314879258}
++  _gridConfig: {fileID: 11400000, guid: d4ed44b0821005d4795db459fe96e120, type: 2}
++  _blockPrefab: {fileID: 3218902226305726070, guid: 0854e9f2c18e04f23ab7526157cb9969, type: 3}
++  _spawnPosition: {fileID: 424064543}
++--- !u!4 &2024097240
++Transform:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 2024097238}
++  serializedVersion: 2
++  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
++  m_LocalPosition: {x: 0, y: 0, z: 0}
++  m_LocalScale: {x: 1, y: 1, z: 1}
++  m_ConstrainProportionsScale: 0
++  m_Children:
++  - {fileID: 424064543}
++  m_Father: {fileID: 0}
++  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
++--- !u!1660057539 &9223372036854775807
++SceneRoots:
++  m_ObjectHideFlags: 0
++  m_Roots:
++  - {fileID: 519420032}
++  - {fileID: 619394802}
++  - {fileID: 1314879259}
++  - {fileID: 2024097240}
++  - {fileID: 379901522}
+Index: ../Mask/Assets/_Project/Scripts/Gameplay/Spawning/BlocksSpawner.cs.meta
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Mask/Assets/_Project/Scripts/Gameplay/Spawning/BlocksSpawner.cs.meta b/../Mask/Assets/_Project/Scripts/Gameplay/Spawning/BlocksSpawner.cs.meta
+new file mode 100644
+--- /dev/null	(date 1769818015699)
++++ b/../Mask/Assets/_Project/Scripts/Gameplay/Spawning/BlocksSpawner.cs.meta	(date 1769818015699)
+@@ -0,0 +1,3 @@
++fileFormatVersion: 2
++guid: bedb2b73dacd4e6c9eacc4fb15f93b3e
++timeCreated: 1769813672
+\ No newline at end of file
+Index: ../Mask/Assets/_Project/Scripts/Gameplay/Spawning/BlocksModel.cs.meta
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Mask/Assets/_Project/Scripts/Gameplay/Spawning/BlocksModel.cs.meta b/../Mask/Assets/_Project/Scripts/Gameplay/Spawning/BlocksModel.cs.meta
+new file mode 100644
+--- /dev/null	(date 1769818015699)
++++ b/../Mask/Assets/_Project/Scripts/Gameplay/Spawning/BlocksModel.cs.meta	(date 1769818015699)
+@@ -0,0 +1,3 @@
++fileFormatVersion: 2
++guid: 7a4b653468f44aec96ab4d5249e93e2e
++timeCreated: 1769813690
+\ No newline at end of file
+Index: ../Mask/Assets/_Project/Scripts/Gameplay/Spawning/BlocksModel.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Mask/Assets/_Project/Scripts/Gameplay/Spawning/BlocksModel.cs b/../Mask/Assets/_Project/Scripts/Gameplay/Spawning/BlocksModel.cs
+new file mode 100644
+--- /dev/null	(date 1769818015699)
++++ b/../Mask/Assets/_Project/Scripts/Gameplay/Spawning/BlocksModel.cs	(date 1769818015699)
+@@ -0,0 +1,35 @@
++namespace _Project.Scripts.Gameplay.Spawning
++{
++    using System.Collections.Generic;
++    using System.Linq;
++    using UnityEngine;
++
++    public class BlocksModel : MonoBehaviour
++    {
++        private List<Block> _blocks = new();
++        public List<Block> Blocks => _blocks;
++
++        public void AddBlock(Block block) => _blocks.Add(block);
++
++        public Block GetTopBlock()
++        {
++            if (!_blocks.Any())
++            {
++                return null;
++            }
++
++            var maxY = .0f;
++            Block block = null; 
++            foreach (var b in _blocks)
++            {
++                if (b.transform.position.y > maxY)
++                {
++                    maxY = b.transform.position.y;
++                    block = b;
++                }
++            }
++            
++            return block;
++        }
++    }
++}
+\ No newline at end of file
+Index: ../Mask/Assets/_Project/Scripts/Gameplay/Spawning/BlocksSpawner.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Mask/Assets/_Project/Scripts/Gameplay/Spawning/BlocksSpawner.cs b/../Mask/Assets/_Project/Scripts/Gameplay/Spawning/BlocksSpawner.cs
+new file mode 100644
+--- /dev/null	(date 1769818015699)
++++ b/../Mask/Assets/_Project/Scripts/Gameplay/Spawning/BlocksSpawner.cs	(date 1769818015699)
+@@ -0,0 +1,84 @@
++namespace _Project.Scripts.Gameplay.Spawning
++{
++    using System.Linq;
++    using UnityEngine;
++    using UnityEngine.Serialization;
++
++    public class BlocksSpawner : MonoBehaviour
++    {
++        [SerializeField] private BlocksModel _model;
++        [SerializeField] private GridConfig _gridConfig;
++        [SerializeField] private float _heightGap = .5f;
++        
++        [FormerlySerializedAs("_prefab")] [SerializeField] private Block _blockPrefab;
++        
++        [SerializeField] private Transform _spawnPosition;
++
++        private void Start()
++        {
++            SpawnInitialRows();
++        }
++
++        private void Update()
++        {
++            TrySpawnNewRows();
++        }
++
++        private void SpawnInitialRows()
++        {
++            SpawnRows(_gridConfig.rowsPerSpawn);
++        }
++
++        private void SpawnRows(int count)
++        {
++            for (int y = 0; y < count; y++)
++            {
++                SpawnRow();
++            }
++        }
++
++        private void SpawnRow()
++        {
++            var currentTopBlock = _model.GetTopBlock();
++            var spawnHeight = currentTopBlock == null 
++                ? _spawnPosition.position.y 
++                : currentTopBlock.transform.position.y + _blockPrefab.GetSize().y + _heightGap;
++
++            var horizontalPosition = -3;
++            var delta = 1.5f;
++            for (int i = 0; i < 5; i++)
++            {
++                var horizontal = horizontalPosition + delta * i * _blockPrefab.GetSize().x;
++                var spawnPos =  new Vector3(horizontal, spawnHeight);
++                var block = SpawnBlock(spawnPos);
++                _model.AddBlock(block);
++            }
++        }
++
++        private Block SpawnBlock(Vector3 position)
++        {
++            var block = Instantiate(_blockPrefab);
++            block.transform.position = position;
++            
++            var isSelected = Random.value < .5f;
++            block.SetType(isSelected ? BlockType.One : BlockType.Zero);
++            
++            return block;
++        }
++
++        private void TrySpawnNewRows()
++        {
++            var topBlock = _model.GetTopBlock();
++            if (topBlock == null)
++            {
++                SpawnRows(_gridConfig.rowsPerSpawn);
++                return;
++            }
++            
++            if (topBlock.transform.position.y < _spawnPosition.position.y)
++            {
++                SpawnRows(_gridConfig.rowsPerSpawn);
++            }
++        }
++    }
++}
+\ No newline at end of file
+Index: ../Mask/Assets/_Project/ScriptableObjects/GridConfig.asset
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Mask/Assets/_Project/ScriptableObjects/GridConfig.asset b/../Mask/Assets/_Project/ScriptableObjects/GridConfig.asset
+new file mode 100644
+--- /dev/null	(date 1769818015698)
++++ b/../Mask/Assets/_Project/ScriptableObjects/GridConfig.asset	(date 1769818015698)
+@@ -0,0 +1,16 @@
++%YAML 1.1
++%TAG !u! tag:unity3d.com,2011:
++--- !u!114 &11400000
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 0}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 37ec4c3e4c2a11f438e45f177a39a165, type: 3}
++  m_Name: GridConfig
++  m_EditorClassIdentifier: 
++  rowsPerSpawn: 2
++  fallSpeed: 2
+Index: ../Mask/Assets/_Project/ScriptableObjects/GridConfig.asset.meta
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Mask/Assets/_Project/ScriptableObjects/GridConfig.asset.meta b/../Mask/Assets/_Project/ScriptableObjects/GridConfig.asset.meta
+new file mode 100644
+--- /dev/null	(date 1769818015698)
++++ b/../Mask/Assets/_Project/ScriptableObjects/GridConfig.asset.meta	(date 1769818015698)
+@@ -0,0 +1,8 @@
++fileFormatVersion: 2
++guid: d4ed44b0821005d4795db459fe96e120
++NativeFormatImporter:
++  externalObjects: {}
++  mainObjectFileID: 11400000
++  userData: 
++  assetBundleName: 
++  assetBundleVariant: 
+Index: ../Mask/Assets/_Project/ScriptableObjects.meta
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Mask/Assets/_Project/ScriptableObjects.meta b/../Mask/Assets/_Project/ScriptableObjects.meta
+new file mode 100644
+--- /dev/null	(date 1769818015698)
++++ b/../Mask/Assets/_Project/ScriptableObjects.meta	(date 1769818015698)
+@@ -0,0 +1,8 @@
++fileFormatVersion: 2
++guid: 5de82bdf8a8b1ef4d8cc9b824c9c5f15
++folderAsset: yes
++DefaultImporter:
++  externalObjects: {}
++  userData: 
++  assetBundleName: 
++  assetBundleVariant: 
+Index: ../Mask/.idea/.idea.mask/.idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"86ba699f-da05-42f4-9ca3-924c686fe27c\" name=\"Changes\" comment=\"\" />\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"ChangesViewManager\">\n    <option name=\"groupingKeys\">\n      <option value=\"directory\" />\n      <option value=\"repository\" />\n    </option>\n  </component>\n  <component name=\"DpaMonitoringSettings\">\n    <option name=\"firstShow\" value=\"false\" />\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$/..\" />\n  </component>\n  <component name=\"GithubDefaultAccount\">\n    <option name=\"defaultAccountId\" value=\"2d9e1df3-2a40-4bdc-8d40-a6147f3e2b93\" />\n  </component>\n  <component name=\"HighlightingSettingsPerFile\">\n    <setting file=\"file://$PROJECT_DIR$/Assets/_Project/Prefabs/Block.prefab\" root0=\"FORCE_HIGHLIGHTING\" />\n    <setting file=\"file://$PROJECT_DIR$/Assets/_Project/Scenes/Game.unity\" root0=\"FORCE_HIGHLIGHTING\" />\n    <setting file=\"file://$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Input/BlockFactory.cs\" root0=\"FORCE_HIGHLIGHTING\" />\n    <setting file=\"file://$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Input/InputManager.cs\" root0=\"FORCE_HIGHLIGHTING\" />\n    <setting file=\"file://$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Input/InputRow.cs\" root0=\"FORCE_HIGHLIGHTING\" />\n    <setting file=\"file://$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Input/InputRowView.cs\" root0=\"FORCE_HIGHLIGHTING\" />\n  </component>\n  <component name=\"MetaFilesCheckinStateConfiguration\" checkMetaFiles=\"true\" />\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 7\n}</component>\n  <component name=\"ProjectId\" id=\"38zjUuBxz6Et19pbaWDJ6iSVEC1\" />\n  <component name=\"ProjectLevelVcsManager\">\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"autoscrollFromSource\" value=\"true\" />\n    <option name=\"autoscrollToSource\" value=\"true\" />\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"Attach to Unity Editor.Attach to Unity Editor.executor\": \"Debug\",\n    \"ModuleVcsDetector.initialDetectionPerformed\": \"true\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252\": \"true\",\n    \"RunOnceActivity.git.unshallow\": \"true\",\n    \"RunOnceActivity.typescript.service.memoryLimit.init\": \"true\",\n    \"git-widget-placeholder\": \"main\",\n    \"node.js.detected.package.eslint\": \"true\",\n    \"node.js.detected.package.tslint\": \"true\",\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\n    \"nodejs_package_manager_path\": \"npm\",\n    \"vue.rearranger.settings.migration\": \"true\"\n  }\n}]]></component>\n  <component name=\"RunManager\" selected=\"Attach to Unity Editor.Attach to Unity Editor\">\n    <configuration name=\"Start Unity\" type=\"RunUnityExe\" factoryName=\"Unity Executable\">\n      <option name=\"EXE_PATH\" value=\"/Applications/Unity/Hub/Editor/6000.0.33f1/Unity.app/Contents/MacOS/Unity\" />\n      <option name=\"PROGRAM_PARAMETERS\" value=\"-projectPath $PROJECT_DIR$ -debugCodeOptimization\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\n      <option name=\"PASS_PARENT_ENVS\" value=\"1\" />\n      <option name=\"ENV_FILE_PATHS\" value=\"\" />\n      <option name=\"REDIRECT_INPUT_PATH\" value=\"\" />\n      <option name=\"MIXED_MODE_DEBUG\" value=\"0\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"Unit Tests (batch mode)\" type=\"RunUnityExe\" factoryName=\"Unity Executable\">\n      <option name=\"EXE_PATH\" value=\"/Applications/Unity/Hub/Editor/6000.0.33f1/Unity.app/Contents/MacOS/Unity\" />\n      <option name=\"PROGRAM_PARAMETERS\" value=\"-runTests -batchmode -projectPath $PROJECT_DIR$ -testResults Logs/results.xml -logFile Logs/Editor.log -testPlatform EditMode -debugCodeOptimization\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$\" />\n      <option name=\"PASS_PARENT_ENVS\" value=\"1\" />\n      <option name=\"ENV_FILE_PATHS\" value=\"\" />\n      <option name=\"REDIRECT_INPUT_PATH\" value=\"\" />\n      <option name=\"MIXED_MODE_DEBUG\" value=\"0\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"Attach to Unity Editor\" type=\"UNITY_DEBUG_RUN_CONFIGURATION\" factoryName=\"Unity Debug\" show_console_on_std_err=\"false\" show_console_on_std_out=\"false\" port=\"50000\" address=\"localhost\" useMixedMode=\"false\" ignored-value-for-modified-check=\"16453\">\n      <option name=\"allowRunningInParallel\" value=\"false\" />\n      <option name=\"listenPortForConnections\" value=\"false\" />\n      <option name=\"pid\" value=\"16453\" />\n      <option name=\"projectPathOnTarget\" />\n      <option name=\"runtimes\">\n        <list>\n          <MonoRuntime />\n        </list>\n      </option>\n      <option name=\"selectedOptions\">\n        <list />\n      </option>\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"Attach to\" type=\"UnityDevicePlayer\" factoryName=\"UnityAttachToDevicePlayer\">\n      <method v=\"2\" />\n    </configuration>\n  </component>\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"86ba699f-da05-42f4-9ca3-924c686fe27c\" name=\"Changes\" comment=\"\" />\n      <created>1769809312273</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1769809312273</updated>\n      <workItem from=\"1769809313328\" duration=\"883000\" />\n      <workItem from=\"1769810291542\" duration=\"7019000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"Block base\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1769810326174</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1769810326175</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"Add game scene\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1769810483661</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1769810483661</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"in progress\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1769813370705</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1769813370705</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"Fly row\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1769813848221</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1769813848221</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"Do tween and confirm adjusted\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1769815534028</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1769815534028</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"Amend\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1769815546189</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1769815546189</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"7\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"UnityCheckinConfiguration\" checkUnsavedScenes=\"true\" />\n  <component name=\"UnityProjectConfiguration\" hasMinimizedUI=\"true\" />\n  <component name=\"UnityProjectDiscoverer\">\n    <option name=\"hasUnityReference\" value=\"true\" />\n    <option name=\"unityProject\" value=\"true\" />\n    <option name=\"unityProjectFolder\" value=\"true\" />\n  </component>\n  <component name=\"UnityUnitTestConfiguration\" currentTestLauncher=\"Both\" />\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <option name=\"CLEAR_INITIAL_COMMIT_MESSAGE\" value=\"true\" />\n    <MESSAGE value=\"Block base\" />\n    <MESSAGE value=\"Add game scene\" />\n    <MESSAGE value=\"in progress\" />\n    <MESSAGE value=\"Fly row\" />\n    <MESSAGE value=\"Do tween and confirm adjusted\" />\n    <MESSAGE value=\"Amend\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Amend\" />\n  </component>\n  <component name=\"XDebuggerManager\">\n    <breakpoint-manager>\n      <breakpoints>\n        <breakpoint enabled=\"true\" type=\"DotNet_Exception_Breakpoints\">\n          <properties exception=\"System.OperationCanceledException\" breakIfHandledByOtherCode=\"false\" displayValue=\"System.OperationCanceledException\" />\n          <option name=\"timeStamp\" value=\"1\" />\n        </breakpoint>\n        <breakpoint enabled=\"true\" type=\"DotNet_Exception_Breakpoints\">\n          <properties exception=\"System.Threading.Tasks.TaskCanceledException\" breakIfHandledByOtherCode=\"false\" displayValue=\"System.Threading.Tasks.TaskCanceledException\" />\n          <option name=\"timeStamp\" value=\"2\" />\n        </breakpoint>\n        <breakpoint enabled=\"true\" type=\"DotNet_Exception_Breakpoints\">\n          <properties exception=\"System.Threading.ThreadAbortException\" breakIfHandledByOtherCode=\"false\" displayValue=\"System.Threading.ThreadAbortException\" />\n          <option name=\"timeStamp\" value=\"3\" />\n        </breakpoint>\n      </breakpoints>\n    </breakpoint-manager>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Mask/.idea/.idea.mask/.idea/workspace.xml b/../Mask/.idea/.idea.mask/.idea/workspace.xml
+--- a/../Mask/.idea/.idea.mask/.idea/workspace.xml	(revision 19cbac5da054ad4f6fe3ff6ef7fe00135f2ac943)
++++ b/../Mask/.idea/.idea.mask/.idea/workspace.xml	(date 1769818071451)
+@@ -4,7 +4,27 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="86ba699f-da05-42f4-9ca3-924c686fe27c" name="Changes" comment="" />
++    <list default="true" id="86ba699f-da05-42f4-9ca3-924c686fe27c" name="Changes" comment="">
++      <change afterPath="$PROJECT_DIR$/../.claude/settings.local.json" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/.idea.mask/.idea/.gitignore" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/Assets/_Project/ScriptableObjects.meta" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/Assets/_Project/ScriptableObjects/GridConfig.asset" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/Assets/_Project/ScriptableObjects/GridConfig.asset.meta" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/BlocksFallSystem.cs" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/BlocksFallSystem.cs.meta" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/GridConfig.cs" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/GridConfig.cs.meta" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/GridManager.cs" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/GridManager.cs.meta" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Spawning.meta" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Spawning/BlocksModel.cs" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Spawning/BlocksModel.cs.meta" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Spawning/BlocksSpawner.cs" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Spawning/BlocksSpawner.cs.meta" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/_Project/Prefabs/Block.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Prefabs/Block.prefab" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Block.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Project/Scripts/Gameplay/Block.cs" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -55,7 +75,7 @@
+     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+     "RunOnceActivity.git.unshallow": "true",
+     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+-    "git-widget-placeholder": "main",
++    "git-widget-placeholder": "Merging main",
+     "node.js.detected.package.eslint": "true",
+     "node.js.detected.package.tslint": "true",
+     "node.js.selected.package.eslint": "(autodetect)",
+@@ -112,7 +132,7 @@
+       <option name="presentableId" value="Default" />
+       <updated>1769809312273</updated>
+       <workItem from="1769809313328" duration="883000" />
+-      <workItem from="1769810291542" duration="7019000" />
++      <workItem from="1769810291542" duration="7350000" />
+     </task>
+     <task id="LOCAL-00001" summary="Block base">
+       <option name="closed" value="true" />
+@@ -162,7 +182,15 @@
+       <option name="project" value="LOCAL" />
+       <updated>1769815546189</updated>
+     </task>
+-    <option name="localTasksCounter" value="7" />
++    <task id="LOCAL-00007" summary="Add raycast">
++      <option name="closed" value="true" />
++      <created>1769818009499</created>
++      <option name="number" value="00007" />
++      <option name="presentableId" value="LOCAL-00007" />
++      <option name="project" value="LOCAL" />
++      <updated>1769818009499</updated>
++    </task>
++    <option name="localTasksCounter" value="8" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -195,7 +223,8 @@
+     <MESSAGE value="Fly row" />
+     <MESSAGE value="Do tween and confirm adjusted" />
+     <MESSAGE value="Amend" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Amend" />
++    <MESSAGE value="Add raycast" />
++    <option name="LAST_COMMIT_MESSAGE" value="Add raycast" />
+   </component>
+   <component name="XDebuggerManager">
+     <breakpoint-manager>
+Index: ../Mask/.idea/.idea.mask/.idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Mask/.idea/.idea.mask/.idea/.gitignore b/../Mask/.idea/.idea.mask/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1769818015697)
++++ b/../Mask/.idea/.idea.mask/.idea/.gitignore	(date 1769818015697)
+@@ -0,0 +1,10 @@
++# Default ignored files
++/shelf/
++/workspace.xml
++# Rider ignored files
++/modules.xml
++/contentModel.xml
++/projectSettingsUpdater.xml
++/.idea.Mask.iml
++# Editor-based HTTP Client requests
++/httpRequests/
+Index: ../Mask/Assets/_Project/Scripts/Gameplay/GridManager.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Mask/Assets/_Project/Scripts/Gameplay/GridManager.cs b/../Mask/Assets/_Project/Scripts/Gameplay/GridManager.cs
+new file mode 100644
+--- /dev/null	(date 1769818015699)
++++ b/../Mask/Assets/_Project/Scripts/Gameplay/GridManager.cs	(date 1769818015699)
+@@ -0,0 +1,266 @@
++// using System.Collections.Generic;
++// using UnityEngine;
++//
++// public class GridManager : MonoBehaviour
++// {
++//     [Header("Configuration")]
++//     [SerializeField] private GridConfig config;
++//
++//     // Core systems
++//     private GridData _gridData;
++//     private BlockSpawner _spawner;
++//     private List<BlockRow> _activeRows;
++//
++//     // Grid positioning
++//     private Vector3 _gridOrigin;
++//     private Camera _mainCamera;
++//
++//     // Spawning
++//     private int _nextSpawnRowIndex;
++//
++//     // Singleton
++//     public static GridManager Instance { get; private set; }
++//
++//     private void Awake()
++//     {
++//         // Singleton setup
++//         if (Instance != null && Instance != this)
++//         {
++//             Destroy(gameObject);
++//             return;
++//         }
++//         Instance = this;
++//
++//         // Initialize
++//         _mainCamera = Camera.main;
++//         _activeRows = new List<BlockRow>();
++//
++//         if (config == null)
++//         {
++//             Debug.LogError("GridManager: No GridConfig assigned!");
++//             enabled = false;
++//             return;
++//         }
++//
++//         InitializeGrid();
++//     }
++//
++//     private void Start()
++//     {
++//         // Spawn initial rows if auto-spawn is enabled
++//         if (config.autoSpawn)
++//         {
++//             SpawnRows();
++//         }
++//     }
++//
++//     private void Update()
++//     {
++//         // Check if we should spawn new rows based on position
++//         if (config.autoSpawn)
++//         {
++//             CheckAndSpawnRows();
++//         }
++//     }
++//
++//     private void OnDestroy()
++//     {
++//         if (Instance == this)
++//         {
++//             Instance = null;
++//         }
++//     }
++//
++//     private void InitializeGrid()
++//     {
++//         // Create grid data structure
++//         _gridData = new GridData(config.columnCount, config.TotalRows);
++//
++//         // Calculate grid origin (centered horizontally, bottom at screen bottom)
++//         CalculateGridOrigin();
++//
++//         // Create spawner
++//         _spawner = new BlockSpawner(config, this, transform);
++//
++//         // Initialize spawn position to start above the visible area
++//         _nextSpawnRowIndex = config.TotalRows;
++//
++//         Debug.Log($"Grid initialized: {config.columnCount}x{config.TotalRows} at origin {_gridOrigin}");
++//     }
++//
++//     private void CalculateGridOrigin()
++//     {
++//         // Calculate grid width
++//         float gridWidth = config.GridWidth;
++//
++//         // Center the grid horizontally around the camera
++//         float gridLeft = -gridWidth / 2f;
++//
++//         // Position grid vertically
++//         // Bottom of grid should be at bottom of visible area
++//         float cameraHeight = _mainCamera.orthographicSize * 2f;
++//         float gridBottom = -cameraHeight / 2f;
++//
++//         _gridOrigin = new Vector3(gridLeft, gridBottom, 0);
++//     }
++//
++//     // Coordinate conversion methods
++//     public Vector3 GetWorldPosition(int x, int y)
++//     {
++//         float worldX = _gridOrigin.x + x * config.CellSize;
++//         float worldY = _gridOrigin.y + y * config.CellSize;
++//         return new Vector3(worldX, worldY, 0);
++//     }
++//
++//     public Vector3 GetWorldPosition(Vector2Int gridPos)
++//     {
++//         return GetWorldPosition(gridPos.x, gridPos.y);
++//     }
++//
++//     public Vector2Int WorldToGridPosition(Vector3 worldPos)
++//     {
++//         int x = Mathf.RoundToInt((worldPos.x - _gridOrigin.x) / config.CellSize);
++//         int y = Mathf.RoundToInt((worldPos.y - _gridOrigin.y) / config.CellSize);
++//         return new Vector2Int(x, y);
++//     }
++//
++//     public int WorldToGridY(float worldY)
++//     {
++//         return Mathf.RoundToInt((worldY - _gridOrigin.y) / config.CellSize);
++//     }
++//
++//     // Grid state queries
++//     public bool IsPositionOccupied(int x, int y)
++//     {
++//         return _gridData.IsPositionOccupied(x, y);
++//     }
++//
++//     public bool IsPositionOccupied(Vector2Int pos)
++//     {
++//         return _gridData.IsPositionOccupied(pos);
++//     }
++//
++//     public bool IsRowOccupied(int row)
++//     {
++//         return _gridData.IsRowOccupied(row);
++//     }
++//
++//     public Block GetBlockAt(int x, int y)
++//     {
++//         return _gridData.GetBlockAt(x, y);
++//     }
++//
++//     public Block GetBlockAt(Vector2Int pos)
++//     {
++//         return _gridData.GetBlockAt(pos);
++//     }
++//
++//     // Register a settled block in the grid
++//     public void RegisterBlock(Block block, Vector2Int gridPos)
++//     {
++//         _gridData.SetBlockAt(gridPos, block);
++//     }
++//
++//     // Spawning methods
++//     private void CheckAndSpawnRows()
++//     {
++//         // If no rows are active, spawn the first batch
++//         if (_activeRows.Count == 0)
++//         {
++//             SpawnRows();
++//             return;
++//         }
++//
++//         // Find the topmost active row (highest Y position)
++//         float topmostY = float.MinValue;
++//         foreach (BlockRow row in _activeRows)
++//         {
++//             if (row != null && row.transform.position.y > topmostY)
++//             {
++//                 topmostY = row.transform.position.y;
++//             }
++//         }
++//
++//         // Calculate where the next spawn would occur (bottom of the next batch)
++//         Vector3 nextSpawnPosition = GetWorldPosition(0, _nextSpawnRowIndex);
++//         float nextSpawnY = nextSpawnPosition.y;
++//
++//         // Calculate how much space there is between the topmost row and where we'd spawn next
++//         float availableSpace = nextSpawnY - topmostY;
++//
++//         // Spawn new rows as soon as there's room for at least one row
++//         // This ensures continuous spawning with no gaps
++//         if (availableSpace >= config.CellSize)
++//         {
++//             SpawnRows();
++//         }
++//     }
++//
++//     public void SpawnRows()
++//     {
++//         List<BlockRow> newRows = _spawner.SpawnMultipleRows(config.rowsPerSpawn, _nextSpawnRowIndex);
++//         _activeRows.AddRange(newRows);
++//
++//         // Update next spawn position (spawn next batch directly above this one)
++//         _nextSpawnRowIndex += config.rowsPerSpawn;
++//
++//         Debug.Log($"Spawned {newRows.Count} rows at index {_nextSpawnRowIndex - config.rowsPerSpawn}. Active rows: {_activeRows.Count}");
++//     }
++//
++//     // Called when a row has settled
++//     public void OnRowSettled(BlockRow row)
++//     {
++//         _activeRows.Remove(row);
++//         Debug.Log($"Row settled at Y={row.RowIndex}. Active rows: {_activeRows.Count}");
++//     }
++//
++//     // Debug visualization
++//     private void OnDrawGizmos()
++//     {
++//         if (config == null || _gridData == null)
++//             return;
++//
++//         // Draw grid bounds
++//         Gizmos.color = Color.white;
++//         Vector3 bottomLeft = _gridOrigin;
++//         Vector3 bottomRight = _gridOrigin + Vector3.right * config.GridWidth;
++//         Vector3 topLeft = _gridOrigin + Vector3.up * config.GridHeight;
++//         Vector3 topRight = _gridOrigin + new Vector3(config.GridWidth, config.GridHeight, 0);
++//
++//         Gizmos.DrawLine(bottomLeft, bottomRight);
++//         Gizmos.DrawLine(bottomRight, topRight);
++//         Gizmos.DrawLine(topRight, topLeft);
++//         Gizmos.DrawLine(topLeft, bottomLeft);
++//
++//         // Draw visible area separator
++//         Gizmos.color = Color.yellow;
++//         float visibleHeight = config.visibleRows * config.CellSize;
++//         Vector3 visibleTop = _gridOrigin + Vector3.up * visibleHeight;
++//         Gizmos.DrawLine(visibleTop, visibleTop + Vector3.right * config.GridWidth);
++//
++//         // Draw grid cells
++//         Gizmos.color = new Color(0.5f, 0.5f, 0.5f, 0.3f);
++//         for (int y = 0; y < config.TotalRows; y++)
++//         {
++//             for (int x = 0; x < config.columnCount; x++)
++//             {
++//                 Vector3 cellCenter = GetWorldPosition(x, y);
++//                 float cellSize = config.blockSize;
++//                 Gizmos.DrawWireCube(cellCenter, new Vector3(cellSize, cellSize, 0.1f));
++//
++//                 // Highlight occupied cells
++//                 if (_gridData != null && _gridData.IsPositionOccupied(x, y))
++//                 {
++//                     Gizmos.color = Color.green;
++//                     Gizmos.DrawWireCube(cellCenter, new Vector3(cellSize * 0.9f, cellSize * 0.9f, 0.1f));
++//                     Gizmos.color = new Color(0.5f, 0.5f, 0.5f, 0.3f);
++//                 }
++//             }
++//         }
++//     }
++//
++//     // Public accessors
++//     public GridConfig Config => config;
++//     public GridData GridData => _gridData;
++//     public List<BlockRow> ActiveRows => _activeRows;
++// }
+Index: ../Mask/Assets/_Project/Scripts/Gameplay/GridConfig.cs.meta
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Mask/Assets/_Project/Scripts/Gameplay/GridConfig.cs.meta b/../Mask/Assets/_Project/Scripts/Gameplay/GridConfig.cs.meta
+new file mode 100644
+--- /dev/null	(date 1769818015699)
++++ b/../Mask/Assets/_Project/Scripts/Gameplay/GridConfig.cs.meta	(date 1769818015699)
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: 37ec4c3e4c2a11f438e45f177a39a165
+\ No newline at end of file
+Index: ../Mask/Assets/_Project/Scripts/Gameplay/BlocksFallSystem.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Mask/Assets/_Project/Scripts/Gameplay/BlocksFallSystem.cs b/../Mask/Assets/_Project/Scripts/Gameplay/BlocksFallSystem.cs
+new file mode 100644
+--- /dev/null	(date 1769818015698)
++++ b/../Mask/Assets/_Project/Scripts/Gameplay/BlocksFallSystem.cs	(date 1769818015698)
+@@ -0,0 +1,21 @@
++namespace _Project.Scripts.Gameplay.Input
++{
++    using System;
++    using Spawning;
++    using UnityEngine;
++
++    public class BlocksFallSystem : MonoBehaviour
++    {
++        [SerializeField] private GridConfig _gridConfig;
++        [SerializeField] private BlocksModel _model;
++
++        private void FixedUpdate()
++        {
++            var blocks = _model.Blocks;
++            foreach (var block in blocks)
++            {
++                block.Fall(_gridConfig.fallSpeed * Time.fixedDeltaTime);
++            }
++        }
++    }
++}
+\ No newline at end of file
+Index: ../Mask/Assets/_Project/Scripts/Gameplay/GridConfig.cs
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Mask/Assets/_Project/Scripts/Gameplay/GridConfig.cs b/../Mask/Assets/_Project/Scripts/Gameplay/GridConfig.cs
+new file mode 100644
+--- /dev/null	(date 1769818015699)
++++ b/../Mask/Assets/_Project/Scripts/Gameplay/GridConfig.cs	(date 1769818015699)
+@@ -0,0 +1,14 @@
++using UnityEngine;
++
++[CreateAssetMenu(fileName = "GridConfig", menuName = "Gameplay/Grid Config")]
++public class GridConfig : ScriptableObject
++{
++    [Header("Spawn Settings")]
++    [Tooltip("Number of rows to spawn at once")]
++    public int rowsPerSpawn = 2;
++
++    [Header("Fall Settings")]
++    [Tooltip("Speed at which rows fall (units per second)")]
++    public float fallSpeed = 2.0f;
++
++}
+Index: ../Mask/Assets/_Project/Scripts/Gameplay/GridManager.cs.meta
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Mask/Assets/_Project/Scripts/Gameplay/GridManager.cs.meta b/../Mask/Assets/_Project/Scripts/Gameplay/GridManager.cs.meta
+new file mode 100644
+--- /dev/null	(date 1769818015699)
++++ b/../Mask/Assets/_Project/Scripts/Gameplay/GridManager.cs.meta	(date 1769818015699)
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: 7a8b3b04fb7112c4c97bdd7a4ab03c20
+\ No newline at end of file
+Index: ../Mask/Assets/_Project/Scripts/Gameplay/Spawning.meta
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Mask/Assets/_Project/Scripts/Gameplay/Spawning.meta b/../Mask/Assets/_Project/Scripts/Gameplay/Spawning.meta
+new file mode 100644
+--- /dev/null	(date 1769818015699)
++++ b/../Mask/Assets/_Project/Scripts/Gameplay/Spawning.meta	(date 1769818015699)
+@@ -0,0 +1,3 @@
++fileFormatVersion: 2
++guid: 3404fc3100ec4081875232dadb8731c9
++timeCreated: 1769813359
+\ No newline at end of file
+Index: ../Mask/Assets/_Project/Scripts/Gameplay/BlocksFallSystem.cs.meta
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Mask/Assets/_Project/Scripts/Gameplay/BlocksFallSystem.cs.meta b/../Mask/Assets/_Project/Scripts/Gameplay/BlocksFallSystem.cs.meta
+new file mode 100644
+--- /dev/null	(date 1769818015698)
++++ b/../Mask/Assets/_Project/Scripts/Gameplay/BlocksFallSystem.cs.meta	(date 1769818015698)
+@@ -0,0 +1,3 @@
++fileFormatVersion: 2
++guid: 983a086527604a7881a812b1c09d953b
++timeCreated: 1769814404
+\ No newline at end of file
+Index: ../Mask/Assets/_Project/Prefabs/Block.prefab
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>%YAML 1.1\n%TAG !u! tag:unity3d.com,2011:\n--- !u!1 &1335070286902920313\nGameObject:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  serializedVersion: 6\n  m_Component:\n  - component: {fileID: 7860664559252440809}\n  - component: {fileID: 5397890071826061699}\n  m_Layer: 0\n  m_Name: ZeroView\n  m_TagString: Untagged\n  m_Icon: {fileID: 0}\n  m_NavMeshLayer: 0\n  m_StaticEditorFlags: 0\n  m_IsActive: 1\n--- !u!4 &7860664559252440809\nTransform:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_GameObject: {fileID: 1335070286902920313}\n  serializedVersion: 2\n  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}\n  m_LocalPosition: {x: 0, y: 0, z: 0}\n  m_LocalScale: {x: 1, y: 1, z: 1}\n  m_ConstrainProportionsScale: 0\n  m_Children: []\n  m_Father: {fileID: 8601184669470644428}\n  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}\n--- !u!212 &5397890071826061699\nSpriteRenderer:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_GameObject: {fileID: 1335070286902920313}\n  m_Enabled: 1\n  m_CastShadows: 0\n  m_ReceiveShadows: 0\n  m_DynamicOccludee: 1\n  m_StaticShadowCaster: 0\n  m_MotionVectors: 1\n  m_LightProbeUsage: 1\n  m_ReflectionProbeUsage: 1\n  m_RayTracingMode: 0\n  m_RayTraceProcedural: 0\n  m_RayTracingAccelStructBuildFlagsOverride: 0\n  m_RayTracingAccelStructBuildFlags: 1\n  m_SmallMeshCulling: 1\n  m_RenderingLayerMask: 1\n  m_RendererPriority: 0\n  m_Materials:\n  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}\n  m_StaticBatchInfo:\n    firstSubMesh: 0\n    subMeshCount: 0\n  m_StaticBatchRoot: {fileID: 0}\n  m_ProbeAnchor: {fileID: 0}\n  m_LightProbeVolumeOverride: {fileID: 0}\n  m_ScaleInLightmap: 1\n  m_ReceiveGI: 1\n  m_PreserveUVs: 0\n  m_IgnoreNormalsForChartDetection: 0\n  m_ImportantGI: 0\n  m_StitchLightmapSeams: 1\n  m_SelectedEditorRenderState: 0\n  m_MinimumChartSize: 4\n  m_AutoUVMaxDistance: 0.5\n  m_AutoUVMaxAngle: 89\n  m_LightmapParameters: {fileID: 0}\n  m_SortingLayerID: 0\n  m_SortingLayer: 0\n  m_SortingOrder: 0\n  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}\n  m_Color: {r: 0, g: 0, b: 0, a: 1}\n  m_FlipX: 0\n  m_FlipY: 0\n  m_DrawMode: 0\n  m_Size: {x: 1, y: 1}\n  m_AdaptiveModeThreshold: 0.5\n  m_SpriteTileMode: 0\n  m_WasSpriteAssigned: 1\n  m_MaskInteraction: 0\n  m_SpriteSortPoint: 0\n--- !u!1 &1370432042459305449\nGameObject:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  serializedVersion: 6\n  m_Component:\n  - component: {fileID: 337874432789683925}\n  - component: {fileID: 2065246673706472009}\n  m_Layer: 0\n  m_Name: OneView\n  m_TagString: Untagged\n  m_Icon: {fileID: 0}\n  m_NavMeshLayer: 0\n  m_StaticEditorFlags: 0\n  m_IsActive: 1\n--- !u!4 &337874432789683925\nTransform:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_GameObject: {fileID: 1370432042459305449}\n  serializedVersion: 2\n  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}\n  m_LocalPosition: {x: 0, y: 0, z: 0}\n  m_LocalScale: {x: 1, y: 1, z: 1}\n  m_ConstrainProportionsScale: 0\n  m_Children: []\n  m_Father: {fileID: 8601184669470644428}\n  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}\n--- !u!212 &2065246673706472009\nSpriteRenderer:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_GameObject: {fileID: 1370432042459305449}\n  m_Enabled: 1\n  m_CastShadows: 0\n  m_ReceiveShadows: 0\n  m_DynamicOccludee: 1\n  m_StaticShadowCaster: 0\n  m_MotionVectors: 1\n  m_LightProbeUsage: 1\n  m_ReflectionProbeUsage: 1\n  m_RayTracingMode: 0\n  m_RayTraceProcedural: 0\n  m_RayTracingAccelStructBuildFlagsOverride: 0\n  m_RayTracingAccelStructBuildFlags: 1\n  m_SmallMeshCulling: 1\n  m_RenderingLayerMask: 1\n  m_RendererPriority: 0\n  m_Materials:\n  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}\n  m_StaticBatchInfo:\n    firstSubMesh: 0\n    subMeshCount: 0\n  m_StaticBatchRoot: {fileID: 0}\n  m_ProbeAnchor: {fileID: 0}\n  m_LightProbeVolumeOverride: {fileID: 0}\n  m_ScaleInLightmap: 1\n  m_ReceiveGI: 1\n  m_PreserveUVs: 0\n  m_IgnoreNormalsForChartDetection: 0\n  m_ImportantGI: 0\n  m_StitchLightmapSeams: 1\n  m_SelectedEditorRenderState: 0\n  m_MinimumChartSize: 4\n  m_AutoUVMaxDistance: 0.5\n  m_AutoUVMaxAngle: 89\n  m_LightmapParameters: {fileID: 0}\n  m_SortingLayerID: 0\n  m_SortingLayer: 0\n  m_SortingOrder: 0\n  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}\n  m_Color: {r: 1, g: 1, b: 1, a: 1}\n  m_FlipX: 0\n  m_FlipY: 0\n  m_DrawMode: 0\n  m_Size: {x: 1, y: 1}\n  m_AdaptiveModeThreshold: 0.5\n  m_SpriteTileMode: 0\n  m_WasSpriteAssigned: 1\n  m_MaskInteraction: 0\n  m_SpriteSortPoint: 0\n--- !u!1 &2110117946723843223\nGameObject:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  serializedVersion: 6\n  m_Component:\n  - component: {fileID: 6903113679044437408}\n  - component: {fileID: 3218902226305726070}\n  - component: {fileID: 7145398621650934543}\n  - component: {fileID: 7075441201225162267}\n  m_Layer: 0\n  m_Name: Block\n  m_TagString: Untagged\n  m_Icon: {fileID: 0}\n  m_NavMeshLayer: 0\n  m_StaticEditorFlags: 0\n  m_IsActive: 1\n--- !u!4 &6903113679044437408\nTransform:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_GameObject: {fileID: 2110117946723843223}\n  serializedVersion: 2\n  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}\n  m_LocalPosition: {x: 0, y: 0, z: 0}\n  m_LocalScale: {x: 1, y: 1, z: 1}\n  m_ConstrainProportionsScale: 0\n  m_Children:\n  - {fileID: 8601184669470644428}\n  - {fileID: 2856208326174919682}\n  m_Father: {fileID: 0}\n  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}\n--- !u!114 &3218902226305726070\nMonoBehaviour:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_GameObject: {fileID: 2110117946723843223}\n  m_Enabled: 1\n  m_EditorHideFlags: 0\n  m_Script: {fileID: 11500000, guid: a95d10ab15c6a481fbb2cffd6d491387, type: 3}\n  m_Name: \n  m_EditorClassIdentifier: \n  _moveSpeed: 4\n  _view: {fileID: 7145398621650934543}\n--- !u!114 &7145398621650934543\nMonoBehaviour:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_GameObject: {fileID: 2110117946723843223}\n  m_Enabled: 1\n  m_EditorHideFlags: 0\n  m_Script: {fileID: 11500000, guid: 92ccb1911565477ea38392c65ae64716, type: 3}\n  m_Name: \n  m_EditorClassIdentifier: \n  _oneObject: {fileID: 1370432042459305449}\n  _zeroObject: {fileID: 1335070286902920313}\n  _nextBlockPosition: {fileID: 2856208326174919682}\n--- !u!61 &7075441201225162267\nBoxCollider2D:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_GameObject: {fileID: 2110117946723843223}\n  m_Enabled: 1\n  serializedVersion: 3\n  m_Density: 1\n  m_Material: {fileID: 0}\n  m_IncludeLayers:\n    serializedVersion: 2\n    m_Bits: 0\n  m_ExcludeLayers:\n    serializedVersion: 2\n    m_Bits: 0\n  m_LayerOverridePriority: 0\n  m_ForceSendLayers:\n    serializedVersion: 2\n    m_Bits: 4294967295\n  m_ForceReceiveLayers:\n    serializedVersion: 2\n    m_Bits: 4294967295\n  m_ContactCaptureLayers:\n    serializedVersion: 2\n    m_Bits: 4294967295\n  m_CallbackLayers:\n    serializedVersion: 2\n    m_Bits: 4294967295\n  m_IsTrigger: 0\n  m_UsedByEffector: 0\n  m_CompositeOperation: 0\n  m_CompositeOrder: 0\n  m_Offset: {x: 0, y: 0}\n  m_SpriteTilingProperty:\n    border: {x: 0, y: 0, z: 0, w: 0}\n    pivot: {x: 0, y: 0}\n    oldSize: {x: 0, y: 0}\n    newSize: {x: 0, y: 0}\n    adaptiveTilingThreshold: 0\n    drawMode: 0\n    adaptiveTiling: 0\n  m_AutoTiling: 0\n  m_Size: {x: 1, y: 1}\n  m_EdgeRadius: 0\n--- !u!1 &2908824976702006295\nGameObject:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  serializedVersion: 6\n  m_Component:\n  - component: {fileID: 2856208326174919682}\n  m_Layer: 0\n  m_Name: NextBlockPos\n  m_TagString: Untagged\n  m_Icon: {fileID: 0}\n  m_NavMeshLayer: 0\n  m_StaticEditorFlags: 0\n  m_IsActive: 1\n--- !u!4 &2856208326174919682\nTransform:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_GameObject: {fileID: 2908824976702006295}\n  serializedVersion: 2\n  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}\n  m_LocalPosition: {x: 0, y: -1.2, z: 0}\n  m_LocalScale: {x: 1, y: 1, z: 1}\n  m_ConstrainProportionsScale: 0\n  m_Children: []\n  m_Father: {fileID: 6903113679044437408}\n  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}\n--- !u!1 &4876584589501551934\nGameObject:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  serializedVersion: 6\n  m_Component:\n  - component: {fileID: 8601184669470644428}\n  m_Layer: 0\n  m_Name: ViewRoot\n  m_TagString: Untagged\n  m_Icon: {fileID: 0}\n  m_NavMeshLayer: 0\n  m_StaticEditorFlags: 0\n  m_IsActive: 1\n--- !u!4 &8601184669470644428\nTransform:\n  m_ObjectHideFlags: 0\n  m_CorrespondingSourceObject: {fileID: 0}\n  m_PrefabInstance: {fileID: 0}\n  m_PrefabAsset: {fileID: 0}\n  m_GameObject: {fileID: 4876584589501551934}\n  serializedVersion: 2\n  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}\n  m_LocalPosition: {x: 0, y: 0, z: 0}\n  m_LocalScale: {x: 1, y: 1, z: 1}\n  m_ConstrainProportionsScale: 0\n  m_Children:\n  - {fileID: 7860664559252440809}\n  - {fileID: 337874432789683925}\n  m_Father: {fileID: 6903113679044437408}\n  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../Mask/Assets/_Project/Prefabs/Block.prefab b/../Mask/Assets/_Project/Prefabs/Block.prefab
+--- a/../Mask/Assets/_Project/Prefabs/Block.prefab	(revision 19cbac5da054ad4f6fe3ff6ef7fe00135f2ac943)
++++ b/../Mask/Assets/_Project/Prefabs/Block.prefab	(date 1769818015698)
+@@ -222,7 +222,7 @@
+   m_Script: {fileID: 11500000, guid: a95d10ab15c6a481fbb2cffd6d491387, type: 3}
+   m_Name: 
+   m_EditorClassIdentifier: 
+-  _moveSpeed: 4
++  _moveSpeed: 0
+   _view: {fileID: 7145398621650934543}
+ --- !u!114 &7145398621650934543
+ MonoBehaviour:
