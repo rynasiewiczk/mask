@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Columns: 4
   RowsPerSpawn: 4
-  FallSpeed: .6
+  FallSpeed: 0.6
   HorizontalGap: 0.2
+  PassProbability: 0.05
+  InvertedProbability: 0.15

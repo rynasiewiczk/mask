@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UserBlock
       objectReference: {fileID: 0}
+    - target: {fileID: 3788871252693749332, guid: 0854e9f2c18e04f23ab7526157cb9969, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6903113679044437408, guid: 0854e9f2c18e04f23ab7526157cb9969, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -50,6 +54,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6903113679044437408, guid: 0854e9f2c18e04f23ab7526157cb9969, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8755970432812724934, guid: 0854e9f2c18e04f23ab7526157cb9969, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:

@@ -82,11 +82,11 @@ namespace _Project.Scripts.Gameplay.Spawning
         public BlockMechanicType GetBlockMechanic()
         {
             var value = Random.value;
-            if (value < _gridConfig.PassProbability)
-            {
-                return BlockMechanicType.DownPass;
-            }
-            else if (value < _gridConfig.InvertedProbability + _gridConfig.PassProbability)
+            // if (value < _gridConfig.PassProbability)
+            // {
+            //     return BlockMechanicType.DownPass;
+            // }
+             if (value < _gridConfig.InvertedProbability + _gridConfig.PassProbability)
             {
                 return BlockMechanicType.Inverted;
             }

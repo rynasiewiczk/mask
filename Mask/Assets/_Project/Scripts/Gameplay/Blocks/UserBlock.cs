@@ -43,6 +43,7 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
                     }
                     var newFallingBlock = BlockFactory.Instance.CreateFallingBlock();
                     newFallingBlock.SetType(BlockType);
+                    newFallingBlock.SetMechanic(BlockMechanicType.None);
                     newFallingBlock.transform.position = _targetBlock.BottomBlockPosition.position;
                     FallingBlocksModel.Instance.AddBlock(newFallingBlock);
                 }
