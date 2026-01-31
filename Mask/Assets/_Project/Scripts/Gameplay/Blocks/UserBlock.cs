@@ -61,6 +61,8 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
                     // newFallingBlock.transform.position = _targetBlock.BottomBlockPosition.position;
                     // FallingBlocksModel.Instance.AddBlock(newFallingBlock);
                     // OnJoinedFall?.Invoke();
+                    
+                    _targetBlock.HandleMissmatchedUserBlock();
                 }
                 
                 OnDestroying?.Invoke(this);

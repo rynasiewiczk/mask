@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    [SerializeField] private BlockView _view;
+    [SerializeField] protected BlockView _view;
     public BlockType BlockType { get; private set; }
     public BlockMechanicType BlockMechanicType { get; private set; }
     
