@@ -66,6 +66,7 @@ namespace _Project.Scripts.Gameplay.Input
             
             _view.ConfirmSelection();
             CurrentBlock.Change();
+            _view.ChangeForBlock(CurrentBlock.BlockType);
         }
 
         private void OnConfirm()
@@ -175,7 +176,7 @@ namespace _Project.Scripts.Gameplay.Input
                     _view.SetSelectionPos(_inputBlocks[i].transform.position, instant);
                 }
             }
-            
+            _view.ChangeForBlock(CurrentBlock.BlockType);
             CameraView.Instance.DoShake(0.1f, 0.03f);
         }
 
