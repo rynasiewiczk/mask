@@ -99,6 +99,7 @@ namespace _Project.Scripts.Gameplay.Spawning
         public void BreakBlock(FallingBlock block)
         {
             OnBlockBreak?.Invoke(block);
+            block.DoDestroyEffect();
             DestroyBlock(block);
         }
         
