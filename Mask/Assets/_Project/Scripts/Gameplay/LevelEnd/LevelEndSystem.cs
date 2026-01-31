@@ -30,15 +30,19 @@ namespace _Project.Scripts.Gameplay.Input
         [SerializeField] private Ease _cameraToDangerEase = Ease.OutCubic;
         [SerializeField] private DOTweenShakeSettings _cameraShakeSettings;
 
+        [SerializeField] private Transform _cameraMinZoomHeight;
+        [SerializeField] private Transform _cameraMaxZoomHeight;
+        [SerializeField] private float _cameraLerpSpeed = .2f;
+        
         private bool _isWarningPlaying;
 
         private Sequence _dangerLineSequence;
-        private Sequence _cameraSequence;
+        private Sequence _cameraShakeSequence;
 
         private void OnDestroy()
         {
             _dangerLineSequence?.Kill();
-            _cameraSequence?.Kill();
+            _cameraShakeSequence?.Kill();
         }
 
         private void Update()
@@ -54,14 +58,17 @@ namespace _Project.Scripts.Gameplay.Input
                 ResetWarning();
                 return;
             }
-
+            
             var block = _fallingBlocksModel.FallingBlocks.First();
 
             var lowestBlockHeight = _fallingBlocksModel.FallingBlocks.Min(b => b.transform.position.y);
             if (lowestBlockHeight - block.GetSize().y / 2 < _endLine.position.y)
             {
                 LevelManager.Instance.SetFinished();
+                return;
             }
+            
+            UpdateCamera(lowestBlockHeight);
 
             if (!_isWarningPlaying && lowestBlockHeight < _warningActivateHeight.position.y)
             {
@@ -73,7 +80,7 @@ namespace _Project.Scripts.Gameplay.Input
                 ResetWarning();
             }
         }
-
+        
         private void ResetWarning()
         {
             if (!_isWarningPlaying)
@@ -99,12 +106,7 @@ namespace _Project.Scripts.Gameplay.Input
 
         private void ResetCameraWarning()
         {
-            _cameraSequence?.Kill();
-            _cameraSequence = DOTween.Sequence();
-            _cameraSequence.Join(CameraView.Instance.transform.DOMove(_cameraDefaultPosition, _cameraTDefaultDuration));
-            _cameraSequence.Join(CameraView.Instance.DoSize(_cameraDefaultSize, _cameraTDefaultDuration,
-                _cameraToDefaultSizeEase));
-            _cameraSequence.Join(CameraView.Instance.DoResetShake(_cameraTDefaultDuration));
+            _cameraShakeSequence?.Kill();
         }
 
         private void PlayWarning()
@@ -119,20 +121,28 @@ namespace _Project.Scripts.Gameplay.Input
             PlayCameraDanger();
         }
 
+        private void UpdateCamera(float lowestBlockHeight)
+        {
+            var blocksHeightLerp = Mathf.InverseLerp(_cameraMinZoomHeight.transform.position.y,
+                _cameraMaxZoomHeight.transform.position.y, lowestBlockHeight);
+            blocksHeightLerp = Mathf.Clamp01(blocksHeightLerp);
+            
+            var targetCameraSize = Mathf.Lerp(_cameraDefaultSize, _cameraDangerSize, blocksHeightLerp);
+            var currentCameraSize = CameraView.Instance.CameraSize;
+            var nextCameraSize = Mathf.Lerp(currentCameraSize, targetCameraSize, _cameraLerpSpeed);
+            CameraView.Instance.SetSize(nextCameraSize);
+            
+            var targetCameraPosition = Vector3.Lerp(_cameraDefaultPosition, _cameraDangerPosition, blocksHeightLerp);
+            var currentCameraPosition = CameraView.Instance.transform.position;
+            var nextCameraPosition = Vector3.Lerp(currentCameraPosition, targetCameraPosition, _cameraLerpSpeed);
+            CameraView.Instance.transform.position = nextCameraPosition;
+        }
+
         private void PlayCameraDanger()
         {
-            _cameraSequence?.Kill();
-            _cameraSequence = DOTween.Sequence();
-
-            _cameraSequence.Join(CameraView.Instance.DoSize(_cameraDangerSize, _cameraToDangerDuration,
-                _cameraToDangerEase));
-            _cameraSequence.Join(CameraView.Instance.transform.DOMove(_cameraDangerPosition, _cameraTDefaultDuration)
-                .SetEase(_cameraToDangerEase));
-            _cameraSequence.Join(DOVirtual.DelayedCall(_cameraToDangerDuration / 2, () =>
-            {
-                _cameraSequence = DOTween.Sequence();
-                _cameraSequence.Join(CameraView.Instance.DoDangerShake(_cameraShakeSettings));
-            }));
+            _cameraShakeSequence?.Kill();
+            _cameraShakeSequence = DOTween.Sequence();
+            _cameraShakeSequence.Join(CameraView.Instance.DoDangerShake(_cameraShakeSettings));
         }
 
         private void PlayDangerLineWarning()

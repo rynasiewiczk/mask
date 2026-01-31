@@ -12,12 +12,16 @@ public static class BlockMechanicTypeExtensions
         switch (blockMechanicType)
         {
             case BlockMechanicType.LeftPass:
+            case BlockMechanicType.LeftInverted: 
                 return Vector2Int.left;
             case BlockMechanicType.RightPass:
+            case BlockMechanicType.RightInverted:
                 return  Vector2Int.right;
             case BlockMechanicType.UpPass:
+            case BlockMechanicType.UpInverted:
                 return  Vector2Int.up;
             case BlockMechanicType.DownPass:
+            case BlockMechanicType.DownInverted:
                 return  Vector2Int.down;
             default:
                 Debug.LogError($"BlockMechanicType {blockMechanicType} is not a pass type");

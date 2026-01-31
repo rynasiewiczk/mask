@@ -11,6 +11,12 @@
         
         public float Max => _max;
 
+        public FloatRange(float min, float max)
+        {
+            _min = min;
+            _max = max;
+        }
+
         public float GetRandom()
         {
             return UnityEngine.Random.Range(_min, _max);
