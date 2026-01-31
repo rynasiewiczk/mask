@@ -1,19 +1,21 @@
 namespace _Project.Scripts.Gameplay.Input
 {
+    using DG.Tweening;
     using UnityEngine;
 
     public class BlockDestroyParticles : MonoBehaviour
     {
-        [SerializeField] private ParticleSystem _particleSystem;
-        [SerializeField] private ParticleSystem _sparksParticles;
+        [SerializeField] private ParticleSystem[] _particles;
 
         public void Setup(Color color)
         {
-            var mainModule = _particleSystem.main;
-            mainModule.startColor = color;
-            
-            var sparkMain = _sparksParticles.main;
-            sparkMain.startColor = color;
+            foreach (var particle in _particles)
+            {
+                var mainModule = particle.main;
+                mainModule.startColor = color;
+            }
+
+            DOVirtual.DelayedCall(5, () => Destroy(gameObject));
         }
     }
 }

@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
+    [SerializeField] protected BlockDestroyParticles _missmatchParticles;
     [SerializeField] private BlockDestroyParticles _destroyEffectPrefab;
     [SerializeField] protected BlockView _view;
-    [SerializeField] private Color _oneColor;
-    [SerializeField] private Color _zeroColor;
+    [SerializeField] protected Color _oneColor;
+    [SerializeField] protected Color _zeroColor;
 
     public BlockType BlockType { get; private set; }
     public BlockMechanicType BlockMechanicType { get; private set; }
@@ -61,7 +62,6 @@ public class Block : MonoBehaviour
         var color = BlockType == BlockType.One ? _oneColor : _zeroColor;
         var effect = Instantiate(_destroyEffectPrefab, transform.position, Quaternion.identity);
         effect.Setup(color);
-        DOVirtual.DelayedCall(5, () => Destroy(effect.gameObject));
     }
 }
 
