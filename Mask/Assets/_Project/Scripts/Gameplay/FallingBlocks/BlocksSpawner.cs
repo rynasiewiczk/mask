@@ -211,12 +211,12 @@ namespace _Project.Scripts.Gameplay.Spawning
                 return;
             }
             
-            activateProbability += difficultySettings.InvertedPassProbability;
-            if (value < activateProbability)
-            {
-                HandleInvertedPass(blockPosition, gridSize, startY);
-                return;
-            }
+            // activateProbability += difficultySettings.InvertedPassProbability;
+            // if (value < activateProbability)
+            // {
+            //     HandleInvertedPass(blockPosition, gridSize, startY);
+            //     return;
+            // }
 
             activateProbability += difficultySettings.InvertedProbability;
             if (value < activateProbability)

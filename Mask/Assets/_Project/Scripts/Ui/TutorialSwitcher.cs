@@ -8,6 +8,7 @@ namespace _Project.Scripts.Ui
         [SerializeField] private RectTransform _rootPos;
         [SerializeField] private RectTransform _startPos;
         [SerializeField] private RectTransform _endPos;
+        [SerializeField] private GameObject _hiddenObject;
         
         private bool _isShown = true;
         
@@ -17,6 +18,7 @@ namespace _Project.Scripts.Ui
             {
                 _rootPos.DOLocalMove(_isShown ? _endPos.localPosition : _startPos.localPosition, .5f);
                 _isShown = !_isShown;
+                _hiddenObject.SetActive(!_isShown);
             }
         }
     }
