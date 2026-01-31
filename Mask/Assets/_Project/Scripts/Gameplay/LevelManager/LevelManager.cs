@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using LazySloth.Observable;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
+        DOTween.SetTweensCapacity(300, 200);
         Instance = this;
     }
 
