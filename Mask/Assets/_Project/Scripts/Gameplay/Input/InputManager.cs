@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour
     public event Action OnRight;
     public event Action OnConfirm;
     public event Action OnChange;
+    public event Action OnUseBooster;
 
     public event Action<int> OnNumber;
     
@@ -48,14 +49,19 @@ public class InputManager : MonoBehaviour
             OnNumber?.Invoke(4);
         }
         
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.UpArrow) )
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.UpArrow))// || Input.GetButtonDown("Jump"))
         {
             OnConfirm?.Invoke();
         }
         
-        if (Input.GetKeyDown(KeyCode.Space) )
+        if (Input.GetKeyDown(KeyCode.Space))// || Input.GetButtonDown("Submit"))
         {
             OnChange?.Invoke();
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            OnUseBooster?.Invoke();
         }
     }
 }

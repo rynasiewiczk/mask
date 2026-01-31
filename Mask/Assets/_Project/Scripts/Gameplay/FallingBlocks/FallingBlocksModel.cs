@@ -60,6 +60,42 @@ namespace _Project.Scripts.Gameplay.Spawning
             return block;
         }
 
+        public FallingBlock GetBottomBlock()
+        {
+            if (!_fallingBlocks.Any())
+            {
+                return null;
+            }
+
+            var minY = float.MaxValue;
+            FallingBlock block = null;
+            foreach (var b in _fallingBlocks)
+            {
+                if (b.transform.position.y < minY)
+                {
+                    minY = b.transform.position.y;
+                    block = b;
+                }
+            }
+            
+            return block;
+        }
+
+        public List<FallingBlock> GetAllBlocksAtSameLine(float linePosition)
+        {
+            var  list = new List<FallingBlock>();
+            foreach (var fallingBlock in _fallingBlocks)
+            {
+                var distance = Mathf.Abs(linePosition - fallingBlock.transform.position.y);
+                if (distance < 0.4f)
+                {
+                    list.Add(fallingBlock);
+                }
+            }
+            
+            return list;
+        }
+
         public void BreakBlock(FallingBlock block)
         {
             OnBlockBreak?.Invoke(block);

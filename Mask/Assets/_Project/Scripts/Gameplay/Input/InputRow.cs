@@ -1,9 +1,12 @@
 namespace _Project.Scripts.Gameplay.Input
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
+    using System.Linq;
     using Blocks;
     using DG.Tweening;
+    using Spawning;
     using UnityEngine;
 
     public class InputRow : MonoBehaviour
@@ -45,6 +48,7 @@ namespace _Project.Scripts.Gameplay.Input
             _inputManager.OnNumber += OnNumber;
             _inputManager.OnConfirm += OnConfirm;
             _inputManager.OnChange += OnChange;
+            _inputManager.OnUseBooster += OnUseBooster;
 
             _view.SetSelectionPos(_inputBlocks[_selectedBlockIndex].transform.position, true);
             UpdateCurrentBlock();
@@ -101,6 +105,51 @@ namespace _Project.Scripts.Gameplay.Input
             _inputBlocks[index].Change();
         }
 
+        private void OnUseBooster()
+        {
+            if (!LevelManager.Instance.IsPlaying)
+            {
+                return;
+            }
+            
+            if (!BoostersManager.Instance.HasBoosterReady())
+            {
+                return;
+            }
+
+            StartCoroutine(DoLinesBreakerCoroutine());
+        }
+
+        private IEnumerator DoLinesBreakerCoroutine()
+        {
+            var mostBottomBlock = FallingBlocksModel.Instance.GetBottomBlock();
+            if (mostBottomBlock == null)
+            {
+                yield break;
+            }
+            
+            BlocksFallSystem.Instance.SetPaused(true);
+            var verticalGap = FallingBlocksModel.Instance.FallingBlocks.First().VerticalGap;
+            
+            BoostersManager.Instance.UseFirstBooster();
+            var rowPosition = mostBottomBlock.transform.position.y;
+            
+            for (var i = 0; i < 5; i++)
+            {
+                var allInRow = FallingBlocksModel.Instance.GetAllBlocksAtSameLine(rowPosition);
+                foreach (var block in allInRow)
+                {
+                    FallingBlocksModel.Instance.BreakBlock(block);
+                }
+
+                yield return new WaitForSeconds(0.15f);
+                rowPosition += verticalGap;
+            }
+            
+            
+            BlocksFallSystem.Instance.SetPaused(false);
+        }
+
         private void UpdateCurrentBlock()
         {
             if (!LevelManager.Instance.IsPlaying)
@@ -119,7 +168,7 @@ namespace _Project.Scripts.Gameplay.Input
             }
         }
 
-        public void CreateFlyRow()
+        public void CreateFlyRow(bool selectedColumnOnly = false)
         {
             _view.SetSelectionVisible(false);
 
@@ -130,6 +179,8 @@ namespace _Project.Scripts.Gameplay.Input
 
             foreach (var templateBlock in _inputBlocks)
             {
+                if(selectedColumnOnly && templateBlock != CurrentBlock) { continue; }
+                
                 if (TryFindTargetBlock(templateBlock.transform.position, out var targetBlock))
                 {
                     var newBlock = BlockFactory.Instance.CreateUserBlock();
