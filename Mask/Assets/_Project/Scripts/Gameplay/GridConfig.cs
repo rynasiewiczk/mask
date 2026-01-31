@@ -47,7 +47,7 @@ public class GridConfig : ScriptableObject
     private DifficultyRange GetDifficultyEntry(int spawnNumber)
     {
         var entry = _difficulties.FirstOrDefault(d => d.MaxSpawnNumber >= spawnNumber);
-        return entry;
+        return entry ?? _difficulties.Last();
     }
 
 }

@@ -15,8 +15,8 @@ MonoBehaviour:
   Columns: 5
   RowsPerSpawn: 5
   HorizontalGap: 0.5
-  FastSpeed: 2.5
-  AfterProgressionFallSpeedRatePerSpawn: 0.01
+  FastSpeed: 2.6
+  AfterProgressionFallSpeedRatePerSpawn: 0.05
   Start:
     FallSpeedRange:
       _min: 0
@@ -38,7 +38,7 @@ MonoBehaviour:
   - MaxSpawnNumber: 8
     settings:
       FallSpeedRange:
-        _min: 0.45
+        _min: 0.5
         _max: 0.6
       PassProbability: 0.15
       InvertedProbability: 0.1
@@ -53,12 +53,30 @@ MonoBehaviour:
       InvertedProbability: 0.2
       ChainProbability: 0.12
       InvertedPassProbability: 0.2
-  - MaxSpawnNumber: 30
+  - MaxSpawnNumber: 16
     settings:
       FallSpeedRange:
         _min: 0.7
         _max: 0.75
-      PassProbability: 0.1
+      PassProbability: 0.23
       InvertedProbability: 0.2
+      ChainProbability: 0.15
+      InvertedPassProbability: 0.2
+  - MaxSpawnNumber: 20
+    settings:
+      FallSpeedRange:
+        _min: 0.75
+        _max: 0.9
+      PassProbability: 0.23
+      InvertedProbability: 0.2
+      ChainProbability: 0.15
+      InvertedPassProbability: 0.2
+  - MaxSpawnNumber: 25
+    settings:
+      FallSpeedRange:
+        _min: 0.9
+        _max: 1.2
+      PassProbability: 0.25
+      InvertedProbability: 0.25
       ChainProbability: 0.15
       InvertedPassProbability: 0.2
