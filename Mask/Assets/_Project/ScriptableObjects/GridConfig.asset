@@ -14,25 +14,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Columns: 5
   RowsPerSpawn: 5
-  FallSpeed: 0.6
   HorizontalGap: 0.5
+  FastSpeed: 2.5
+  AfterProgressionFallSpeedRatePerSpawn: 0.01
   Start:
+    FallSpeedRange:
+      _min: 0
+      _max: 0
     PassProbability: 0
     InvertedProbability: 0
     ChainProbability: 0.5
     InvertedPassProbability: 0
-  Easy:
-    PassProbability: 0.05
-    InvertedProbability: 0.05
-    ChainProbability: 0.05
-    InvertedPassProbability: 0.05
-  Medium:
-    PassProbability: 0.15
-    InvertedProbability: 0.1
-    ChainProbability: 0.05
-    InvertedPassProbability: 0.05
-  Hard:
-    PassProbability: 0.05
-    InvertedProbability: 0.05
-    ChainProbability: 0.05
-    InvertedPassProbability: 0.05
+  _difficulties:
+  - MaxSpawnNumber: 3
+    settings:
+      FallSpeedRange:
+        _min: 0.45
+        _max: 0.5
+      PassProbability: 0.05
+      InvertedProbability: 0.05
+      ChainProbability: 0.05
+      InvertedPassProbability: 0.05
+  - MaxSpawnNumber: 8
+    settings:
+      FallSpeedRange:
+        _min: 0.45
+        _max: 0.6
+      PassProbability: 0.15
+      InvertedProbability: 0.1
+      ChainProbability: 0.15
+      InvertedPassProbability: 0.15
+  - MaxSpawnNumber: 12
+    settings:
+      FallSpeedRange:
+        _min: 0.6
+        _max: 0.7
+      PassProbability: 0.23
+      InvertedProbability: 0.2
+      ChainProbability: 0.12
+      InvertedPassProbability: 0.2
+  - MaxSpawnNumber: 30
+    settings:
+      FallSpeedRange:
+        _min: 0.7
+        _max: 0.75
+      PassProbability: 0.1
+      InvertedProbability: 0.2
+      ChainProbability: 0.15
+      InvertedPassProbability: 0.2
