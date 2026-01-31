@@ -25,14 +25,14 @@ public class Block : MonoBehaviour
 
     public void Change()
     {
-        if (BlockType == BlockType.One) SetType(BlockType.Zero);
-        else if (BlockType == BlockType.Zero) SetType(BlockType.One);
+        if (BlockType == BlockType.One) SetType(BlockType.Zero, true);
+        else if (BlockType == BlockType.Zero) SetType(BlockType.One, true);
     }
 
-    public void SetType(BlockType blockType)
+    public void SetType(BlockType blockType, bool animate = false)
     {
         BlockType = blockType;
-        _view.SetBlockType(BlockType);
+        _view.SetBlockType(BlockType, animate);
     }
 
     public Vector2 GetSize()

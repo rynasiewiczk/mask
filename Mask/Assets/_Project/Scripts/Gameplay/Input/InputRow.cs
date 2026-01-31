@@ -53,7 +53,7 @@ namespace _Project.Scripts.Gameplay.Input
             _inputManager.OnUseBooster += OnUseBooster;
 
             _view.SetSelectionPos(_inputBlocks[_selectedBlockIndex].transform.position, true);
-            UpdateCurrentBlock();
+            UpdateCurrentBlock(true);
         }
 
         private void OnChange()
@@ -160,9 +160,10 @@ namespace _Project.Scripts.Gameplay.Input
             _locked = false;
         }
 
-        private void UpdateCurrentBlock()
+        private void UpdateCurrentBlock(bool force = false)
         {
-            if (!LevelManager.Instance.IsPlaying)
+            
+            if (!LevelManager.Instance.IsPlaying && !force)
             {
                 return;
             }
