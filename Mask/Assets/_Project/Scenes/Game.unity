@@ -1520,7 +1520,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ups...<br>Press UP to reset
+  m_text: Ups...<br>Press <b>1</b> to reset
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1822,6 +1822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scoreText: {fileID: 187097073}
+  _gainScoresParent: {fileID: 2109979517}
   _gainedScorePrefab: {fileID: 3499062916702979290, guid: 0db9b29a4d04ad24abda5cc80dab82b3, type: 3}
   _gainedScoresOrigin: {fileID: 2109979517}
 --- !u!1001 &1577975027
