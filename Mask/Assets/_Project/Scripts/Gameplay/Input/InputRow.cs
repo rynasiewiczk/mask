@@ -23,13 +23,14 @@ namespace _Project.Scripts.Gameplay.Input
         {
             _inputManager.OnLeft += OnLeft;
             _inputManager.OnRight += OnRight;
+            _inputManager.OnNumber += OnNumber;
             _inputManager.OnConfirm += OnConfirm;
             _inputManager.OnChange += OnChange;
 
             _view.SetSelectionPos(_inputBlocks[_selectedBlockIndex].transform.position, true);
             UpdateCurrentBlock();
         }
-
+        
         private void OnChange()
         {
             if (!LevelManager.Instance.IsPlaying)
@@ -67,6 +68,17 @@ namespace _Project.Scripts.Gameplay.Input
             _prevSelectedBlockIndex = _selectedBlockIndex;
             _selectedBlockIndex = (_selectedBlockIndex - 1 + _inputBlocks.Length) % _inputBlocks.Length;
             UpdateCurrentBlock();
+        }
+
+        private void OnNumber(int number)
+        {
+            if (!LevelManager.Instance.IsPlaying)
+            {
+                return;
+            }
+            
+            var index = number - 1;
+            _inputBlocks[index].Change();
         }
 
         private void UpdateCurrentBlock()

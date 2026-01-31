@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour
     public event Action OnRight;
     public event Action OnConfirm;
     public event Action OnChange;
+    public event Action<int> OnNumber;
 
     private void Update()
     {
@@ -18,6 +19,26 @@ public class InputManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             OnRight?.Invoke();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            OnNumber?.Invoke(1);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            OnNumber?.Invoke(2);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            OnNumber?.Invoke(3);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            OnNumber?.Invoke(4);
         }
         
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.UpArrow))
