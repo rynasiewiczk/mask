@@ -6,6 +6,8 @@ namespace _Project.Scripts.Gameplay.Input
     {
         [SerializeField] private GameObject _oneObject;
         [SerializeField] private GameObject _zeroObject;
+        [SerializeField] private Transform _nextBlockPosition;
+        public Transform NextBlockPosition => _nextBlockPosition;
         
         public void SetBlockType(BlockType blockType)
         {
