@@ -9,6 +9,7 @@ namespace _Project.Scripts.Gameplay.Input
         [SerializeField] private float _duration = .25f;
         
         private Tween _tween;
+        private Tween _scaleTween;
         
         public void SetSelectionVisible(bool visible)
         {
@@ -26,6 +27,14 @@ namespace _Project.Scripts.Gameplay.Input
             }
             
             _tween =  _selection.DOMove(position, _duration);
+        }
+
+        public void ConfirmSelection()
+        {
+            _scaleTween?.Kill();
+            _scaleTween = DOTween.Sequence()
+                .Append(_selection.DOScale(Vector3.one * 0.92f, 0.06f))
+                .Append(_selection.DOScale(Vector3.one, 0.12f).SetEase(Ease.OutBack));
         }
     }
 }
