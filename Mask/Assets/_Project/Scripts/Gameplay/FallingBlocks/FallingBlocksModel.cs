@@ -95,6 +95,57 @@ namespace _Project.Scripts.Gameplay.Spawning
             
             return list;
         }
+        
+        public List<FallingBlock> GetAllBlocksAtNextLine(float linePosition)
+        {
+            var  list = new List<FallingBlock>();
+            var linePos = linePosition + _fallingBlocks.First().VerticalGap;
+            foreach (var fallingBlock in _fallingBlocks)
+            {
+                var distance = Mathf.Abs(linePos - fallingBlock.transform.position.y);
+                if (distance < 0.4f)
+                {
+                    list.Add(fallingBlock);
+                }
+            }
+            
+            return list;
+        }
+        
+        public void CheckForPassDown(float linePos)
+        {
+            var nextLineBlocks = GetAllBlocksAtNextLine(linePos);
+            foreach (var block in nextLineBlocks)
+            {
+                if (block.BlockMechanicType == BlockMechanicType.DownPass
+                    || block.BlockMechanicType == BlockMechanicType.DownInverted)
+
+                {
+                    block.SetMechanic(BlockMechanicType.None);
+                }
+            }
+        }
+
+        public void CheckForSidePass(float linePos, float blockX)
+        {
+            var thisRowBlock = GetAllBlocksAtSameLine(linePos);
+
+            foreach (var block in thisRowBlock)
+            {
+                if (block.transform.position.x < blockX &&
+                    (block.BlockMechanicType == BlockMechanicType.RightPass
+                    || block.BlockMechanicType == BlockMechanicType.RightInverted))
+                {
+                    block.SetMechanic(BlockMechanicType.None);
+                }
+                else if (block.transform.position.x > blockX
+                         && (block.BlockMechanicType == BlockMechanicType.LeftPass
+                             || block.BlockMechanicType == BlockMechanicType.LeftInverted))
+                {
+                    block.SetMechanic(BlockMechanicType.None);
+                }
+            }
+        }
 
         public void BreakBlock(FallingBlock block)
         {

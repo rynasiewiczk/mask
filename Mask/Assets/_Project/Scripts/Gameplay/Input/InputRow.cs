@@ -56,14 +56,41 @@ namespace _Project.Scripts.Gameplay.Input
             UpdateCurrentBlock(true);
         }
 
+        private void Start()
+        {
+            LevelManager.Instance.State.Subscribe(ResetOnPreparation);
+        }
+
+        private void OnDestroy()
+        {
+            LevelManager.Instance.State.Unsubscribe(ResetOnPreparation);
+        }
+
+        private void ResetOnPreparation(LevelState state)
+        {
+            if (state != LevelState.Preparing)
+            {
+                return;
+            }
+
+            var horizontalOrigin = LevelManager.Instance.HorizontalOrigin.position.x;
+            for (var i = 0; i < _inputBlocks.Count; i++)
+            {
+                var hPos = horizontalOrigin + i * (_blockPrefab.GetSize().x + _gridConfig.HorizontalGap);
+                var pos = new Vector2(hPos, _verticalOrigin.position.y);
+                _inputBlocks[i].transform.position = pos;
+            }
+        }
+
         private void OnChange()
         {
             if (!LevelManager.Instance.IsPlaying)
             {
                 return;
             }
+
             CameraView.Instance.DoShake(0.1f, 0.03f);
-            
+
             _view.ConfirmSelection();
             CurrentBlock.Change();
             _view.ChangeForBlock(CurrentBlock.BlockType);
@@ -155,14 +182,15 @@ namespace _Project.Scripts.Gameplay.Input
                 yield return new WaitForSeconds(0.15f);
                 rowPosition += verticalGap;
             }
-            
+
+            FallingBlocksModel.Instance.CheckForPassDown(rowPosition - verticalGap);
+
             BlocksFallSystem.Instance.SetPaused(false);
             _locked = false;
         }
 
         private void UpdateCurrentBlock(bool force = false)
         {
-            
             if (!LevelManager.Instance.IsPlaying && !force)
             {
                 return;
@@ -177,6 +205,7 @@ namespace _Project.Scripts.Gameplay.Input
                     _view.SetSelectionPos(_inputBlocks[i].transform.position, instant);
                 }
             }
+
             _view.ChangeForBlock(CurrentBlock.BlockType);
             CameraView.Instance.DoShake(0.1f, 0.03f);
         }

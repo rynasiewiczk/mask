@@ -7,6 +7,8 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
     {
         public Guid ChainGuid { get; private set; }
         
+        public bool IsChain => ChainGuid != Guid.Empty;
+        
         public void Fall(float distance)
         {
             transform.position += Vector3.down * distance;
@@ -23,7 +25,7 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
 
         public FallingBlock WithChainGuid(Guid chainGuid)
         {
-            this.ChainGuid = chainGuid;
+            ChainGuid = chainGuid;
             return this;
         }
     }
