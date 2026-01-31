@@ -1,5 +1,6 @@
 namespace _Project.Scripts.Gameplay.Input
 {
+    using System;
     using System.Collections.Generic;
     using Blocks;
     using DG.Tweening;
@@ -26,6 +27,8 @@ namespace _Project.Scripts.Gameplay.Input
         private bool _locked = false;
         private Tween _cooldownTween;
 
+        public event Action<UserBlocksSequence> OnSequenceCompleted;
+        
         private void Awake()
         {
             var horizontalOrigin = LevelManager.Instance.HorizontalOrigin.position.x;
@@ -122,6 +125,8 @@ namespace _Project.Scripts.Gameplay.Input
             _locked = true;
             _cooldownTween = DOVirtual.DelayedCall(_cooldown, Unlock);
 
+            var newBlocks = new List<UserBlock>();
+
             foreach (var templateBlock in _inputBlocks)
             {
                 if (TryFindTargetBlock(templateBlock.transform.position, out var targetBlock))
@@ -132,12 +137,22 @@ namespace _Project.Scripts.Gameplay.Input
                     newBlock.transform.localScale = Vector3.one;
                     newBlock.SetType(templateBlock.BlockType);
                     newBlock.SetTargetBlock(targetBlock);
+                    newBlocks.Add(newBlock);
                     
                     var originalHeight = templateBlock.transform.position.y;
                     templateBlock.transform.position =
                         new Vector2(templateBlock.transform.position.x, _underScreenPosition.position.y);
                     templateBlock.transform.DOMoveY(originalHeight, _cooldown);
                 }
+            }
+
+            var sequence = new UserBlocksSequence(newBlocks);
+            sequence.OnAllDestroyed += HandleSequenceComplete;
+            
+            void HandleSequenceComplete(UserBlocksSequence sequence)
+            {
+                sequence.OnAllDestroyed -= HandleSequenceComplete;
+                OnSequenceCompleted?.Invoke(sequence);
             }
         }
 
