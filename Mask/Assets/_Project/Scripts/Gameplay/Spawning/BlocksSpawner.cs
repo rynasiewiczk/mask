@@ -8,7 +8,7 @@ namespace _Project.Scripts.Gameplay.Spawning
 
     public class BlocksSpawner : MonoBehaviour
     {
-        [SerializeField] private BlocksModel _model;
+        [SerializeField] private FallingBlocksModel _model;
         [SerializeField] private GridConfig _gridConfig;
         [SerializeField] private float _heightGap = .5f;
         

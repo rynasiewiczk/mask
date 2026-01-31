@@ -7,10 +7,15 @@ namespace _Project.Scripts.Gameplay.Input
     public class BlocksFallSystem : MonoBehaviour
     {
         [SerializeField] private GridConfig _gridConfig;
-        [SerializeField] private BlocksModel _model;
+        [SerializeField] private FallingBlocksModel _model;
 
         private void FixedUpdate()
         {
+            if (!LevelManager.Instance.IsPlaying)
+            {
+                return;
+            }
+
             var blocks = _model.FallingBlocks;
             foreach (var block in blocks)
             {

@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f19a40093624891b768611bcf3b214f, type: 3}
+  m_Name: ProjectWindowExtensionSO
+  m_EditorClassIdentifier: 
+  _gfxFolderColor: {r: 0, g: 1, b: 1, a: 0.15}
+  _prefabsFolderColor: {r: 1, g: 0, b: 0, a: 0.15}
+  _resourcesFolderColor: {r: 1, g: 0.5, b: 0, a: 0.15}
+  _scenesFolderColor: {r: 0, g: 1, b: 0, a: 0.15}
+  _scriptableObjectsFolderColor: {r: 1, g: 0, b: 1, a: 0.15}
+  _scriptsFolderColor: {r: 1, g: 1, b: 0, a: 0.15}
+  _elements:
+  - _name: Gfx
+    _color: {r: 0, g: 1, b: 1, a: 0.14901961}
+  - _name: Prefabs
+    _color: {r: 1, g: 0, b: 0, a: 0.14901961}
+  - _name: Resources
+    _color: {r: 1, g: 0.5019608, b: 0, a: 0.14901961}
+  - _name: Scenes
+    _color: {r: 0, g: 1, b: 0, a: 0.14901961}
+  - _name: ScriptableObjects
+    _color: {r: 1, g: 0, b: 1, a: 0.14901961}
+  - _name: Scripts
+    _color: {r: 1, g: 1, b: 0, a: 0.14901961}
