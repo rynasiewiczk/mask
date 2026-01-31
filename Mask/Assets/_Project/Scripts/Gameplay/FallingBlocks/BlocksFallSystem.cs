@@ -9,6 +9,7 @@ namespace _Project.Scripts.Gameplay.Input
         
         [SerializeField] private GridConfig _gridConfig;
         [SerializeField] private FallingBlocksModel _model;
+        [SerializeField] private BlocksSpawner _spawner;
 
         private bool _isPaused;
         
@@ -31,12 +32,15 @@ namespace _Project.Scripts.Gameplay.Input
                 return;
             }
             
-            if(_isPaused) { return; } 
+            if(_isPaused) { return; }
+
+            var fallSpeed = _gridConfig.GetFallSpeed(_spawner.SpawnsCount) * Time.deltaTime;
+            Debug.Log($"FallSpeed: {fallSpeed}");
 
             var blocks = _model.FallingBlocks;
             foreach (var block in blocks)
             {
-                block.Fall(_gridConfig.FallSpeed * Time.deltaTime);
+                block.Fall(fallSpeed);
             }
         }
     }

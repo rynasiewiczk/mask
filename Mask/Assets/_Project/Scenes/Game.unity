@@ -1135,6 +1135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gridConfig: {fileID: 11400000, guid: d4ed44b0821005d4795db459fe96e120, type: 2}
   _model: {fileID: 729323198}
+  _spawner: {fileID: 729323197}
 --- !u!114 &729323197
 MonoBehaviour:
   m_ObjectHideFlags: 0
