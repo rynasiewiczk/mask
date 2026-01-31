@@ -57,6 +57,7 @@ namespace _Project.Scripts.Gameplay.Input
                 return;
             }
             
+            _view.ConfirmSelection();
             CurrentBlock.Change();
         }
 
