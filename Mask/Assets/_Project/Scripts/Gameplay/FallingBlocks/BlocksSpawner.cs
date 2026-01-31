@@ -89,8 +89,7 @@ namespace _Project.Scripts.Gameplay.Spawning
             _usedPositions.Clear();
             var shuffeldRows = Enumerable.Range(0, rows).OrderBy(x => Random.value).ToArray();
             var suffeldColumns = Enumerable.Range(0, columns).OrderBy(x => Random.value).ToArray();
-
-
+            
             var toSpawn = rows * columns;
             var rowToUseIndex = 0;
             var columnToUseIndex = 0;
@@ -149,9 +148,14 @@ namespace _Project.Scripts.Gameplay.Spawning
             CreateBlock(blockType == BlockType.One ? BlockType.Zero : BlockType.One, passedPos, startY, BlockMechanicType.Unknown);
         }
 
-        public void HandleChain(Vector2Int blockPosition, Vector2Int gridSize, float startY)
+        private void HandleChain(Vector2Int blockPosition, Vector2Int gridSize, float startY, int maxLength)
         {
-            void CreateChainIfValid(Vector2Int thisBlockPosition, bool anyInChain, Guid chainGuid)
+            var blocks = new List<Block>();
+            var chainGuid = Guid.NewGuid();
+            CreateChainIfValid(blockPosition);
+            return;
+
+            void CreateChainIfValid(Vector2Int thisBlockPosition)
             {
                 var validChainDirections = new HashSet<BlockMechanicType> { BlockMechanicType.ChainLeft, BlockMechanicType.ChainRight, BlockMechanicType.ChainBoth };
 
@@ -165,7 +169,7 @@ namespace _Project.Scripts.Gameplay.Spawning
                     validChainDirections.Remove(BlockMechanicType.ChainRight);
                 }
 
-                if (validChainDirections.Contains(BlockMechanicType.ChainLeft) && validChainDirections.Contains(BlockMechanicType.ChainRight))
+                if (validChainDirections.Contains(BlockMechanicType.ChainLeft) && validChainDirections.Contains(BlockMechanicType.ChainRight) && maxLength > 2)
                 {
                     validChainDirections.Remove(BlockMechanicType.ChainLeft);
                     validChainDirections.Remove(BlockMechanicType.ChainRight);
@@ -177,28 +181,38 @@ namespace _Project.Scripts.Gameplay.Spawning
                 
                 var blockType = Random.value < .5f ? BlockType.One : BlockType.Zero;
 
-                if (!validChainDirections.Any())
+                if (!validChainDirections.Any() || blocks.Count + 1 >= maxLength)
                 {
-                    CreateBlock(blockType, thisBlockPosition, startY, anyInChain ? BlockMechanicType.ChainEnd : BlockMechanicType.None)
+                    var lastBlock = CreateBlock(blockType, thisBlockPosition, startY, blocks.Count > 0 ? BlockMechanicType.ChainEnd : BlockMechanicType.None)
                         .WithChainGuid(chainGuid);
+                    blocks.Add(lastBlock);
                     return;
                 }
 
                 var chainType = validChainDirections.OrderBy(x => Random.value).First();
-                CreateBlock(blockType, thisBlockPosition, startY, chainType).WithChainGuid(chainGuid);
+                var block = CreateBlock(blockType, thisBlockPosition, startY, chainType).WithChainGuid(chainGuid);
+                blocks.Add(block);
+
+                if (blocks.Count >= maxLength)
+                {
+                    return;
+                }
+
                 if (chainType == BlockMechanicType.ChainBoth)
                 {
-                    CreateChainIfValid(thisBlockPosition + Vector2Int.left, true, chainGuid);
-                    CreateChainIfValid(thisBlockPosition + Vector2Int.right, true, chainGuid);
+                    CreateChainIfValid(thisBlockPosition + Vector2Int.left);
+                    if (blocks.Count >= maxLength)
+                    {
+                        return;
+                    }
+                    
+                    CreateChainIfValid(thisBlockPosition + Vector2Int.right);
                 }
                 else
                 {
-                    CreateChainIfValid(thisBlockPosition + chainType.GetChainDirectionVector(), true, chainGuid);
+                    CreateChainIfValid(thisBlockPosition + chainType.GetChainDirectionVector());
                 }
             }
-
-            var chainGuid = Guid.NewGuid();
-            CreateChainIfValid(blockPosition, false, chainGuid);
         }
 
         private void CreateBlocks(Vector2Int blockPosition, Vector2Int gridSize, float startY, DifficultySettings difficultySettings)
@@ -211,14 +225,14 @@ namespace _Project.Scripts.Gameplay.Spawning
                 return;
             }
             
-            activateProbability += difficultySettings.InvertedPassProbability;
+            activateProbability = difficultySettings.InvertedPassProbability;
             if (value < activateProbability)
             {
                 HandleInvertedPass(blockPosition, gridSize, startY);
                 return;
             }
 
-            activateProbability += difficultySettings.InvertedProbability;
+            activateProbability = difficultySettings.InvertedProbability;
             if (value < activateProbability)
             {
                 var blockType = Random.value < .5f ? BlockType.One : BlockType.Zero;
@@ -226,11 +240,19 @@ namespace _Project.Scripts.Gameplay.Spawning
                 return;
             }
 
-            activateProbability += difficultySettings.ChainProbability;
-            if (value < activateProbability)
+            activateProbability = difficultySettings.ChainProbability;
+            if (value < activateProbability && !HasChainInRow())
             {
-                HandleChain(blockPosition, gridSize, startY);
+                HandleChain(blockPosition, gridSize, startY, difficultySettings.ChainMaxLength);
                 return;
+            }
+
+            bool HasChainInRow()
+            {
+                var worldPosition = GetWorldPosition(blockPosition, startY);
+                var blocksInLine = _model.GetAllBlocksAtSameLine(worldPosition.y);
+                var hasChain =  blocksInLine.Any(b => b.IsChain);
+                return hasChain;
             }
 
             CreateBlock(Random.value < .5f ? BlockType.One : BlockType.Zero, blockPosition, startY, BlockMechanicType.None);
@@ -267,8 +289,7 @@ namespace _Project.Scripts.Gameplay.Spawning
 
             return validPasses.OrderBy(x => Random.value).First();
         }
-
-
+        
         private BlockMechanicType GetInvertedPassBlocksType(Vector2Int thisBlock, Vector2Int gridSize)
         {
             var validPasses = new HashSet<BlockMechanicType> { BlockMechanicType.DownInverted, BlockMechanicType.LeftInverted, BlockMechanicType.RightInverted, BlockMechanicType.UpInverted };

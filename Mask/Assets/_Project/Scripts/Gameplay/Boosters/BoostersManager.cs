@@ -10,6 +10,7 @@ public class BoostersManager : MonoBehaviour
 {
     public static BoostersManager Instance { get; private set; }
 
+    [SerializeField] private int _mainBoosterPointsRequired = 100;
     
     [SerializeField] private int _boostersCount;
     [SerializeField] private float _useCooldown;
@@ -22,7 +23,7 @@ public class BoostersManager : MonoBehaviour
         Instance = this;
         for (var i = 0; i < _boostersCount; i++)
         {
-           Boosters.Add(new BoosterHandler(30));
+           Boosters.Add(new BoosterHandler(_mainBoosterPointsRequired));
         }
 
     }

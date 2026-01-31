@@ -49,7 +49,6 @@ public class GridConfig : ScriptableObject
         var entry = _difficulties.FirstOrDefault(d => d.MaxSpawnNumber >= spawnNumber);
         return entry ?? _difficulties.Last();
     }
-
 }
 
 [Serializable]
@@ -60,6 +59,8 @@ public class DifficultySettings
     public float InvertedProbability = .05f;
     public float ChainProbability = .05f;
     public float InvertedPassProbability = .05f;
+
+    public int ChainMaxLength = 3;
 }
 
 [Serializable]
