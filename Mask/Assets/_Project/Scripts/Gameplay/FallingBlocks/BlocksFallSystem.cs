@@ -1,6 +1,5 @@
 namespace _Project.Scripts.Gameplay.Input
 {
-    using System;
     using Spawning;
     using UnityEngine;
 
@@ -13,6 +12,7 @@ namespace _Project.Scripts.Gameplay.Input
 
         private bool _isPaused;
         
+        public bool IsPaused => _isPaused;
         
         private void Awake()
         {
