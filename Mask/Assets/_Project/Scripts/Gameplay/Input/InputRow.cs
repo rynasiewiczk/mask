@@ -72,7 +72,7 @@ namespace _Project.Scripts.Gameplay.Input
             {
                 return;
             }
-            
+
             var horizontalOrigin = LevelManager.Instance.HorizontalOrigin.position.x;
             for (var i = 0; i < _inputBlocks.Count; i++)
             {
@@ -88,8 +88,9 @@ namespace _Project.Scripts.Gameplay.Input
             {
                 return;
             }
+
             CameraView.Instance.DoShake(0.1f, 0.03f);
-            
+
             _view.ConfirmSelection();
             CurrentBlock.Change();
             _view.ChangeForBlock(CurrentBlock.BlockType);
@@ -181,14 +182,15 @@ namespace _Project.Scripts.Gameplay.Input
                 yield return new WaitForSeconds(0.15f);
                 rowPosition += verticalGap;
             }
-            
+
+            FallingBlocksModel.Instance.CheckForPassDown(rowPosition - verticalGap);
+
             BlocksFallSystem.Instance.SetPaused(false);
             _locked = false;
         }
 
         private void UpdateCurrentBlock(bool force = false)
         {
-            
             if (!LevelManager.Instance.IsPlaying && !force)
             {
                 return;
@@ -203,6 +205,7 @@ namespace _Project.Scripts.Gameplay.Input
                     _view.SetSelectionPos(_inputBlocks[i].transform.position, instant);
                 }
             }
+
             _view.ChangeForBlock(CurrentBlock.BlockType);
             CameraView.Instance.DoShake(0.1f, 0.03f);
         }

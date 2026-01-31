@@ -38,13 +38,16 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
 
             transform.Translate(Vector3.up * (_moveSpeed * Time.deltaTime));
 
-            if (TargetBlock.BottomBlockPosition.position.y <= transform.position.y)
+            if (TargetBlock.BottomBlockPosition.position.y + TargetBlock.VerticalGap * .5f <= transform.position.y)
             {
                 if (TargetBlock.BlockType == BlockType && NoChainOrCanDestroyChain())
                 {
                     CameraView.Instance.DoShake(0.3f, 0.3f, .01f);
                     FallingBlocksModel.Instance.FallingBlocks.ForEach(b => b.DoHit());
                     ClearHittedBlock(TargetBlock);
+                    
+                    FallingBlocksModel.Instance.CheckForPassDown(TargetBlock.transform.position.y);
+                    FallingBlocksModel.Instance.CheckForSidePass(TargetBlock.transform.position.y, TargetBlock.transform.position.x);
                 }
                 else
                 {
@@ -53,12 +56,6 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
                     {
                         TargetBlock.SetMechanic(BlockMechanicType.None);
                     }
-                    // var newFallingBlock = BlockFactory.Instance.CreateFallingBlock();
-                    // newFallingBlock.SetType(BlockType);
-                    // newFallingBlock.SetMechanic(BlockMechanicType.None);
-                    // newFallingBlock.transform.position = _targetBlock.BottomBlockPosition.position;
-                    // FallingBlocksModel.Instance.AddBlock(newFallingBlock);
-                    // OnJoinedFall?.Invoke();
                     
                     OnMissmatched?.Invoke();
                     TargetBlock.HandleMissmatchedUserBlock();
@@ -68,6 +65,8 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
                 Destroy(gameObject);
             }
         }
+
+        
 
         private bool NoChainOrCanDestroyChain()
         {
