@@ -4,19 +4,21 @@
     using UnityEngine;
 
     [Serializable]
-    public class FloatRange : Range<float>
+    public class FloatRange
     {
-        public FloatRange() : base() {  } 
-        public FloatRange(float min, float max) : base(min, max) {  }
+        [SerializeField] private float _min;
+        [SerializeField] private float _max;
+        
+        public float Max => _max;
 
         public float GetRandom()
         {
-            return UnityEngine.Random.Range(Minimum, Maximum);
+            return UnityEngine.Random.Range(_min, _max);
         }
 
         public float Evaluate(float t)
         {
-            return Mathf.Lerp(Minimum, Maximum, t);
+            return Mathf.Lerp(_min, _max, t);
         }
     }
     
