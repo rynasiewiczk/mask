@@ -26,10 +26,20 @@ namespace _Project.Scripts.Gameplay.Input
             transform.position = new Vector3(middle, transform.position.y, transform.position.z);
         }
 
-        public void DoShake(float duration, float strength)
+        public void DoShake(float duration, float strength, float timeFreeze = 0f)
         {
+            void DoSakeNow() => _cameraShake.DOShakePosition(duration, strength);
             _cameraShake.DOKill();
-            _cameraShake.DOShakePosition(duration, strength);
+            if (timeFreeze > 0)
+            {
+                Time.timeScale = 0;
+                DOVirtual.DelayedCall(timeFreeze, () => Time.timeScale = 1).OnComplete(DoSakeNow);
+            }
+            else
+            {
+                DoSakeNow();
+            }
+            
         }
     }
 }

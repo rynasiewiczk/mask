@@ -48,6 +48,7 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
             {
                 if (TargetBlock.BlockType == BlockType)
                 {
+                    CameraView.Instance.DoShake(0.3f, 0.3f, .01f);
                     TargetBlock.DoDestroyEffect();
                     ClearHittedBlock(TargetBlock);
                 }
