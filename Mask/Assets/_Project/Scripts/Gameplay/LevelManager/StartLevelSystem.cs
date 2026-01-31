@@ -8,12 +8,12 @@
             _input = input;
             _levelManager = levelManager;
 
-            _input.OnConfirm += TryStartPlaying;
+            _input.OnChange += TryStartPlaying;
         }
         
         public void Dispose()
         {
-            _input.OnConfirm -= TryStartPlaying;
+            _input.OnChange -= TryStartPlaying;
         }
 
         private void TryStartPlaying()
