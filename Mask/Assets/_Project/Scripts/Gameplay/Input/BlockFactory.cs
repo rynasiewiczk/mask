@@ -1,11 +1,13 @@
 namespace _Project.Scripts.Gameplay.Input
 {
+    using Blocks;
     using UnityEngine;
 
     [DefaultExecutionOrder(-200)]
     public class BlockFactory : MonoBehaviour
     {
-        [SerializeField] private Block _blockPrefab;
+        [SerializeField] private UserBlock _userBlockPrefab;
+        [SerializeField] private FallingBlock _fallingBlockPrefab;
         
         public static BlockFactory Instance { get; private set; }
 
@@ -14,9 +16,14 @@ namespace _Project.Scripts.Gameplay.Input
             Instance = this;
         }
         
-        public Block CreateBlock()
+        public Block CreateUserBlock()
         {
-            return Instantiate(_blockPrefab);
+            return Instantiate(_userBlockPrefab);
+        }
+        
+        public FallingBlock CreateFallingBlock()
+        {
+            return Instantiate(_fallingBlockPrefab);
         }
     }
 }

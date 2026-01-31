@@ -11,7 +11,7 @@ namespace _Project.Scripts.Gameplay.Input
 
         private void FixedUpdate()
         {
-            var blocks = _model.Blocks;
+            var blocks = _model.FallingBlocks;
             foreach (var block in blocks)
             {
                 block.Fall(_gridConfig.fallSpeed * Time.fixedDeltaTime);

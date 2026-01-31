@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    [SerializeField] private float _moveSpeed = 4f;
     [SerializeField] private BlockView _view;
     public BlockType BlockType { get; private set; }
     
@@ -27,19 +26,11 @@ public class Block : MonoBehaviour
         _view.SetBlockType(BlockType);
     }
 
-    private void Update()
-    {
-        transform.Translate(Vector3.up * (_moveSpeed * Time.deltaTime));
-    }
+
 
     public Vector2 GetSize()
     {
         return Vector2.one;
-    }
-
-    public void Fall(float distance)
-    {
-        transform.position += Vector3.down * distance;
     }
 
     private void FixedUpdate()
@@ -48,9 +39,9 @@ public class Block : MonoBehaviour
         if (hit.collider && hit.transform.TryGetComponent(out Block otherBlock)
             && hit.distance < Mathf.Abs(NextBlockPosition.localPosition.y))
         {
-            Debug.Log("Block hit");
-            transform.position = otherBlock.NextBlockPosition.position;
-            _moveSpeed = 0f;
+            // Debug.Log("Block hit");
+            // transform.position = otherBlock.NextBlockPosition.position;
+            // _moveSpeed = 0f;
             //add to move system
         }
     }

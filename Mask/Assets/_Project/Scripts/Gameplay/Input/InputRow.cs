@@ -78,7 +78,7 @@ namespace _Project.Scripts.Gameplay.Input
             
             foreach (var templateBlock in _inputBlocks)
             {
-                var newBlock = BlockFactory.Instance.CreateBlock();
+                var newBlock = BlockFactory.Instance.CreateUserBlock();
                 newBlock.transform.localPosition = templateBlock.transform.position;
                 newBlock.transform.localRotation = Quaternion.identity;
                 newBlock.transform.localScale = Vector3.one;

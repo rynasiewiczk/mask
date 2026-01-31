@@ -1,6 +1,8 @@
 namespace _Project.Scripts.Gameplay.Spawning
 {
     using System.Linq;
+    using Input;
+    using Input.Blocks;
     using UnityEngine;
     using UnityEngine.Serialization;
 
@@ -55,9 +57,9 @@ namespace _Project.Scripts.Gameplay.Spawning
             }
         }
 
-        private Block SpawnBlock(Vector3 position)
+        private FallingBlock SpawnBlock(Vector3 position)
         {
-            var block = Instantiate(_blockPrefab);
+            var block = BlockFactory.Instance.CreateFallingBlock();
             block.transform.position = position;
             
             var isSelected = Random.value < .5f;
