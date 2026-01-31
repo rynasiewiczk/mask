@@ -1,6 +1,7 @@
 namespace _Project.Scripts.Gameplay.Input
 {
     using System;
+    using DG.Tweening;
     using MoreMountains.Feedbacks;
     using UnityEngine;
 
@@ -38,9 +39,20 @@ namespace _Project.Scripts.Gameplay.Input
             _feelChannel++;
         }
 
-        public void SetBlockType(BlockType blockType)
+        public void SetBlockType(BlockType blockType, bool animate = false)
         {
             _blockType = blockType;
+
+            if (animate)
+            {
+                _oneObject.transform.DOKill();
+                _zeroObject.transform.DOKill();
+                _oneObject.transform.localScale = Vector3.one;
+                _zeroObject.transform.localScale = Vector3.one;
+                _oneObject.transform.DOPunchScale(Vector3.one * -.2f, .3f);
+                _zeroObject.transform.DOPunchScale(Vector3.one * -.2f, .3f);
+            }
+            
             _oneObject.SetActive(blockType == BlockType.One);
             _zeroObject.SetActive(blockType == BlockType.Zero);
         }
