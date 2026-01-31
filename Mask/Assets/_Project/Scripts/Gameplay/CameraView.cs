@@ -14,6 +14,8 @@ namespace _Project.Scripts.Gameplay.Input
         [SerializeField] private Transform _cameraShake;
         [SerializeField] private Transform _cameraDangerShake;
         
+        public float CameraSize => _camera.orthographicSize;
+
         private void Awake()
         {
             Instance = this;
@@ -49,6 +51,8 @@ namespace _Project.Scripts.Gameplay.Input
         {
             return _cameraDangerShake.DOShakePosition(settings);
         }
+        
+        public void SetSize(float size) => _camera.orthographicSize = size;
         
         public Tween DoSize(float size, float duration, Ease ease)
         {
