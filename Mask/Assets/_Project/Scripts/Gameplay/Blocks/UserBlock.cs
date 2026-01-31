@@ -42,6 +42,7 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
             {
                 if (TargetBlock.BlockType == BlockType && NoChainOrCanDestroyChain())
                 {
+                    TargetBlock.DoDestroyEffect();
                     ClearHittedBlock(TargetBlock);
                 }
                 else

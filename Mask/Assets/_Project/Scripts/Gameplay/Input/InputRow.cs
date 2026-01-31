@@ -61,7 +61,8 @@ namespace _Project.Scripts.Gameplay.Input
             {
                 return;
             }
-
+            CameraView.Instance.DoShake(0.1f, 0.03f);
+            
             _view.ConfirmSelection();
             CurrentBlock.Change();
         }
@@ -78,6 +79,7 @@ namespace _Project.Scripts.Gameplay.Input
                 return;
             }
 
+            CameraView.Instance.DoShake(0.3f, 0.1f);
             CreateFlyRow();
         }
 
@@ -147,8 +149,7 @@ namespace _Project.Scripts.Gameplay.Input
                 yield return new WaitForSeconds(0.15f);
                 rowPosition += verticalGap;
             }
-
-
+            
             BlocksFallSystem.Instance.SetPaused(false);
             _locked = false;
         }
@@ -169,6 +170,8 @@ namespace _Project.Scripts.Gameplay.Input
                     _view.SetSelectionPos(_inputBlocks[i].transform.position, instant);
                 }
             }
+            
+            CameraView.Instance.DoShake(0.1f, 0.03f);
         }
 
         public void CreateFlyRow(bool selectedColumnOnly = false)
@@ -204,11 +207,6 @@ namespace _Project.Scripts.Gameplay.Input
                 }
             }
 
-            var canChainBeDestroyed = newBlocks.Where(b => b.CanDestroyTarget())
-                .Where(x => x.TargetBlock.BlockMechanicType.IsChainPart())
-                .All(x => FallingBlocksModel.Instance.GetAllBlocksAtSameLine(x.transform.position.y)
-                    .All(b => newBlocks.Any(nb => nb.TargetBlock == b)));
-
             foreach (var userBlock in newBlocks)
             {
                 if (userBlock.TargetBlock == null || !userBlock.TargetBlock.BlockMechanicType.IsChainPart())
@@ -233,20 +231,6 @@ namespace _Project.Scripts.Gameplay.Input
                     blocksWithSameChain.ForEach(b => b.CanBeDestroyedAsChain = true);
                 }
             }
-
-
-            // var allAreCorrect = true;
-            // foreach (var newBlock in newBlocks)
-            // {
-            //     if (!newBlock.CanDestroyTarget())
-            //     {
-            //         allAreCorrect = false;
-            //         break;
-            //     }
-            // }
-            //
-            //
-            // newBlocks.ForEach(x => x.SetCanDestroyTarget(allAreCorrect));
 
             var sequence = new UserBlocksSequence(newBlocks);
             sequence.OnAllDestroyed += HandleSequenceComplete;
