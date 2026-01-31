@@ -17,10 +17,10 @@ namespace _Project.Scripts.Gameplay.Input
             switch (blockMechanic)
             {
                 case BlockMechanicType.LeftPass:
-                    _pivot.localRotation = Quaternion.Euler(0, 0, -90);
+                    _pivot.localRotation = Quaternion.Euler(0, 0, 90);
                     break;
                 case BlockMechanicType.RightPass:
-                    _pivot.localRotation = Quaternion.Euler(0, 0, 90);
+                    _pivot.localRotation = Quaternion.Euler(0, 0, -90);
                     break;
                 case BlockMechanicType.UpPass:
                     _pivot.localRotation = Quaternion.Euler(0, 0, 0);

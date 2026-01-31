@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: GridConfig
   m_EditorClassIdentifier: 
   Columns: 5
-  RowsPerSpawn: 4
+  RowsPerSpawn: 5
   FallSpeed: 0.6
   HorizontalGap: 0.2
-  PassProbability: 0.05
+  PassProbability: 0.2
   InvertedProbability: 0.15
