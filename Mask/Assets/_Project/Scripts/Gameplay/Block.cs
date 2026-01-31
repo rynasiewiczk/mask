@@ -1,16 +1,21 @@
 using System;
 using _Project.Scripts.Gameplay.Input;
+using DG.Tweening;
 using UnityEngine;
 
 public class Block : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _destroyEffectPrefab;
     [SerializeField] protected BlockView _view;
+    [SerializeField] private Color _oneColor;
+    [SerializeField] private Color _zeroColor;
+
     public BlockType BlockType { get; private set; }
     public BlockMechanicType BlockMechanicType { get; private set; }
-    
+
     public Transform TopBlockPosition => _view.TopBlockPosition;
     public Transform BottomBlockPosition => _view.BottomBlockPosition;
-    public float VerticalGap => Mathf.Abs(BottomBlockPosition.localPosition.y); 
+    public float VerticalGap => Mathf.Abs(BottomBlockPosition.localPosition.y);
 
     private void Awake()
     {
@@ -28,7 +33,7 @@ public class Block : MonoBehaviour
         BlockType = blockType;
         _view.SetBlockType(BlockType);
     }
-    
+
     public Vector2 GetSize()
     {
         return Vector2.one;
@@ -38,6 +43,20 @@ public class Block : MonoBehaviour
     {
         BlockMechanicType = blockMechanic;
         _view.SetMechanic(BlockMechanicType);
+    }
+
+    public void DoDestroyEffect()
+    {
+        if (!_destroyEffectPrefab)
+        {
+            return;
+        }
+
+        var color = BlockType == BlockType.One ? _oneColor : _zeroColor;
+        var effect = Instantiate(_destroyEffectPrefab, transform.position, Quaternion.identity);
+        var mainModule = effect.main;
+        mainModule.startColor = color;
+        DOVirtual.DelayedCall(5, () => Destroy(effect.gameObject));
     }
 }
 

@@ -60,6 +60,7 @@ namespace _Project.Scripts.Gameplay.Input
             {
                 return;
             }
+            CameraView.Instance.DoShake(0.1f, 0.03f);
             
             _view.ConfirmSelection();
             CurrentBlock.Change();
@@ -77,6 +78,7 @@ namespace _Project.Scripts.Gameplay.Input
                 return;
             }
 
+            CameraView.Instance.DoShake(0.3f, 0.1f);
             CreateFlyRow();
         }
 
@@ -166,6 +168,8 @@ namespace _Project.Scripts.Gameplay.Input
                     _view.SetSelectionPos(_inputBlocks[i].transform.position, instant);
                 }
             }
+            
+            CameraView.Instance.DoShake(0.1f, 0.03f);
         }
 
         public void CreateFlyRow(bool selectedColumnOnly = false)
@@ -203,7 +207,6 @@ namespace _Project.Scripts.Gameplay.Input
                 .All(x => FallingBlocksModel.Instance.GetAllBlocksAtSameLine(x.transform.position.y)
                     .All(b => newBlocks.Any(nb => nb.TargetBlock == b)));
 
-            
             
             var allAreCorrect = true;
             foreach (var newBlock in newBlocks)

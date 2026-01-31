@@ -46,8 +46,9 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
 
             if (TargetBlock.BottomBlockPosition.position.y <= transform.position.y)
             {
-                if (TargetBlock.BlockType == BlockType && TargetBlock.BlockMechanicType.IsChainPart() && TargetBlock.CanBeDestroyedIfChain)
+                if (TargetBlock.BlockType == BlockType)
                 {
+                    TargetBlock.DoDestroyEffect();
                     ClearHittedBlock(TargetBlock);
                 }
                 else
