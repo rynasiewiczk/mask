@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class UiLevelStatePresenter : MonoBehaviour
 {
-    [SerializeField] private RectTransform _preparingStateContent;
+    [SerializeField] private PreparingPanel _preparingPanel;
     [SerializeField] private RectTransform _finishedStateContent;
 
     private void Start()
@@ -17,7 +17,15 @@ public class UiLevelStatePresenter : MonoBehaviour
     
     private void UpdateStatePanels(LevelState state)
     {
-        _preparingStateContent.gameObject.SetActive(state == LevelState.Preparing);
+        if (state == LevelState.Playing)
+        {
+            _preparingPanel.Hide();
+        }
+        else if (state == LevelState.Preparing)
+        {
+            _preparingPanel.Show();
+        }
+        
         _finishedStateContent.gameObject.SetActive(state == LevelState.Finished);
     }
 }
