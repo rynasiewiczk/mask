@@ -7,19 +7,26 @@ public class InputManager : MonoBehaviour
     public event Action OnRight;
     public event Action OnConfirm;
     public event Action OnChange;
+
     public event Action<int> OnNumber;
+    
+    public float threshold = 0.5f;
+    private float _prevX;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            OnLeft?.Invoke();
-        }
+        
+        float x = Input.GetAxisRaw("Horizontal"); // Raw is snappier for d-pad
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
+        // Left: crossing from >= -threshold to < -threshold
+        if ((_prevX >= -threshold && x < -threshold) || Input.GetKeyDown(KeyCode.LeftArrow))
+            OnLeft?.Invoke();
+
+        // Right: crossing from <= threshold to > threshold
+        if ((_prevX <= threshold && x > threshold) || Input.GetKeyDown(KeyCode.RightArrow))
             OnRight?.Invoke();
-        }
+
+        _prevX = x;
         
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -41,12 +48,12 @@ public class InputManager : MonoBehaviour
             OnNumber?.Invoke(4);
         }
         
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetButtonDown("Jump"))
         {
             OnConfirm?.Invoke();
         }
         
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Submit"))
         {
             OnChange?.Invoke();
         }
