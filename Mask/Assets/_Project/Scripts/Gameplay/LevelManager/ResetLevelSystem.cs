@@ -8,15 +8,15 @@ public class ResetLevelSystem
         _input = input;
         _levelManager = levelManager;
 
-        _input.OnNumber += TryResetLevel;
+        _input.OnReset += TryResetLevel;
     }
 
     public void Dispose()
     {
-        _input.OnNumber -= TryResetLevel;
+        _input.OnReset -= TryResetLevel;
     }
 
-    private void TryResetLevel(int _)
+    private void TryResetLevel()
     {
         if (_levelManager.State.Value != LevelState.Finished)
         {

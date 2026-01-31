@@ -2187,6 +2187,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4223450027308406308, guid: 027fb004aaabb492facaccb2784c817d, type: 3}
+      propertyPath: _rowDestroy
+      value: 
+      objectReference: {fileID: 9083864748471216875, guid: f29e60df3dd9b4d88ac35af3c39c7d79, type: 3}
+    - target: {fileID: 4223450027308406308, guid: 027fb004aaabb492facaccb2784c817d, type: 3}
       propertyPath: _inputManager
       value: 
       objectReference: {fileID: 1867972327}

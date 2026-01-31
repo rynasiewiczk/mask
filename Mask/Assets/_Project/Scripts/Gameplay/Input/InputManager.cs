@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InputManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class InputManager : MonoBehaviour
     public event Action OnConfirm;
     public event Action OnChange;
     public event Action OnUseBooster;
+    public event Action OnReset;
 
     public event Action<int> OnNumber;
     
@@ -16,18 +18,27 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
         
         float x = Input.GetAxisRaw("Horizontal"); // Raw is snappier for d-pad
 
         // Left: crossing from >= -threshold to < -threshold
-        if ((_prevX >= -threshold && x < -threshold) || Input.GetKeyDown(KeyCode.LeftArrow))
+        if ((_prevX >= -threshold && x < -threshold) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
             OnLeft?.Invoke();
 
         // Right: crossing from <= threshold to > threshold
-        if ((_prevX <= threshold && x > threshold) || Input.GetKeyDown(KeyCode.RightArrow))
+        if ((_prevX <= threshold && x > threshold) || Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
             OnRight?.Invoke();
 
         _prevX = x;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            OnReset?.Invoke();
+        }
         
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -49,7 +60,7 @@ public class InputManager : MonoBehaviour
             OnNumber?.Invoke(4);
         }
         
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.UpArrow))// || Input.GetButtonDown("Jump"))
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))// || Input.GetButtonDown("Jump"))
         {
             OnConfirm?.Invoke();
         }

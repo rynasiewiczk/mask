@@ -44,7 +44,6 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
                 {
                     CameraView.Instance.DoShake(0.3f, 0.3f, .01f);
                     FallingBlocksModel.Instance.FallingBlocks.ForEach(b => b.DoHit());
-                    TargetBlock.DoDestroyEffect();
                     ClearHittedBlock(TargetBlock);
                 }
                 else
