@@ -15,6 +15,7 @@ public class BoostersManager : MonoBehaviour
     [SerializeField] private float _useCooldown;
 
     public List<BoosterHandler> Boosters = new();
+    public BoosterHandler MainBooster => Boosters.First();
     
     private void Awake()
     {
@@ -63,6 +64,7 @@ public class BoosterHandler
     public ObservableProperty<bool> IsReadyToUse { get; } = new(); 
 
     public ObservableProperty<int> CurrentAmount { get; } = new();
+    public int FullAmount => _fullAmount;
 
     private readonly int _fullAmount;
     
@@ -83,7 +85,7 @@ public class BoosterHandler
 
     public void MarkUsed()
     {
-        CurrentAmount.Value = 0;
         IsReadyToUse.Value = false;
+        CurrentAmount.Value = 0;
     }
 }
