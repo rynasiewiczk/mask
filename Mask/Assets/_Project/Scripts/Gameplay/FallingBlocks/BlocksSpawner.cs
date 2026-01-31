@@ -17,10 +17,12 @@ namespace _Project.Scripts.Gameplay.Spawning
         [SerializeField] private Block _blockPrefab;
 
         [SerializeField] private Transform _spawnPosition;
+        [SerializeField] private Transform _initSpawnPosition;
         private HashSet<Vector2Int> _usedPositions = new();
 
         public int SpawnsCount { get; private set; }
-        
+        public Vector2 SpawnPosition => _spawnPosition.position;
+
         private void Start()
         {
             SpawnInitialRows();
@@ -55,7 +57,9 @@ namespace _Project.Scripts.Gameplay.Spawning
         private void SpawnRows(int count, DifficultySettings difficultySettings)
         {
             var currentTopBlock = _model.GetTopBlock();
-            var spawnHeight = _model.GetTopBlock() == null
+            var spawnHeight = SpawnsCount == 0 ?
+                _initSpawnPosition.position.y :
+                _model.GetTopBlock() == null
                 ? _spawnPosition.position.y
                 : currentTopBlock.TopBlockPosition.position.y;
             SpawnBlocks(count, _gridConfig.Columns, spawnHeight, difficultySettings);

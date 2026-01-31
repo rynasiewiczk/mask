@@ -10,6 +10,7 @@ public class GridConfig : ScriptableObject
     public int Columns = 4;
     public int RowsPerSpawn = 3;
     public float HorizontalGap = 1.1f;
+    public float FastSpeed = 2.5f;
     public float AfterProgressionFallSpeedRatePerSpawn = .01f;
 
     public DifficultySettings Start;
