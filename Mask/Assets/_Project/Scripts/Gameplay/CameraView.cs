@@ -32,6 +32,7 @@ namespace _Project.Scripts.Gameplay.Input
         {
             void DoSakeNow() => _cameraShake.DOShakePosition(duration, strength);
             _cameraShake.DOKill();
+            _cameraShake.transform.localPosition = Vector3.zero;
             if (timeFreeze > 0)
             {
                 Time.timeScale = 0;
