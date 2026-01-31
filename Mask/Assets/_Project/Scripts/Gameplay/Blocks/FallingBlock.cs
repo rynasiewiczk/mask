@@ -14,6 +14,8 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
 
         public void HandleMissmatchedUserBlock()
         {
+            var effect = Instantiate(_missmatchParticles, transform.position, Quaternion.identity);
+            effect.Setup(BlockType == BlockType.One ? _oneColor : _zeroColor);
             _view.ShowMissplay();
         }
 

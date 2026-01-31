@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3849632615009297689, guid: 0854e9f2c18e04f23ab7526157cb9969, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6903113679044437408, guid: 0854e9f2c18e04f23ab7526157cb9969, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -97,5 +101,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e852be3a07fc4410901f3cfa75c89025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _destroyEffectPrefab: {fileID: 0}
   _view: {fileID: 157805175310953719}
+  _oneColor: {r: 0, g: 0, b: 0, a: 0}
+  _zeroColor: {r: 0, g: 0, b: 0, a: 0}
   _moveSpeed: 20
+  TargetBlock: {fileID: 0}
