@@ -86,6 +86,7 @@ namespace _Project.Scripts.Gameplay.Input.Score
         
         public void AddPerfectMovePoints(UserBlocksSequence sequence)
         {
+            AddCombo();
             AddPointsWithCombo(_config.PerfectPoints);
         }
 
@@ -94,6 +95,11 @@ namespace _Project.Scripts.Gameplay.Input.Score
             _score.Value += points * _combo.Value;
         }
 
+        public void AddCombo()
+        {
+            _combo.Value++;
+        }
+        
         public void ResetCombo()
         {
             _combo.Value = 1;
