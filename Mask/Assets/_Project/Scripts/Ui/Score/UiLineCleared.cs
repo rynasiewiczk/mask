@@ -23,14 +23,14 @@ namespace _Project.Scripts.Ui
 
         private void Start()
         {
-            ScoreManager.Instance.OnLineCleared += ShowEffect;
+            //ScoreManager.Instance.OnLineCleared += ShowEffect;
             
             HideInstant();
         }
 
         private void OnDestroy()
         {
-            ScoreManager.Instance.OnLineCleared -= ShowEffect;
+            //ScoreManager.Instance.OnLineCleared -= ShowEffect;
             _tween?.Kill();
         }
 
