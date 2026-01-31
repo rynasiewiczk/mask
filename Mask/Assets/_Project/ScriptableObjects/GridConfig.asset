@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Columns: 4
   RowsPerSpawn: 4
-  FallSpeed: 1
+  FallSpeed: .6
   HorizontalGap: 0.2

@@ -37,6 +37,7 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
                 }
                 else
                 {
+                    _targetBlock.SetUnknown(false);
                     var newFallingBlock = BlockFactory.Instance.CreateFallingBlock();
                     newFallingBlock.SetType(BlockType);
                     newFallingBlock.transform.position = _targetBlock.BottomBlockPosition.position;

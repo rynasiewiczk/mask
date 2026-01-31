@@ -30,6 +30,8 @@ public class Block : MonoBehaviour
     {
         return Vector2.one;
     }
+    
+    public void SetUnknown(bool isUnknown) => _view.SetUnknown(isUnknown);
 }
 
 public enum BlockType
