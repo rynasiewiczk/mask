@@ -12,7 +12,7 @@ namespace _Project.Scripts.Gameplay.Input
             gameObject.SetActive(isActive);
         }
 
-        public void SetupChain(BlockMechanicType blockMechanic)
+        public void SetChain(BlockMechanicType blockMechanic)
         {
             _chainLeft.SetActive(blockMechanic == BlockMechanicType.ChainLeft || blockMechanic == BlockMechanicType.ChainBoth);
             _chainRight.SetActive(blockMechanic == BlockMechanicType.ChainRight || blockMechanic == BlockMechanicType.ChainBoth);

@@ -14,5 +14,7 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
         {
             _view.ShowMissplay();
         }
+
+        public bool CanBeDestroyedIfChain { get; set; }
     }
 }

@@ -1,24 +1,40 @@
 namespace _Project.Scripts.Gameplay.Input
 {
     using System;
+    using MoreMountains.Feedbacks;
     using UnityEngine;
 
     public class BlockView : MonoBehaviour
     {
+        private static int _feelChannel = 0;
+
         [SerializeField] private BlockPassView _passView;
         [SerializeField] private BlockInvertedView _invertedView;
         [SerializeField] private BlockChainView _chainView;
-
         [SerializeField] private GameObject _oneObject;
         [SerializeField] private GameObject _zeroObject;
         [SerializeField] private GameObject _unknownObject;
         [SerializeField] private Transform _topBlockPosition;
         [SerializeField] private Transform _bottomBlockPosition;
 
+        [SerializeField] private MMF_Player _feelPlayer;
+        [SerializeField] private MMPositionShaker _feelShaker;
+
         public Transform TopBlockPosition => _topBlockPosition;
         public Transform BottomBlockPosition => _bottomBlockPosition;
 
         private BlockType _blockType;
+
+        private void Awake()
+        {
+            _feelShaker.Channel = _feelChannel;
+            foreach (var feedback in _feelPlayer.FeedbacksList)
+            {
+                feedback.Channel = _feelChannel;
+            }
+
+            _feelChannel++;
+        }
 
         public void SetBlockType(BlockType blockType)
         {
@@ -58,7 +74,7 @@ namespace _Project.Scripts.Gameplay.Input
                 case BlockMechanicType.ChainRight:
                 case BlockMechanicType.ChainBoth:
                     _chainView.SetActive(true);
-                    _chainView.SetupChain(blockMechanic);
+                    _chainView.SetChain(blockMechanic);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(blockMechanic), blockMechanic, null);
@@ -68,9 +84,14 @@ namespace _Project.Scripts.Gameplay.Input
         private void Clear()
         {
             SetUnknown(false);
+            _chainView.SetActive(false);
             _invertedView.SetActive(false);
             _passView.SetActive(false);
-            _chainView.SetActive(false);
+        }
+
+        public void ShowMissplay()
+        {
+            _feelPlayer.PlayFeedbacks();
         }
     }
 }

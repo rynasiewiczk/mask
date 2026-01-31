@@ -46,15 +46,16 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
 
             if (TargetBlock.BottomBlockPosition.position.y <= transform.position.y)
             {
-                if (_targetBlock.BlockType == BlockType)
+                if (TargetBlock.BlockType == BlockType && TargetBlock.BlockMechanicType.IsChainPart() && TargetBlock.CanBeDestroyedIfChain)
                 {
                     ClearHittedBlock(TargetBlock);
                 }
                 else
                 {
-                    if (_targetBlock.BlockMechanicType == BlockMechanicType.Unknown)
+                    TargetBlock.CanBeDestroyedIfChain = false;
+                    if (TargetBlock.BlockMechanicType == BlockMechanicType.Unknown)
                     {
-                        _targetBlock.SetMechanic(BlockMechanicType.None);
+                        TargetBlock.SetMechanic(BlockMechanicType.None);
                     }
                     // var newFallingBlock = BlockFactory.Instance.CreateFallingBlock();
                     // newFallingBlock.SetType(BlockType);
@@ -64,7 +65,7 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
                     // OnJoinedFall?.Invoke();
                     
                     OnMissmatched?.Invoke();
-                    _targetBlock.HandleMissmatchedUserBlock();
+                    TargetBlock.HandleMissmatchedUserBlock();
                 }
                 
                 OnDestroying?.Invoke(this);

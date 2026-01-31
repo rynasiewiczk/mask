@@ -197,7 +197,14 @@ namespace _Project.Scripts.Gameplay.Input
                     templateBlock.transform.DOMoveY(originalHeight, _cooldown);
                 }
             }
+            
+            var canChainBeDestroyed = newBlocks.Where(b => b.CanDestroyTarget()).
+                Where(x => x.TargetBlock.BlockMechanicType.IsChainPart())
+                .All(x => FallingBlocksModel.Instance.GetAllBlocksAtSameLine(x.transform.position.y)
+                    .All(b => newBlocks.Any(nb => nb.TargetBlock == b)));
 
+            
+            
             var allAreCorrect = true;
             foreach (var newBlock in newBlocks)
             {
@@ -208,8 +215,9 @@ namespace _Project.Scripts.Gameplay.Input
                 }
             }
             
-            // newBlocks.Where(x => x.TargetBlock.BlockMechanicType.IsChainPart())
-            //     .All(x => FallingBlocksModel.Instance.GetAll x.TargetBlock.BottomBlockPosition.);
+            
+            
+            
             
             newBlocks.ForEach(x => x.SetCanDestroyTarget(allAreCorrect));
 
