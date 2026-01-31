@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using _Project.Scripts.Gameplay.Input;
+using _Project.Scripts.Gameplay.Input.Blocks;
+using _Project.Scripts.Gameplay.Spawning;
 using LazySloth.Observable;
 using UnityEngine;
 
@@ -7,6 +10,7 @@ public class BoostersManager : MonoBehaviour
 {
     public static BoostersManager Instance { get; private set; }
 
+    
     [SerializeField] private int _boostersCount;
     [SerializeField] private float _useCooldown;
 
@@ -17,21 +21,23 @@ public class BoostersManager : MonoBehaviour
         Instance = this;
         for (var i = 0; i < _boostersCount; i++)
         {
-            Boosters.Add(new BoosterHandler(_useCooldown));
+           Boosters.Add(new BoosterHandler(30));
         }
+
     }
 
-    private void Update()
+    private void Start()
     {
+        FallingBlocksModel.Instance.OnBlockBreak += UpdateBoosters;
+    }
+
+    private void UpdateBoosters(FallingBlock block)
+    {
+        if(BlocksFallSystem.Instance.IsPaused) { return; } //ignore blocks destroyed when movement is paused
+
         foreach (var booster in Boosters)
         {
-            if (booster.IsReadyToUse.Value)
-            {
-                continue;
-            }
-            
-            booster.ReduceCooldown();
-            break;
+            booster.UpdateProgress();
         }
     }
     
@@ -54,29 +60,30 @@ public class BoosterHandler
 {
     private float _cooldown;
     
-    public ObservableProperty<bool> IsReadyToUse { get; } = new();
+    public ObservableProperty<bool> IsReadyToUse { get; } = new(); 
 
-    public ObservableProperty<float> Cooldown { get; } = new();
+    public ObservableProperty<int> CurrentAmount { get; } = new();
+
+    private readonly int _fullAmount;
     
-    public void ReduceCooldown()
+    public void UpdateProgress()
     {
-        Cooldown.Value -= Time.deltaTime;
-        if (Cooldown.Value <= 0f)
-        {
-            IsReadyToUse.Value = true;
-        }
+        if(IsReadyToUse.Value) { return; }
+        CurrentAmount.Value += 1;
+        
+        IsReadyToUse.Value = CurrentAmount.Value >= _fullAmount;
     }
     
-    public BoosterHandler(float useCooldown)
+    public BoosterHandler(int fullAmount)
     {
         IsReadyToUse.Value = true;
-        Cooldown.Value = 0f;
-        _cooldown = useCooldown;
+        _fullAmount = fullAmount;
+        CurrentAmount.Value = _fullAmount;
     }
 
     public void MarkUsed()
     {
+        CurrentAmount.Value = 0;
         IsReadyToUse.Value = false;
-        Cooldown.Value = _cooldown;
     }
 }

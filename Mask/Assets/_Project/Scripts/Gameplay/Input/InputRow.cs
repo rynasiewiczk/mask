@@ -124,6 +124,7 @@ namespace _Project.Scripts.Gameplay.Input
 
         private IEnumerator DoLinesBreakerCoroutine()
         {
+            _locked = true;
             var mostBottomBlock = FallingBlocksModel.Instance.GetBottomBlock();
             if (mostBottomBlock == null)
             {
@@ -150,6 +151,7 @@ namespace _Project.Scripts.Gameplay.Input
             
             
             BlocksFallSystem.Instance.SetPaused(false);
+            _locked = false;
         }
 
         private void UpdateCurrentBlock()
