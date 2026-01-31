@@ -1,17 +1,16 @@
 namespace _Project.Scripts.Gameplay.Input
 {
     using System;
-    using System.Linq;
     using MoreMountains.Feedbacks;
     using UnityEngine;
 
     public class BlockView : MonoBehaviour
     {
-        private static int _feelChannel = 0; 
-        
+        private static int _feelChannel = 0;
+
         [SerializeField] private BlockPassView _passView;
         [SerializeField] private BlockInvertedView _invertedView;
-        
+        [SerializeField] private BlockChainView _chainView;
         [SerializeField] private GameObject _oneObject;
         [SerializeField] private GameObject _zeroObject;
         [SerializeField] private GameObject _unknownObject;
@@ -20,10 +19,10 @@ namespace _Project.Scripts.Gameplay.Input
 
         [SerializeField] private MMF_Player _feelPlayer;
         [SerializeField] private MMPositionShaker _feelShaker;
-        
+
         public Transform TopBlockPosition => _topBlockPosition;
         public Transform BottomBlockPosition => _bottomBlockPosition;
-        
+
         private BlockType _blockType;
 
         private void Awake()
@@ -33,7 +32,7 @@ namespace _Project.Scripts.Gameplay.Input
             {
                 feedback.Channel = _feelChannel;
             }
-            
+
             _feelChannel++;
         }
 
@@ -55,6 +54,7 @@ namespace _Project.Scripts.Gameplay.Input
             switch (blockMechanic)
             {
                 case BlockMechanicType.None:
+                case BlockMechanicType.ChainEnd:
                     break;
                 case BlockMechanicType.LeftPass:
                 case BlockMechanicType.RightPass:
@@ -70,6 +70,12 @@ namespace _Project.Scripts.Gameplay.Input
                     _invertedView.SetActive(true);
                     _invertedView.SetInverted(_blockType);
                     break;
+                case BlockMechanicType.ChainLeft:
+                case BlockMechanicType.ChainRight:
+                case BlockMechanicType.ChainBoth:
+                    _chainView.SetActive(true);
+                    _chainView.SetChain(blockMechanic);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(blockMechanic), blockMechanic, null);
             }
@@ -78,6 +84,7 @@ namespace _Project.Scripts.Gameplay.Input
         private void Clear()
         {
             SetUnknown(false);
+            _chainView.SetActive(false);
             _invertedView.SetActive(false);
             _passView.SetActive(false);
         }

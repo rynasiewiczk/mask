@@ -47,6 +47,15 @@ public enum BlockType
     Zero,
 }
 
+public enum MechanicType
+{
+    None,
+    Pass,
+    Inverted,
+    Chain,
+    InvertedPass,
+}
+
 public enum BlockMechanicType
 {
     None,
@@ -56,4 +65,12 @@ public enum BlockMechanicType
     DownPass,
     Unknown,
     Inverted,
+    ChainLeft,
+    ChainRight,
+    ChainBoth,
+    ChainEnd,
+    LeftInverted,
+    RightInverted,
+    UpInverted,
+    DownInverted,
 }
