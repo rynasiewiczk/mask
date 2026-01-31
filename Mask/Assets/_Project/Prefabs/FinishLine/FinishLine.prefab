@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1735004944006366965
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2256678007816028704}
+  m_Layer: 0
+  m_Name: WarningLineDeactivation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2256678007816028704
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735004944006366965}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -11.57, y: 6.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8365570687690029257}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2030757575254948221
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8965262538325061209}
   m_Layer: 0
-  m_Name: WarningLine
+  m_Name: WarningLineActivation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 2030757575254948221}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.57, y: 4, z: 0}
+  m_LocalPosition: {x: -11.57, y: 4.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -62,6 +93,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8965262538325061209}
+  - {fileID: 2256678007816028704}
   - {fileID: 6015630796754007171}
   - {fileID: 6763278647620435897}
   - {fileID: 5146436416325884504}
@@ -85,7 +117,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e22d53fecd5e40f99bfd38cb43e15591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _warningHeight: {fileID: 8965262538325061209}
+  _warningActivateHeight: {fileID: 8965262538325061209}
+  _warningDeactivateHeight: {fileID: 2256678007816028704}
   _endLine: {fileID: 8365570687690029257}
   _fallingBlocksModel: {fileID: 0}
   _defaultLineColor: {r: 1, g: 0.6862745, b: 0.6862745, a: 0.47843137}
@@ -101,6 +134,21 @@ MonoBehaviour:
   - {fileID: 9066831597879837981}
   - {fileID: 6913430109467541531}
   - {fileID: 7853427322948839777}
+  _cameraDefaultSize: 8
+  _cameraDefaultPosition: {x: 0, y: 2.43, z: -10}
+  _cameraTDefaultDuration: 2
+  _cameraToDefaultSizeEase: 27
+  _cameraDangerSize: 6
+  _cameraToDangerDuration: 0.5
+  _cameraDangerPosition: {x: 0, y: 0.25, z: -10}
+  _cameraToDangerEase: 9
+  _cameraShakeSettings:
+    _punch: {x: 0.035, y: 0.035, z: 0}
+    _duration: 1000
+    _vibrato: 10
+    _randomness: 90
+    _snapping: 0
+    _fadeOut: 0
 --- !u!1001 &829761033020527871
 PrefabInstance:
   m_ObjectHideFlags: 0
