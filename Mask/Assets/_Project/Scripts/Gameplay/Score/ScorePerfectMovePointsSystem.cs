@@ -28,6 +28,7 @@ namespace _Project.Scripts.Gameplay.Input.Score
         {
             if (sequence.DidAnyMissmatch)
             {
+                _scoreManager.ResetCombo();
                 return;
             }
             
