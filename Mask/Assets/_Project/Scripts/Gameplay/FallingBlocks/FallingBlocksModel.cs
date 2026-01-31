@@ -3,6 +3,7 @@ namespace _Project.Scripts.Gameplay.Spawning
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using FallingBlocks;
     using Input.Blocks;
     using UnityEngine;
 
@@ -17,6 +18,7 @@ namespace _Project.Scripts.Gameplay.Spawning
         public List<FallingBlock> FallingBlocks => _fallingBlocks;
 
         private ResetFallingBlocksSystem _resetBlocksSystem;
+        private DisableArrowDownWhenBlockBelowIsDestroyedSystem _disableArrowSystem;
 
         private void Awake()
         {
@@ -26,11 +28,13 @@ namespace _Project.Scripts.Gameplay.Spawning
         private void Start()
         {
             _resetBlocksSystem = new ResetFallingBlocksSystem(LevelManager.Instance, this);
+            _disableArrowSystem = new DisableArrowDownWhenBlockBelowIsDestroyedSystem(this);
         }
 
         private void OnDestroy()
         {
             _resetBlocksSystem.Dispose();
+            _disableArrowSystem.Disable();
         }
 
         public void AddBlock(FallingBlock block)

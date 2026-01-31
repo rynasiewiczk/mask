@@ -116,5 +116,11 @@ namespace _Project.Scripts.Gameplay.Input
         {
             _feelPlayer.PlayFeedbacks();
         }
+
+        public void HidePassArrows()
+        {
+            _passView.SetActive(false);
+            _invertedPassView.SetActive(false);
+        }
     }
 }

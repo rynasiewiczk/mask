@@ -28,5 +28,10 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
             ChainGuid = chainGuid;
             return this;
         }
+
+        public void HidePassArrows()
+        {
+            _view.HidePassArrows();
+        }
     }
 }

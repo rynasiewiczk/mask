@@ -225,6 +225,7 @@ namespace _Project.Scripts.Gameplay.Spawning
                 return;
             }
             
+            value = Random.value;
             activateProbability = difficultySettings.InvertedPassProbability;
             if (value < activateProbability)
             {
@@ -232,6 +233,7 @@ namespace _Project.Scripts.Gameplay.Spawning
                 return;
             }
 
+            value = Random.value;
             activateProbability = difficultySettings.InvertedProbability;
             if (value < activateProbability)
             {
@@ -240,6 +242,7 @@ namespace _Project.Scripts.Gameplay.Spawning
                 return;
             }
 
+            value = Random.value;
             activateProbability = difficultySettings.ChainProbability;
             if (value < activateProbability && !HasChainInRow())
             {

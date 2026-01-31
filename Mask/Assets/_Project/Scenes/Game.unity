@@ -217,6 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 374a37aa85e7459e9b45bba9c91c82ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mainBoosterPointsRequired: 100
   _boostersCount: 1
   _useCooldown: 0
 --- !u!4 &173927950
@@ -2258,6 +2259,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 307717717}
     m_Modifications:
+    - target: {fileID: 2666873534097091237, guid: 4961ea6e5f677431f86ca7863901872a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 82.999985
+      objectReference: {fileID: 0}
     - target: {fileID: 3650451703129407288, guid: 4961ea6e5f677431f86ca7863901872a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
