@@ -6,6 +6,7 @@ namespace _Project.Scripts.Gameplay.Input
     using System.Linq;
     using Blocks;
     using DG.Tweening;
+    using LazySloth.Utilities;
     using Spawning;
     using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace _Project.Scripts.Gameplay.Input
         [SerializeField] private GridConfig _gridConfig;
         [SerializeField] private Block _blockPrefab;
         [SerializeField] private Transform _verticalOrigin;
-        
+
         [SerializeField] private InputRowView _view;
         [SerializeField] private InputManager _inputManager;
         [SerializeField] private List<Block> _inputBlocks;
@@ -22,7 +23,7 @@ namespace _Project.Scripts.Gameplay.Input
         [SerializeField] private Transform _underScreenPosition;
 
         public List<Block> InputBlocks => _inputBlocks;
-        
+
         private Block CurrentBlock => _inputBlocks[_selectedBlockIndex];
         private int _prevSelectedBlockIndex = 0;
         private int _selectedBlockIndex = 0;
@@ -31,18 +32,18 @@ namespace _Project.Scripts.Gameplay.Input
         private Tween _cooldownTween;
 
         public event Action<UserBlocksSequence> OnSequenceCompleted;
-        
+
         private void Awake()
         {
             var horizontalOrigin = LevelManager.Instance.HorizontalOrigin.position.x;
             for (int i = 0; i < _gridConfig.Columns; i++)
             {
-                var hPos = horizontalOrigin + i * (_blockPrefab.GetSize().x +_gridConfig.HorizontalGap);
+                var hPos = horizontalOrigin + i * (_blockPrefab.GetSize().x + _gridConfig.HorizontalGap);
                 var pos = new Vector2(hPos, _verticalOrigin.position.y);
                 var block = Instantiate(_blockPrefab, pos, Quaternion.identity);
                 _inputBlocks.Add(block);
             }
-            
+
             _inputManager.OnLeft += OnLeft;
             _inputManager.OnRight += OnRight;
             _inputManager.OnNumber += OnNumber;
@@ -53,14 +54,14 @@ namespace _Project.Scripts.Gameplay.Input
             _view.SetSelectionPos(_inputBlocks[_selectedBlockIndex].transform.position, true);
             UpdateCurrentBlock();
         }
-        
+
         private void OnChange()
         {
             if (!LevelManager.Instance.IsPlaying)
             {
                 return;
             }
-            
+
             _view.ConfirmSelection();
             CurrentBlock.Change();
         }
@@ -100,7 +101,7 @@ namespace _Project.Scripts.Gameplay.Input
             {
                 return;
             }
-            
+
             var index = number - 1;
             _inputBlocks[index].Change();
         }
@@ -111,7 +112,7 @@ namespace _Project.Scripts.Gameplay.Input
             {
                 return;
             }
-            
+
             if (!BoostersManager.Instance.HasBoosterReady())
             {
                 return;
@@ -127,13 +128,13 @@ namespace _Project.Scripts.Gameplay.Input
             {
                 yield break;
             }
-            
+
             BlocksFallSystem.Instance.SetPaused(true);
             var verticalGap = FallingBlocksModel.Instance.FallingBlocks.First().VerticalGap;
-            
+
             BoostersManager.Instance.UseFirstBooster();
             var rowPosition = mostBottomBlock.transform.position.y;
-            
+
             for (var i = 0; i < 5; i++)
             {
                 var allInRow = FallingBlocksModel.Instance.GetAllBlocksAtSameLine(rowPosition);
@@ -145,8 +146,8 @@ namespace _Project.Scripts.Gameplay.Input
                 yield return new WaitForSeconds(0.15f);
                 rowPosition += verticalGap;
             }
-            
-            
+
+
             BlocksFallSystem.Instance.SetPaused(false);
         }
 
@@ -179,8 +180,11 @@ namespace _Project.Scripts.Gameplay.Input
 
             foreach (var templateBlock in _inputBlocks)
             {
-                if(selectedColumnOnly && templateBlock != CurrentBlock) { continue; }
-                
+                if (selectedColumnOnly && templateBlock != CurrentBlock)
+                {
+                    continue;
+                }
+
                 if (TryFindTargetBlock(templateBlock.transform.position, out var targetBlock))
                 {
                     var newBlock = BlockFactory.Instance.CreateUserBlock();
@@ -190,40 +194,61 @@ namespace _Project.Scripts.Gameplay.Input
                     newBlock.SetType(templateBlock.BlockType);
                     newBlock.SetTargetBlock(targetBlock);
                     newBlocks.Add(newBlock);
-                    
+
                     var originalHeight = templateBlock.transform.position.y;
                     templateBlock.transform.position =
                         new Vector2(templateBlock.transform.position.x, _underScreenPosition.position.y);
                     templateBlock.transform.DOMoveY(originalHeight, _cooldown);
                 }
             }
-            
-            var canChainBeDestroyed = newBlocks.Where(b => b.CanDestroyTarget()).
-                Where(x => x.TargetBlock.BlockMechanicType.IsChainPart())
+
+            var canChainBeDestroyed = newBlocks.Where(b => b.CanDestroyTarget())
+                .Where(x => x.TargetBlock.BlockMechanicType.IsChainPart())
                 .All(x => FallingBlocksModel.Instance.GetAllBlocksAtSameLine(x.transform.position.y)
                     .All(b => newBlocks.Any(nb => nb.TargetBlock == b)));
 
-            
-            
-            var allAreCorrect = true;
-            foreach (var newBlock in newBlocks)
+            foreach (var userBlock in newBlocks)
             {
-                if (!newBlock.CanDestroyTarget())
+                if (userBlock.TargetBlock == null || !userBlock.TargetBlock.BlockMechanicType.IsChainPart())
                 {
-                    allAreCorrect = false;
-                    break;
+                    continue;
+                }
+
+                var chainGuid = userBlock.TargetBlock.ChainGuid;
+                var blocksInLine =
+                    FallingBlocksModel.Instance.GetAllBlocksAtSameLine(userBlock.TargetBlock.transform.position.y);
+                var blocksWithSameChain = blocksInLine.Where(b => b.ChainGuid == chainGuid).ToList();
+                var areAllTargeted = blocksWithSameChain.All(b => newBlocks.Any(nb => nb.TargetBlock == b));
+                if (!areAllTargeted)
+                {
+                    continue;
+                }
+
+                var userBlocksWithChainAsTarget = newBlocks.Where(nb => blocksWithSameChain.Contains(nb.TargetBlock)).ToList();
+                var canAllBeDestroyed = userBlocksWithChainAsTarget.All(b => b.CanDestroyTarget());
+                if (canAllBeDestroyed)
+                {
+                    blocksWithSameChain.ForEach(b => b.CanBeDestroyedAsChain = true);
                 }
             }
-            
-            
-            
-            
-            
-            newBlocks.ForEach(x => x.SetCanDestroyTarget(allAreCorrect));
+
+
+            // var allAreCorrect = true;
+            // foreach (var newBlock in newBlocks)
+            // {
+            //     if (!newBlock.CanDestroyTarget())
+            //     {
+            //         allAreCorrect = false;
+            //         break;
+            //     }
+            // }
+            //
+            //
+            // newBlocks.ForEach(x => x.SetCanDestroyTarget(allAreCorrect));
 
             var sequence = new UserBlocksSequence(newBlocks);
             sequence.OnAllDestroyed += HandleSequenceComplete;
-            
+
             void HandleSequenceComplete(UserBlocksSequence sequence)
             {
                 sequence.OnAllDestroyed -= HandleSequenceComplete;
@@ -239,7 +264,7 @@ namespace _Project.Scripts.Gameplay.Input
                 fallingBlock = otherBlock;
                 return true;
             }
-            
+
             fallingBlock = null;
             return false;
         }

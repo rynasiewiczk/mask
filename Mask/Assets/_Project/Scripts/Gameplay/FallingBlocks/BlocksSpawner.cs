@@ -44,11 +44,12 @@ namespace _Project.Scripts.Gameplay.Spawning
             SpawnBlocks(count, _gridConfig.Columns, spawnHeight, difficultySettings);
         }
 
-        private void CreateBlock(BlockType type, Vector2Int gridPos, float startY, BlockMechanicType mechanicType)
+        private FallingBlock CreateBlock(BlockType type, Vector2Int gridPos, float startY, BlockMechanicType mechanicType)
         {
             var block = SpawnBlock(GetWorldPosition(gridPos, startY), type, mechanicType);
             _usedPositions.Add(gridPos);
             _model.AddBlock(block);
+            return block;
         }
 
         Vector3 GetWorldPosition(Vector2Int gridPos, float startY)
@@ -110,7 +111,7 @@ namespace _Project.Scripts.Gameplay.Spawning
 
         public void HandleChain(Vector2Int blockPosition, Vector2Int gridSize, float startY)
         {
-            void CreateChainIfValid(Vector2Int thisBlockPosition, bool anyInChain)
+            void CreateChainIfValid(Vector2Int thisBlockPosition, bool anyInChain, Guid chainGuid)
             {
                 var validChainDirections = new HashSet<BlockMechanicType> { BlockMechanicType.ChainLeft, BlockMechanicType.ChainRight, BlockMechanicType.ChainBoth };
 
@@ -138,25 +139,26 @@ namespace _Project.Scripts.Gameplay.Spawning
 
                 if (!validChainDirections.Any())
                 {
-                    CreateBlock(blockType, thisBlockPosition, startY, anyInChain ? BlockMechanicType.ChainEnd : BlockMechanicType.None);
+                    CreateBlock(blockType, thisBlockPosition, startY, anyInChain ? BlockMechanicType.ChainEnd : BlockMechanicType.None)
+                        .WithChainGuid(chainGuid);
                     return;
                 }
 
                 var chainType = validChainDirections.OrderBy(x => Random.value).First();
-                CreateBlock(blockType, thisBlockPosition, startY, chainType);
+                CreateBlock(blockType, thisBlockPosition, startY, chainType).WithChainGuid(chainGuid);
                 if (chainType == BlockMechanicType.ChainBoth)
                 {
-                    CreateChainIfValid(thisBlockPosition + Vector2Int.left, true);
-                    CreateChainIfValid(thisBlockPosition + Vector2Int.right, true);
+                    CreateChainIfValid(thisBlockPosition + Vector2Int.left, true, chainGuid);
+                    CreateChainIfValid(thisBlockPosition + Vector2Int.right, true, chainGuid);
                 }
                 else
                 {
-                    CreateChainIfValid(thisBlockPosition + chainType.GetChainDirectionVector(), true);
-                    
+                    CreateChainIfValid(thisBlockPosition + chainType.GetChainDirectionVector(), true, chainGuid);
                 }
             }
 
-            CreateChainIfValid(blockPosition, false);
+            var chainGuid = Guid.NewGuid();
+            CreateChainIfValid(blockPosition, false, chainGuid);
         }
 
         private void CreateBlocks(Vector2Int blockPosition, Vector2Int gridSize, float startY, DifficultySettings difficultySettings)

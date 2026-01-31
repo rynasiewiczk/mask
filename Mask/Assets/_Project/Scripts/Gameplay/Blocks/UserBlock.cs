@@ -9,7 +9,6 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
         [SerializeField] private float _moveSpeed = 4f;
 
         public FallingBlock TargetBlock;
-        private bool _canDestroy;
         public event Action OnJoinedFall;
         public event Action OnMissmatched;
         public event Action<UserBlock> OnDestroying;
@@ -17,11 +16,6 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
         public void SetTargetBlock(FallingBlock targetBlock)
         {
             TargetBlock = targetBlock;
-        }
-
-        public void SetCanDestroyTarget(bool canDestroyTarget)
-        {
-            _canDestroy = canDestroyTarget;
         }
 
         public bool CanDestroyTarget()
@@ -46,13 +40,13 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
 
             if (TargetBlock.BottomBlockPosition.position.y <= transform.position.y)
             {
-                if (TargetBlock.BlockType == BlockType && TargetBlock.BlockMechanicType.IsChainPart() && TargetBlock.CanBeDestroyedIfChain)
+                if (TargetBlock.BlockType == BlockType && NoChainOrCanDestroyChain())
                 {
                     ClearHittedBlock(TargetBlock);
                 }
                 else
                 {
-                    TargetBlock.CanBeDestroyedIfChain = false;
+                    TargetBlock.CanBeDestroyedAsChain = false;
                     if (TargetBlock.BlockMechanicType == BlockMechanicType.Unknown)
                     {
                         TargetBlock.SetMechanic(BlockMechanicType.None);
@@ -71,6 +65,11 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
                 OnDestroying?.Invoke(this);
                 Destroy(gameObject);
             }
+        }
+
+        private bool NoChainOrCanDestroyChain()
+        {
+            return !TargetBlock.BlockMechanicType.IsChainPart() || TargetBlock.CanBeDestroyedAsChain;
         }
 
         private void ClearHittedBlock(FallingBlock otherBlock)
