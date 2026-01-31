@@ -13,6 +13,7 @@ namespace _Project.Scripts.Ui
         [SerializeField] private RectTransform _imageRect;
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private float _scaleUpDuration = .5f;
+        [SerializeField] private float _visibleFade = .75f;
         [SerializeField] private float _delay = 1.5f;
         [SerializeField] private float _fadeOutDuration = .5f;
 
@@ -37,13 +38,13 @@ namespace _Project.Scripts.Ui
         {
             _container.transform.localScale = new Vector2(1, 0);
             _imageRect.transform.localScale = Vector3.one;
-            _canvasGroup.alpha = 1;
+            _canvasGroup.alpha = _visibleFade;
         }
 
         private void ShowEffect(Vector2 position, int points)
         {
             var screenPosition = _camera.WorldToScreenPoint(position);
-            _container.anchoredPosition = new Vector2(_container.anchoredPosition.x, screenPosition.y);
+            _container.position = new Vector2(_container.anchoredPosition.x, screenPosition.y);
             _text.text = $"Line cleared  +{points}";
 
             PlayAnimation();
