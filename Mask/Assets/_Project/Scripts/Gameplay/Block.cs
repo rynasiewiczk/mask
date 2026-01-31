@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem _destroyEffectPrefab;
+    [SerializeField] private BlockDestroyParticles _destroyEffectPrefab;
     [SerializeField] protected BlockView _view;
     [SerializeField] private Color _oneColor;
     [SerializeField] private Color _zeroColor;
@@ -45,6 +45,12 @@ public class Block : MonoBehaviour
         _view.SetMechanic(BlockMechanicType);
     }
 
+    public void DoHit()
+    {
+        transform.DOKill();
+        _view.transform.DOPunchPosition(Vector3.up * 0.4f, 0.6f, 3, 0.5f);
+    }
+
     public void DoDestroyEffect()
     {
         if (!_destroyEffectPrefab)
@@ -54,8 +60,7 @@ public class Block : MonoBehaviour
 
         var color = BlockType == BlockType.One ? _oneColor : _zeroColor;
         var effect = Instantiate(_destroyEffectPrefab, transform.position, Quaternion.identity);
-        var mainModule = effect.main;
-        mainModule.startColor = color;
+        effect.Setup(color);
         DOVirtual.DelayedCall(5, () => Destroy(effect.gameObject));
     }
 }

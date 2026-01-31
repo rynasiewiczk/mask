@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7138d42e26a74c518b669c6d0ad6bef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _destroyEffectPrefab: {fileID: 2748523866620748905, guid: ea4323fdc116543b9b851e1e30332242, type: 3}
+  _destroyEffectPrefab: {fileID: 1443656753353569325, guid: ea4323fdc116543b9b851e1e30332242, type: 3}
   _view: {fileID: 7695922114655019496}
   _oneColor: {r: 0.09411765, g: 0.9137255, b: 0.85882354, a: 1}
   _zeroColor: {r: 0.94509804, g: 0.023529412, b: 0.79607844, a: 1}

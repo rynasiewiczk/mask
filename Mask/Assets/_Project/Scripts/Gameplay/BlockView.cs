@@ -8,6 +8,7 @@ namespace _Project.Scripts.Gameplay.Input
     {
         private static int _feelChannel = 0;
 
+        [SerializeField] private Transform _viewTransform;
         [SerializeField] private BlockPassView _passView;
         [SerializeField] private BlockInvertedView _invertedView;
         [SerializeField] private BlockChainView _chainView;
@@ -22,6 +23,7 @@ namespace _Project.Scripts.Gameplay.Input
 
         public Transform TopBlockPosition => _topBlockPosition;
         public Transform BottomBlockPosition => _bottomBlockPosition;
+        public Transform ViewTransform => _viewTransform;
 
         private BlockType _blockType;
 

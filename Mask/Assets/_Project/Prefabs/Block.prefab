@@ -171,6 +171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _destroyEffectPrefab: {fileID: 0}
   _view: {fileID: 7145398621650934543}
+  _oneColor: {r: 0, g: 0, b: 0, a: 0}
+  _zeroColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &7145398621650934543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,6 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ccb1911565477ea38392c65ae64716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _viewTransform: {fileID: 8601184669470644428}
   _passView: {fileID: 7819898694816484327}
   _invertedView: {fileID: 7722576021722140430}
   _chainView: {fileID: 371541582461113257}
