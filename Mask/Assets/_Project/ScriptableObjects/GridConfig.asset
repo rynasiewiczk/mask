@@ -15,7 +15,7 @@ MonoBehaviour:
   Columns: 5
   RowsPerSpawn: 5
   FallSpeed: 0.6
-  HorizontalGap: 0.2
+  HorizontalGap: 0.5
   Start:
     PassProbability: 0
     InvertedProbability: 0
