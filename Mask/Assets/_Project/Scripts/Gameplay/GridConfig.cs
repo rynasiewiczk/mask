@@ -55,7 +55,7 @@ public class GridConfig : ScriptableObject
 [Serializable]
 public class DifficultySettings
 {
-    public FloatRange FallSpeedRange = new();
+    public FloatRange FallSpeedRange = new(0.5f, 1f);
     public float PassProbability = .05f;
     public float InvertedProbability = .05f;
     public float ChainProbability = .05f;
