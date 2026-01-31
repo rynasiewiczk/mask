@@ -29,7 +29,7 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
 
             transform.Translate(Vector3.up * (_moveSpeed * Time.deltaTime));
 
-            if (_targetBlock.NextBlockPosition.position.y <= transform.position.y)
+            if (_targetBlock.BottomBlockPosition.position.y <= transform.position.y)
             {
                 if (_targetBlock.BlockType == BlockType)
                 {
@@ -39,7 +39,7 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
                 {
                     var newFallingBlock = BlockFactory.Instance.CreateFallingBlock();
                     newFallingBlock.SetType(BlockType);
-                    newFallingBlock.transform.position = _targetBlock.NextBlockPosition.position;
+                    newFallingBlock.transform.position = _targetBlock.BottomBlockPosition.position;
                     FallingBlocksModel.Instance.AddBlock(newFallingBlock);
                 }
                 

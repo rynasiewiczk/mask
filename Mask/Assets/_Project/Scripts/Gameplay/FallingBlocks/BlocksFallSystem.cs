@@ -9,7 +9,7 @@ namespace _Project.Scripts.Gameplay.Input
         [SerializeField] private GridConfig _gridConfig;
         [SerializeField] private FallingBlocksModel _model;
 
-        private void FixedUpdate()
+        private void LateUpdate()
         {
             if (!LevelManager.Instance.IsPlaying)
             {
@@ -19,7 +19,7 @@ namespace _Project.Scripts.Gameplay.Input
             var blocks = _model.FallingBlocks;
             foreach (var block in blocks)
             {
-                block.Fall(_gridConfig.fallSpeed * Time.fixedDeltaTime);
+                block.Fall(_gridConfig.FallSpeed * Time.deltaTime);
             }
         }
     }

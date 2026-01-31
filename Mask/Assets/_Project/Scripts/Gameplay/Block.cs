@@ -6,7 +6,8 @@ public class Block : MonoBehaviour
     [SerializeField] private BlockView _view;
     public BlockType BlockType { get; private set; }
     
-    public Transform NextBlockPosition => _view.NextBlockPosition;
+    public Transform TopBlockPosition => _view.TopBlockPosition;
+    public Transform BottomBlockPosition => _view.BottomBlockPosition;
 
     private void Awake()
     {
