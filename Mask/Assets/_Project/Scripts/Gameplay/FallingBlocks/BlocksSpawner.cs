@@ -225,14 +225,14 @@ namespace _Project.Scripts.Gameplay.Spawning
                 return;
             }
             
-            activateProbability += difficultySettings.InvertedPassProbability;
+            activateProbability = difficultySettings.InvertedPassProbability;
             if (value < activateProbability)
             {
                 HandleInvertedPass(blockPosition, gridSize, startY);
                 return;
             }
 
-            activateProbability += difficultySettings.InvertedProbability;
+            activateProbability = difficultySettings.InvertedProbability;
             if (value < activateProbability)
             {
                 var blockType = Random.value < .5f ? BlockType.One : BlockType.Zero;
@@ -240,7 +240,7 @@ namespace _Project.Scripts.Gameplay.Spawning
                 return;
             }
 
-            activateProbability += difficultySettings.ChainProbability;
+            activateProbability = difficultySettings.ChainProbability;
             if (value < activateProbability && !HasChainInRow())
             {
                 HandleChain(blockPosition, gridSize, startY, difficultySettings.ChainMaxLength);
@@ -289,8 +289,7 @@ namespace _Project.Scripts.Gameplay.Spawning
 
             return validPasses.OrderBy(x => Random.value).First();
         }
-
-
+        
         private BlockMechanicType GetInvertedPassBlocksType(Vector2Int thisBlock, Vector2Int gridSize)
         {
             var validPasses = new HashSet<BlockMechanicType> { BlockMechanicType.DownInverted, BlockMechanicType.LeftInverted, BlockMechanicType.RightInverted, BlockMechanicType.UpInverted };
