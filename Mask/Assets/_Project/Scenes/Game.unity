@@ -1241,18 +1241,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 307717717}
     m_Modifications:
-    - target: {fileID: 4513119689266193, guid: ce2f429b4c13a4b2693c365c572e65f6, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.00012207031
-      objectReference: {fileID: 0}
     - target: {fileID: 7636285910471583166, guid: ce2f429b4c13a4b2693c365c572e65f6, type: 3}
       propertyPath: m_Name
       value: Scores (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 8033780600174067956, guid: ce2f429b4c13a4b2693c365c572e65f6, type: 3}
-      propertyPath: _camera
-      value: 
-      objectReference: {fileID: 1640815581}
     - target: {fileID: 8156406821008975169, guid: ce2f429b4c13a4b2693c365c572e65f6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1714,11 +1706,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1615721346}
   m_CullTransparentMesh: 1
---- !u!20 &1640815581 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 8123476608533618412, guid: d420a2209498f4d7b9652ea5aaa8487e, type: 3}
-  m_PrefabInstance: {fileID: 77740629}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1658170431
 GameObject:
   m_ObjectHideFlags: 0
