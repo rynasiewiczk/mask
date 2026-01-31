@@ -11,6 +11,7 @@ namespace _Project.Scripts.Gameplay.Input
 
         [SerializeField] private Transform _viewTransform;
         [SerializeField] private BlockPassView _passView;
+        [SerializeField] private BlockPassView _invertedPassView;
         [SerializeField] private BlockInvertedView _invertedView;
         [SerializeField] private BlockChainView _chainView;
         [SerializeField] private GameObject _oneObject;
@@ -77,6 +78,13 @@ namespace _Project.Scripts.Gameplay.Input
                     _passView.SetActive(true);
                     _passView.SetPass(blockMechanic);
                     break;
+                case BlockMechanicType.LeftInverted:
+                case BlockMechanicType.RightInverted:
+                case BlockMechanicType.UpInverted:
+                case BlockMechanicType.DownInverted:
+                    _invertedPassView.SetActive(true);
+                    _invertedPassView.SetPass(blockMechanic);
+                    break;
                 case BlockMechanicType.Unknown:
                     SetUnknown(true);
                     break;
@@ -101,6 +109,7 @@ namespace _Project.Scripts.Gameplay.Input
             _chainView.SetActive(false);
             _invertedView.SetActive(false);
             _passView.SetActive(false);
+            _invertedPassView.SetActive(false);
         }
 
         public void ShowMissplay()

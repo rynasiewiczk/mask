@@ -132,6 +132,23 @@ namespace _Project.Scripts.Gameplay.Spawning
             CreateBlock(blockType, passedPos, startY, BlockMechanicType.Unknown);
         }
 
+        private void HandleInvertedPass(Vector2Int blockPosition, Vector2Int gridSize, float startY)
+        {
+            var blockMechanic = GetInvertedPassBlocksType(blockPosition, gridSize);
+            var blockType = Random.value < .5f ? BlockType.One : BlockType.Zero;
+
+            if (blockMechanic == BlockMechanicType.None)
+            {
+                CreateBlock(blockType, blockPosition, startY, blockMechanic);
+                return;
+            }
+
+            CreateBlock(blockType, blockPosition, startY, blockMechanic);
+
+            var passedPos = blockMechanic.GetDirectionVector() + blockPosition;
+            CreateBlock(blockType == BlockType.One ? BlockType.Zero : BlockType.One, passedPos, startY, BlockMechanicType.Unknown);
+        }
+
         public void HandleChain(Vector2Int blockPosition, Vector2Int gridSize, float startY)
         {
             void CreateChainIfValid(Vector2Int thisBlockPosition, bool anyInChain, Guid chainGuid)
@@ -193,6 +210,13 @@ namespace _Project.Scripts.Gameplay.Spawning
                 HandlePass(blockPosition, gridSize, startY);
                 return;
             }
+            
+            activateProbability += difficultySettings.InvertedPassProbability;
+            if (value < activateProbability)
+            {
+                HandleInvertedPass(blockPosition, gridSize, startY);
+                return;
+            }
 
             activateProbability += difficultySettings.InvertedProbability;
             if (value < activateProbability)
@@ -245,6 +269,38 @@ namespace _Project.Scripts.Gameplay.Spawning
         }
 
 
+        private BlockMechanicType GetInvertedPassBlocksType(Vector2Int thisBlock, Vector2Int gridSize)
+        {
+            var validPasses = new HashSet<BlockMechanicType> { BlockMechanicType.DownInverted, BlockMechanicType.LeftInverted, BlockMechanicType.RightInverted, BlockMechanicType.UpInverted };
+
+            if (thisBlock.y == 0 || _usedPositions.Contains(thisBlock + BlockMechanicType.DownInverted.GetDirectionVector()))
+            {
+                validPasses.Remove(BlockMechanicType.DownInverted);
+            }
+
+            if (thisBlock.y == gridSize.y - 1 || _usedPositions.Contains(thisBlock + BlockMechanicType.UpInverted.GetDirectionVector()))
+            {
+                validPasses.Remove(BlockMechanicType.UpInverted);
+            }
+
+            if (thisBlock.x == gridSize.x - 1 || _usedPositions.Contains(thisBlock + BlockMechanicType.RightInverted.GetDirectionVector()))
+            {
+                validPasses.Remove(BlockMechanicType.RightInverted);
+            }
+
+            if (thisBlock.x == 0 || _usedPositions.Contains(thisBlock + BlockMechanicType.LeftInverted.GetDirectionVector()))
+            {
+                validPasses.Remove(BlockMechanicType.LeftInverted);
+            }
+
+            if (!validPasses.Any())
+            {
+                return BlockMechanicType.None;
+            }
+
+            return validPasses.OrderBy(x => Random.value).First();
+        }
+        
         private FallingBlock SpawnBlock(Vector3 position, BlockType blockType, BlockMechanicType blockMechanicType)
         {
             var block = BlockFactory.Instance.CreateFallingBlock();
