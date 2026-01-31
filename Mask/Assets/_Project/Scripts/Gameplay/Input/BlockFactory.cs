@@ -16,7 +16,7 @@ namespace _Project.Scripts.Gameplay.Input
             Instance = this;
         }
         
-        public Block CreateUserBlock()
+        public UserBlock CreateUserBlock()
         {
             return Instantiate(_userBlockPrefab);
         }

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: GridConfig
   m_EditorClassIdentifier: 
   rowsPerSpawn: 3
-  fallSpeed: 0.5
+  fallSpeed: 1.2

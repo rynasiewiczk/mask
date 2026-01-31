@@ -1,5 +1,6 @@
 namespace _Project.Scripts.Gameplay.Input
 {
+    using Blocks;
     using DG.Tweening;
     using UnityEngine;
 
@@ -31,6 +32,11 @@ namespace _Project.Scripts.Gameplay.Input
 
         private void OnChange()
         {
+            if (!LevelManager.Instance.IsPlaying)
+            {
+                return;
+            }
+            
             CurrentBlock.Change();
         }
 
@@ -90,17 +96,34 @@ namespace _Project.Scripts.Gameplay.Input
 
             foreach (var templateBlock in _inputBlocks)
             {
-                var newBlock = BlockFactory.Instance.CreateUserBlock();
-                newBlock.transform.localPosition = templateBlock.transform.position;
-                newBlock.transform.localRotation = Quaternion.identity;
-                newBlock.transform.localScale = Vector3.one;
-
-                newBlock.SetType(templateBlock.BlockType);
-                var originalHeight = templateBlock.transform.position.y;
-                templateBlock.transform.position =
-                    new Vector2(templateBlock.transform.position.x, _underScreenPosition.position.y);
-                templateBlock.transform.DOMoveY(originalHeight, _cooldown);
+                if (TryFindTargetBlock(templateBlock.transform.position, out var targetBlock))
+                {
+                    var newBlock = BlockFactory.Instance.CreateUserBlock();
+                    newBlock.transform.localPosition = templateBlock.transform.position;
+                    newBlock.transform.localRotation = Quaternion.identity;
+                    newBlock.transform.localScale = Vector3.one;
+                    newBlock.SetType(templateBlock.BlockType);
+                    newBlock.SetTargetBlock(targetBlock);
+                    
+                    var originalHeight = templateBlock.transform.position.y;
+                    templateBlock.transform.position =
+                        new Vector2(templateBlock.transform.position.x, _underScreenPosition.position.y);
+                    templateBlock.transform.DOMoveY(originalHeight, _cooldown);
+                }
             }
+        }
+
+        private bool TryFindTargetBlock(Vector3 origin, out FallingBlock fallingBlock)
+        {
+            var hit = Physics2D.Raycast(origin, Vector3.up, 20f, LayerMask.GetMask("FallingBlock"));
+            if (hit.collider && hit.transform.TryGetComponent(out FallingBlock otherBlock))
+            {
+                fallingBlock = otherBlock;
+                return true;
+            }
+            
+            fallingBlock = null;
+            return false;
         }
 
         private void Unlock()

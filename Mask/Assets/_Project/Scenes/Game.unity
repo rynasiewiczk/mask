@@ -1133,6 +1133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selection: {fileID: 372946134}
+  _duration: 0.25
 --- !u!1001 &1346048719
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2339,6 +2340,10 @@ PrefabInstance:
       propertyPath: _view
       value: 
       objectReference: {fileID: 1336693857}
+    - target: {fileID: 4223450027308406308, guid: 027fb004aaabb492facaccb2784c817d, type: 3}
+      propertyPath: _cooldown
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 4223450027308406308, guid: 027fb004aaabb492facaccb2784c817d, type: 3}
       propertyPath: _inputManager
       value: 

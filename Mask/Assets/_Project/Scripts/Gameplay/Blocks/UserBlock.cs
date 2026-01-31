@@ -7,30 +7,39 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
     {
         [SerializeField] private float _moveSpeed = 4f;
 
+        private FallingBlock _targetBlock;
+
+        public void SetTargetBlock(FallingBlock targetBlock)
+        {
+            _targetBlock = targetBlock;
+        }
+        
         private void FixedUpdate()
         {
             if (!LevelManager.Instance.IsPlaying)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            if (_targetBlock == null)
             {
                 return;
             }
 
             transform.Translate(Vector3.up * (_moveSpeed * Time.deltaTime));
 
-            var hit = Physics2D.Raycast(transform.position, Vector3.up, 20f, LayerMask.GetMask("Default"));
-            if (hit.collider && hit.transform.TryGetComponent(out FallingBlock otherBlock)
-                             && hit.distance < Mathf.Abs(NextBlockPosition.localPosition.y))
+            if (_targetBlock.NextBlockPosition.position.y <= transform.position.y)
             {
-                Debug.Log("Block hit");
-
-                if (otherBlock.BlockType == BlockType)
+                if (_targetBlock.BlockType == BlockType)
                 {
-                    ClearHittedBlock(otherBlock);
+                    ClearHittedBlock(_targetBlock);
                 }
                 else
                 {
                     var newFallingBlock = BlockFactory.Instance.CreateFallingBlock();
                     newFallingBlock.SetType(BlockType);
-                    newFallingBlock.transform.position = otherBlock.NextBlockPosition.position;
+                    newFallingBlock.transform.position = _targetBlock.NextBlockPosition.position;
                     FallingBlocksModel.Instance.AddBlock(newFallingBlock);
                 }
                 

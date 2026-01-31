@@ -1,4 +1,3 @@
-using System;
 using _Project.Scripts.Gameplay.Input;
 using UnityEngine;
 
@@ -25,25 +24,10 @@ public class Block : MonoBehaviour
         BlockType = blockType;
         _view.SetBlockType(BlockType);
     }
-
-
-
+    
     public Vector2 GetSize()
     {
         return Vector2.one;
-    }
-
-    private void FixedUpdate()
-    {
-        var hit = Physics2D.Raycast(transform.position, Vector3.up, 20f, LayerMask.GetMask("Default"));
-        if (hit.collider && hit.transform.TryGetComponent(out Block otherBlock)
-            && hit.distance < Mathf.Abs(NextBlockPosition.localPosition.y))
-        {
-            // Debug.Log("Block hit");
-            // transform.position = otherBlock.NextBlockPosition.position;
-            // _moveSpeed = 0f;
-            //add to move system
-        }
     }
 }
 
