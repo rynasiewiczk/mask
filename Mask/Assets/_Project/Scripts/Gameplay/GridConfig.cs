@@ -7,5 +7,7 @@ public class GridConfig : ScriptableObject
     public int RowsPerSpawn = 3;
     public float FallSpeed = .5f;
     public float HorizontalGap = 1.1f;
-    // public float VerticalGap = 1.1f;
+    
+    public float PassProbability = .05f;
+    public float InvertedProbability = .05f;
 }

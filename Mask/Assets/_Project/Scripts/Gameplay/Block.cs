@@ -9,6 +9,7 @@ public class Block : MonoBehaviour
     
     public Transform TopBlockPosition => _view.TopBlockPosition;
     public Transform BottomBlockPosition => _view.BottomBlockPosition;
+    public float VerticalGap => Mathf.Abs(BottomBlockPosition.localPosition.y); 
 
     private void Awake()
     {

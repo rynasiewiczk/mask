@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gridConfig: {fileID: 11400000, guid: d4ed44b0821005d4795db459fe96e120, type: 2}
-  _blockPrefab: {fileID: 3218902226305726070, guid: 0854e9f2c18e04f23ab7526157cb9969, type: 3}
+  _blockPrefab: {fileID: 278748901845144234, guid: 9dc144746165f475d8c44cf0ba9b17a8, type: 3}
   _verticalOrigin: {fileID: 1317742529962129869}
   _view: {fileID: 4154541760536188168}
   _inputManager: {fileID: 0}
