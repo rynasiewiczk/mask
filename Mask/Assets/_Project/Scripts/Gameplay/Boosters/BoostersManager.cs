@@ -31,8 +31,20 @@ public class BoostersManager : MonoBehaviour
     private void Start()
     {
         FallingBlocksModel.Instance.OnBlockBreak += UpdateBoosters;
+        LevelManager.Instance.State.Subscribe(ResetOnRestart);
     }
 
+    private void ResetOnRestart(LevelState state)
+    {
+        if (state == LevelState.Preparing)
+        {
+            foreach (var booster in Boosters)
+            {
+                booster.Reset();
+            }
+        }
+    }
+    
     private void UpdateBoosters(FallingBlock block)
     {
         if(BlocksFallSystem.Instance.IsPaused) { return; } //ignore blocks destroyed when movement is paused
@@ -75,6 +87,12 @@ public class BoosterHandler
         CurrentAmount.Value += 1;
         
         IsReadyToUse.Value = CurrentAmount.Value >= _fullAmount;
+    }
+
+    public void Reset()
+    {
+        IsReadyToUse.Value = true;
+        CurrentAmount.Value = _fullAmount;
     }
     
     public BoosterHandler(int fullAmount)
