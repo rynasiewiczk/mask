@@ -5,6 +5,7 @@ namespace _Project.Scripts.Gameplay.Input
     using LazySloth.Utilities.DoTween;
     using UnityEngine;
 
+    [DefaultExecutionOrder(-2000)]
     public class CameraView : MonoBehaviour
     {
         public static CameraView Instance { get; private set; }

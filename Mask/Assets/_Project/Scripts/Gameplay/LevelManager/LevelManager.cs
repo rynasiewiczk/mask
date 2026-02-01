@@ -20,6 +20,8 @@ public class LevelManager : MonoBehaviour
     public bool IsPlaying => State.Value == LevelState.Playing;
     public Transform HorizontalOrigin => _horizontalOrigin;
 
+    public bool StartFalling { get; set; }
+
     private void Awake()
     {
         DOTween.SetTweensCapacity(300, 200);
@@ -38,11 +40,23 @@ public class LevelManager : MonoBehaviour
         //_resetLevelSystem.Dispose();
     }
 
-    public void SetPreparing() => _state.Value = LevelState.Preparing;
+    public void SetPreparing()
+    {
+        StartFalling = false;
+        _state.Value = LevelState.Preparing;
+    }
 
-    public void SetPlaying() => _state.Value = LevelState.Playing;
+    public void SetPlaying()
+    {
+        StartFalling = false;
+        _state.Value = LevelState.Playing;
+    }
 
-    public void SetFinished() => _state.Value = LevelState.Finished;
+    public void SetFinished()
+    {
+        StartFalling = false;
+        _state.Value = LevelState.Finished;
+    } 
 }
 
 public enum LevelState
