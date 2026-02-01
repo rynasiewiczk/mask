@@ -13,7 +13,7 @@ namespace _Project.Scripts.Gameplay.Input.LevelEnd
     {
         [SerializeField] private GridConfig _gridConfig;
         [SerializeField] private FallingBlocksModel _fallingBlocksModel;
-        [SerializeField] private InputRow  _inputRow;
+        [SerializeField] private InputRow _inputRow;
         [SerializeField] private FloatRange _initialColumnDropDelayRange = new(.5f, .9f);
         [SerializeField] private FloatRange _columnDelayBetweenBottomAndTopBlockRange = new(.8f, 1.6f);
         [SerializeField] private float _gravity = -7.5f;
@@ -37,6 +37,7 @@ namespace _Project.Scripts.Gameplay.Input.LevelEnd
                 return;
             }
 
+            CameraView.Instance.DoShake(.9f, .5f);
             var blocks = _fallingBlocksModel.FallingBlocks;
             foreach (var inputBlock in _inputRow.InputBlocks)
             {
@@ -56,11 +57,12 @@ namespace _Project.Scripts.Gameplay.Input.LevelEnd
                 var timeSpan = _columnDelayBetweenBottomAndTopBlockRange.GetRandom();
                 for (int i = 0; i < orderedFromBottom.Count(); i++)
                 {
-                    var normalizedIndex = i/(float)orderedFromBottom.Count;
+                    var normalizedIndex = i / (float)orderedFromBottom.Count;
                     var delay = timeSpan * normalizedIndex;
                     var i1 = i;
                     DOVirtual.DelayedCall(delay, () =>
                     {
+                        CameraView.Instance.DoShake(.2f, .1f);
                         DropBlock(orderedFromBottom.ElementAt(i1));
                         _fallingBlocksAudio.Play();
                     });
@@ -70,8 +72,8 @@ namespace _Project.Scripts.Gameplay.Input.LevelEnd
 
         private async Task DropBlock(Block block, float initDelay = 0)
         {
-            await Task.Delay((int)(initDelay* 1000));
-            
+            await Task.Delay((int)(initDelay * 1000));
+
             var velocity = _gravity * Time.deltaTime;
 
             while (block.transform.position.y > -12)

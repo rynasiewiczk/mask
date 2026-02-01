@@ -115,6 +115,7 @@ namespace _Project.Scripts.Gameplay.Input
                 return;
             }
 
+            LevelManager.Instance.StartFalling = true;
             CameraView.Instance.DoShake(0.3f, 0.1f);
             CreateFlyRow();
         }

@@ -1,5 +1,6 @@
 namespace _Project.Scripts.Ui
 {
+    using System;
     using DG.Tweening;
     using Gameplay.Input.Score;
     using LazySloth.Utilities.DoTween;
@@ -8,6 +9,8 @@ namespace _Project.Scripts.Ui
 
     public class UiComboPresenter : MonoBehaviour
     {
+        public static UiComboPresenter Instance { get; private set; }
+        
         [SerializeField] private DOTweenPunchSettings _punchSettings;
         [SerializeField] private TextMeshProUGUI _comboText;
         [SerializeField] private Transform _comboContainer;
@@ -16,6 +19,11 @@ namespace _Project.Scripts.Ui
         [SerializeField] private Color _endColor;
         
         private Tween _tween;
+
+        private void Awake()
+        {
+            Instance = this;
+        }
 
         private void Start()
         {
@@ -42,7 +50,7 @@ namespace _Project.Scripts.Ui
         
         private void HandlePunch(int combo)
         {
-            var colorToUse = combo > 20 ? _endColor : combo >  10  ? _midColor : _startColor;
+            var colorToUse = GetColor(combo);
             _comboText.DOColor(colorToUse, 0.3f);
             
             if (combo <= _previousCombo)
@@ -52,7 +60,7 @@ namespace _Project.Scripts.Ui
             }
             
             _previousCombo = combo;
-            var newScale = Mathf.Lerp(1f, 2.5f, Mathf.InverseLerp(1, 25, combo));
+            var newScale = GetScale(combo);
             
             _tween?.Kill();
             _comboContainer.transform.localScale = Vector3.one;
@@ -64,6 +72,16 @@ namespace _Project.Scripts.Ui
             {
                 _tween = _comboContainer.transform.DOPunchScale(_punchSettings);
             }
+        }
+
+        public float GetScale(int combo)
+        {
+            return Mathf.Lerp(1f, 2.5f, Mathf.InverseLerp(1, 25, combo));
+        }
+
+        public Color GetColor(int combo)
+        {
+            return combo > 20 ? _endColor : combo >  10  ? _midColor : _startColor;
         }
     }
 }

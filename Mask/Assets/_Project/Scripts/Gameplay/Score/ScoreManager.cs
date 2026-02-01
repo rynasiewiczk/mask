@@ -18,7 +18,7 @@ namespace _Project.Scripts.Gameplay.Input.Score
         private ScorePerfectMovePointsSystem _perfectMovePointsSystem;
         
         private ObservableProperty<int> _score = new();
-        private ObservableProperty<int> _combo = new();
+        private ObservableProperty<int> _combo = new(1);
 
         public IObservableProperty<int> Score => _score;
         public IObservableProperty<int> Combo => _combo;
@@ -53,6 +53,7 @@ namespace _Project.Scripts.Gameplay.Input.Score
                 return;
             }
 
+            ResetCombo();
             _score.Value = 0;
         }
 
@@ -76,9 +77,13 @@ namespace _Project.Scripts.Gameplay.Input.Score
             }
         }
 
+        public int GetBreakBlockPoints()
+        {
+            return _config.BreakPoints * _combo.Value;
+        }
+        
         private void AddBreakBlockPoints(FallingBlock block)
         {
-            _score.Value += _config.BreakPoints;
             AddPointsWithCombo(_config.BreakPoints);
         }
 
