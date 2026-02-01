@@ -68,6 +68,16 @@ namespace _Project.Scripts.Gameplay.Input
 
         private void ResetOnPreparation(LevelState state)
         {
+            if (state == LevelState.Finished)
+            {
+                _view.SetSelectionVisible(false);
+            }
+            else if (state == LevelState.Playing)
+            {
+                _view.SetSelectionVisible(true);
+            }
+            
+            
             if (state != LevelState.Preparing)
             {
                 return;
