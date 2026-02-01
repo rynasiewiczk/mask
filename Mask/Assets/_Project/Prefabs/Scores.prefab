@@ -439,6 +439,8 @@ GameObject:
   - component: {fileID: 2631976883722409870}
   - component: {fileID: 3852306651598281809}
   - component: {fileID: 3403740604498795077}
+  - component: {fileID: 8321516359770111586}
+  - component: {fileID: 9040040468879741273}
   m_Layer: 5
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -564,6 +566,37 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!225 &8321516359770111586
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839982199808323682}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &9040040468879741273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839982199808323682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a763ee190a2a045ad89f97cefab4b559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minAlpha: 0.35
+  maxAlpha: 1
+  period: 1
+  startDelay: 0
+  useUnscaledTime: 1
+  playOnEnable: 1
+  keepAlphaOnStop: 1
 --- !u!1 &2769771119589603019
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,6 +653,7 @@ MonoBehaviour:
   _fullIndicator: {fileID: 1839982199808323682}
   _regularColor: {r: 1, g: 1, b: 1, a: 1}
   _fullColor: {r: 0.9529412, g: 0.83137256, b: 0.03137255, a: 1}
+  _shift: {fileID: 3582572786406102488}
 --- !u!1 &2839788616287301493
 GameObject:
   m_ObjectHideFlags: 0
