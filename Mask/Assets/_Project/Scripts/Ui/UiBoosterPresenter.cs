@@ -12,9 +12,10 @@ namespace _Project.Scripts.Ui
         [SerializeField] private GameObject _fullIndicator;
         [SerializeField] private Color _regularColor;
         [SerializeField] private Color _fullColor;
-        
+        [SerializeField] private Transform _shift;
+
         private BoosterHandler _booster;
-        
+
         private void Start()
         {
             _booster = BoostersManager.Instance.MainBooster;
@@ -28,7 +29,21 @@ namespace _Project.Scripts.Ui
             _progressImage.DOFillAmount(newValue, 0.3f);
             _progressText.text = $"{_booster.CurrentAmount.Value.ToString()}/{_booster.FullAmount}";
             _fullIndicator.SetActive(_booster.IsReadyToUse.Value);
+            SetPulse(_booster.IsReadyToUse.Value);
             _progressText.color = _progressImage.color = _booster.IsReadyToUse.Value ? _fullColor : _regularColor;
+        }
+
+        private void SetPulse(bool pulse)
+        {
+            if (!pulse)
+            {
+                _shift.DOKill();
+                _shift.localScale = Vector3.one;
+            }
+            else
+            {
+                _shift.DOScale(1.1f, 0.3f).SetLoops(-1, LoopType.Yoyo);
+            }
         }
     }
 }
