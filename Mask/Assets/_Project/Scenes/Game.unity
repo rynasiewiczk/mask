@@ -908,10 +908,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a4b653468f44aec96ab4d5249e93e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _breakSfx: {fileID: 0}
+  _breakSfx: {fileID: 8300000, guid: 9f8a15a86b7084d44b5aa588c36bd415, type: 3}
   _breakSfxPitch:
-    _min: 0
-    _max: 0
+    _min: 0.95
+    _max: 1
 --- !u!1 &742197665
 GameObject:
   m_ObjectHideFlags: 0
@@ -2081,6 +2081,10 @@ PrefabInstance:
       propertyPath: _inputManager
       value: 
       objectReference: {fileID: 1867972327}
+    - target: {fileID: 4223450027308406308, guid: 027fb004aaabb492facaccb2784c817d, type: 3}
+      propertyPath: _fireBlocksCLip
+      value: 
+      objectReference: {fileID: 8300000, guid: 665e491dbf2b9774bac5a75d5713dcb0, type: 3}
     - target: {fileID: 4728522465560023745, guid: 027fb004aaabb492facaccb2784c817d, type: 3}
       propertyPath: m_Name
       value: InputRow

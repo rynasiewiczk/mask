@@ -23,6 +23,13 @@ namespace _Project.Scripts.Gameplay.Input
         [SerializeField] private float _cooldown = 0.75f;
         [SerializeField] private Transform _underScreenPosition;
 
+        [Space, SerializeField] private AudioClip _changeSelectionClip;
+        [SerializeField] private float _changeSelectionPitch;
+        
+        [SerializeField] private AudioClip _toggleBitClip;
+        [SerializeField] private AudioClip _boosterExplosion;
+        [SerializeField] private AudioClip _fireBlocksCLip;
+
         public List<Block> InputBlocks => _inputBlocks;
 
         private Block CurrentBlock => _inputBlocks[_selectedBlockIndex];
@@ -94,6 +101,7 @@ namespace _Project.Scripts.Gameplay.Input
             _view.ConfirmSelection();
             CurrentBlock.Change();
             _view.ChangeForBlock(CurrentBlock.BlockType);
+            AudioManager.Instance.PlaySfx(_toggleBitClip);
         }
 
         private void OnConfirm()
@@ -179,6 +187,7 @@ namespace _Project.Scripts.Gameplay.Input
                     FallingBlocksModel.Instance.BreakBlock(block);
                 }
 
+                AudioManager.Instance.PlaySfx(_boosterExplosion, .93f, 1f);
                 yield return new WaitForSeconds(0.15f);
                 rowPosition += verticalGap;
             }
@@ -206,6 +215,7 @@ namespace _Project.Scripts.Gameplay.Input
                 }
             }
 
+            AudioManager.Instance.PlaySfx(_changeSelectionClip, _changeSelectionPitch);
             _view.ChangeForBlock(CurrentBlock.BlockType);
             CameraView.Instance.DoShake(0.1f, 0.03f);
         }
@@ -270,6 +280,7 @@ namespace _Project.Scripts.Gameplay.Input
 
             var sequence = new UserBlocksSequence(newBlocks);
             sequence.OnAllDestroyed += HandleSequenceComplete;
+            AudioManager.Instance.PlaySfx(_fireBlocksCLip);
 
             void HandleSequenceComplete(UserBlocksSequence sequence)
             {

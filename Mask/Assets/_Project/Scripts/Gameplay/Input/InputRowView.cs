@@ -14,7 +14,7 @@ namespace _Project.Scripts.Gameplay.Input
         [SerializeField] private Transform _selectionTransform;
         [SerializeField] private SpriteRenderer _selectionRenderer;
         [SerializeField] private Transform _selectionFrameTransform;
-        
+
         
         private Tween _tween;
         private Tween _scaleTween;

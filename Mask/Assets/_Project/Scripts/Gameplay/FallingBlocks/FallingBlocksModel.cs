@@ -5,6 +5,7 @@ namespace _Project.Scripts.Gameplay.Spawning
     using System.Linq;
     using FallingBlocks;
     using Input.Blocks;
+    using LazySloth.Utilities;
     using UnityEngine;
 
     public class FallingBlocksModel : MonoBehaviour
@@ -14,6 +15,10 @@ namespace _Project.Scripts.Gameplay.Spawning
         
         public static FallingBlocksModel Instance { get; private set; }
 
+        [SerializeField] private AudioClip _breakSfx;
+        [SerializeField] private FloatRange _breakSfxPitch;
+        private int _lastBreakSfxPlayFrame;
+        
         private List<FallingBlock> _fallingBlocks = new();
         public List<FallingBlock> FallingBlocks => _fallingBlocks;
 
@@ -156,6 +161,12 @@ namespace _Project.Scripts.Gameplay.Spawning
             OnBlockBreak?.Invoke(block);
             block.DoDestroyEffect();
             DestroyBlock(block);
+
+            if (_lastBreakSfxPlayFrame < Time.frameCount + 10)
+            {
+                _lastBreakSfxPlayFrame = Time.frameCount;
+                AudioManager.Instance.PlaySfx(_breakSfx, _breakSfxPitch);
+            }
         }
         
         private void DestroyBlock(FallingBlock block)

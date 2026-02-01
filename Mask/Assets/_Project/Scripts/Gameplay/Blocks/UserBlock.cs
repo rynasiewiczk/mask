@@ -56,6 +56,8 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
                     {
                         TargetBlock.SetMechanic(BlockMechanicType.None);
                     }
+
+                    AudioManager.Instance.PlayMismatchedBlocksSfx();
                     
                     OnMissmatched?.Invoke();
                     TargetBlock.HandleMissmatchedUserBlock();
