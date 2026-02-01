@@ -38,6 +38,10 @@ namespace _Project.Scripts.Gameplay.Input
                 return;
             }
 
+            if (!LevelManager.Instance.StartFalling)
+            {
+                return;
+            }
 
             var fallSpeed = GetFallSpeed();
             var blocks = _model.FallingBlocks;
