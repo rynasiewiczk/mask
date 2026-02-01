@@ -1,6 +1,5 @@
 namespace _Project.Scripts
 {
-    using System;
     using LazySloth.Utilities;
     using UnityEngine;
     using Random = UnityEngine.Random;
@@ -9,6 +8,7 @@ namespace _Project.Scripts
     {
         public static AudioManager Instance;
 
+        [SerializeField] private AudioSource _warningSource;
         [SerializeField] private AudioSource _audioSource;
 
         [Space, SerializeField] private AudioClip _missmatchedBlocksSfx;
@@ -32,13 +32,33 @@ namespace _Project.Scripts
             PlaySfx(clip, pitch);
         }
         
-        public void PlaySfx(AudioClip clip, float pitch = 1f)
+        private void PlaySfx(AudioClip clip, float pitch = 1f)
         {
             _audioSource.pitch = pitch;
             _audioSource.PlayOneShot(clip);
         }
 
         public void PlayMismatchedBlocksSfx() => PlaySfx(_missmatchedBlocksSfx, .95f, 1f);
+
+        public void HandleWarningSfx(float normalizedDanger)
+        {
+            if (normalizedDanger <= 0)
+            {
+                if (_warningSource.isPlaying)
+                {
+                    _warningSource.Stop();
+                }
+
+                return;
+            }
+            
+            if (!_warningSource.isPlaying)
+            {
+                _warningSource.Play();
+            }
+            
+            _warningSource.volume = normalizedDanger;
+        }
         
         [ContextMenu("Test1")]
         public void FireTest1() => PlaySfx(_testClip1, _testPitch1);

@@ -33,6 +33,8 @@ namespace _Project.Scripts.Gameplay.Input
         [SerializeField] private Transform _cameraMinZoomHeight;
         [SerializeField] private Transform _cameraMaxZoomHeight;
         [SerializeField] private float _cameraLerpSpeed = .2f;
+
+        [SerializeField] private AudioClip _levelEndCLip;
         
         private bool _isWarningPlaying;
 
@@ -107,6 +109,7 @@ namespace _Project.Scripts.Gameplay.Input
         private void ResetCameraWarning()
         {
             _cameraShakeSequence?.Kill();
+            AudioManager.Instance.HandleWarningSfx(0);
         }
 
         private void PlayWarning()
@@ -136,6 +139,8 @@ namespace _Project.Scripts.Gameplay.Input
             var currentCameraPosition = CameraView.Instance.transform.position;
             var nextCameraPosition = Vector3.Lerp(currentCameraPosition, targetCameraPosition, _cameraLerpSpeed);
             CameraView.Instance.transform.position = nextCameraPosition;
+            
+            AudioManager.Instance.HandleWarningSfx(blocksHeightLerp);
         }
 
         private void PlayCameraDanger()

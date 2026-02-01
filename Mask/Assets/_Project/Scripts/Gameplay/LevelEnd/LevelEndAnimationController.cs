@@ -17,6 +17,8 @@ namespace _Project.Scripts.Gameplay.Input.LevelEnd
         [SerializeField] private FloatRange _initialColumnDropDelayRange = new(.5f, .9f);
         [SerializeField] private FloatRange _columnDelayBetweenBottomAndTopBlockRange = new(.8f, 1.6f);
         [SerializeField] private float _gravity = -7.5f;
+        
+        [SerializeField] private AudioSource _fallingBlocksAudio;
 
         private void Start()
         {
@@ -60,6 +62,7 @@ namespace _Project.Scripts.Gameplay.Input.LevelEnd
                     DOVirtual.DelayedCall(delay, () =>
                     {
                         DropBlock(orderedFromBottom.ElementAt(i1));
+                        _fallingBlocksAudio.Play();
                     });
                 }
             });
