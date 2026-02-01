@@ -34,6 +34,19 @@ public class LevelManager : MonoBehaviour
        // _resetLevelSystem = new ResetLevelSystem(_input, this);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            Time.timeScale = 0;
+        }
+        
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            Time.timeScale = 1;
+        }
+    }
+
     private void OnDestroy()
     {
         _startLevelSystem.Dispose();
