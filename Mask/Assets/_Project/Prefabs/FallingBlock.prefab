@@ -175,6 +175,7 @@ MonoBehaviour:
   _view: {fileID: 7695922114655019496}
   _oneColor: {r: 0.09411765, g: 0.9137255, b: 0.85882354, a: 1}
   _zeroColor: {r: 0.94509804, g: 0.023529412, b: 0.79607844, a: 1}
+  _showPoints: {fileID: 7189494162653205829, guid: 6500e6fbf9f494ffb88127efd50dc253, type: 3}
 --- !u!114 &2625904659714710357 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3284795606435013042, guid: 0854e9f2c18e04f23ab7526157cb9969, type: 3}

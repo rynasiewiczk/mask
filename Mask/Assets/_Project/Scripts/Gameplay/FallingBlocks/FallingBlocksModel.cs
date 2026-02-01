@@ -5,6 +5,7 @@ namespace _Project.Scripts.Gameplay.Spawning
     using System.Linq;
     using FallingBlocks;
     using Input.Blocks;
+    using Input.Score;
     using UnityEngine;
 
     public class FallingBlocksModel : MonoBehaviour
@@ -154,6 +155,7 @@ namespace _Project.Scripts.Gameplay.Spawning
         public void BreakBlock(FallingBlock block)
         {
             OnBlockBreak?.Invoke(block);
+            block.ShowScore(ScoreManager.Instance.GetBreakBlockPoints());
             block.DoDestroyEffect();
             DestroyBlock(block);
         }

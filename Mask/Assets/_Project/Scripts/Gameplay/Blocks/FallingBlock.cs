@@ -1,10 +1,13 @@
 namespace _Project.Scripts.Gameplay.Input.Blocks
 {
     using System;
+    using DG.Tweening;
     using UnityEngine;
+    using Random = UnityEngine.Random;
 
     public class FallingBlock : Block
     {
+        [SerializeField] private ShowPoints _showPoints;
         public Guid ChainGuid { get; private set; }
         
         public bool IsChain => ChainGuid != Guid.Empty;
@@ -12,6 +15,17 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
         public void Fall(float distance)
         {
             transform.position += Vector3.down * distance;
+        }
+
+        public void ShowScore(int score)
+        {
+            var prefab = _showPoints;
+            var position = transform.position;
+            DOVirtual.DelayedCall(Random.Range(0f, .05f), () =>
+            {
+                var points = Instantiate(prefab, position, Quaternion.identity);
+                points.Setup(score);
+            });
         }
 
         public void HandleMissmatchedUserBlock()
