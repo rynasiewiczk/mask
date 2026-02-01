@@ -57,6 +57,15 @@ namespace _Project.Scripts.Ui
         {
             if(!_isVisible) { return; }
 
+            if (_isOnNamePage)
+            {
+                if (!_nameInput.isFocused)
+                {
+                    _nameInput.ActivateInputField();
+                    _nameInput.Select();
+                }
+            }
+            
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 if (_isOnNamePage)
