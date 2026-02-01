@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: LootLockerConfig
   m_EditorClassIdentifier: 
   apiKey: dev_639f18089ebd406981b25b4d6195a095
-  adminToken: d4a95d67b57383c7e396344b3f8c57fae0f513e9
+  adminToken: 
   domainKey: hfxlmfsm
   game_version: 1.0.0.0
   sdk_version: 7.0.0
   url: https://api.lootlocker.com/v1
-  adminUrl: https://hfxlmfsm.api.lootlocker.com/admin
-  playerUrl: https://hfxlmfsm.api.lootlocker.com/player
-  userUrl: https://hfxlmfsm.api.lootlocker.com/game
-  webSocketBaseUrl: wss://hfxlmfsm.api.lootlocker.com/game
-  baseUrl: https://hfxlmfsm.api.lootlocker.com
+  adminUrl: https://api.lootlocker.com/admin
+  playerUrl: https://api.lootlocker.com/player
+  userUrl: https://api.lootlocker.com/game
+  webSocketBaseUrl: wss://api.lootlocker.com/game
+  baseUrl: https://api.lootlocker.com
   clientSideRequestTimeOut: 180
   logLevel: 2
   prettifyJson: 1
