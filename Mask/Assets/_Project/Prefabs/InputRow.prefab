@@ -265,8 +265,10 @@ MonoBehaviour:
   _cooldown: 0.4
   _underScreenPosition: {fileID: 5818347745931395807}
   _changeSelectionClip: {fileID: 8300000, guid: 1bdf7e99a822e9f4f97e207ec243663b, type: 3}
+  _changeSelectionPitch: 1
+  _toggleBitClip: {fileID: 8300000, guid: be09e5e11eab3b84ca888a2bad993cff, type: 3}
   _boosterExplosion: {fileID: 8300000, guid: 27726f8f6cd7c4644af9795be11a5ff1, type: 3}
-  _fireBlocksCLip: {fileID: 8300000, guid: 9f8a15a86b7084d44b5aa588c36bd415, type: 3}
+  _fireBlocksCLip: {fileID: 8300000, guid: 665e491dbf2b9774bac5a75d5713dcb0, type: 3}
 --- !u!114 &4154541760536188168
 MonoBehaviour:
   m_ObjectHideFlags: 0

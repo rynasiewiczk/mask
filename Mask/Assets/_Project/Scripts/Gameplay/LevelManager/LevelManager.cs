@@ -1,4 +1,5 @@
 using System;
+using _Project.Scripts;
 using DG.Tweening;
 using LazySloth.Observable;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] private InputManager _input;
     [SerializeField] private Transform _horizontalOrigin;
+    [SerializeField] private AudioClip _levelFinishedSfx;
     
     private StartLevelSystem _startLevelSystem;
     //private ResetLevelSystem _resetLevelSystem;
@@ -69,7 +71,8 @@ public class LevelManager : MonoBehaviour
     {
         StartFalling = false;
         _state.Value = LevelState.Finished;
-    } 
+        AudioManager.Instance.PlaySfx(_levelFinishedSfx, .99f, 1f);
+    }
 }
 
 public enum LevelState

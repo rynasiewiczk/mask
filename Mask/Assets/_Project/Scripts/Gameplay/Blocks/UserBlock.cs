@@ -33,6 +33,7 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
 
             if (TargetBlock == null)
             {
+                Destroy(gameObject);
                 return;
             }
 
@@ -56,6 +57,8 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
                     {
                         TargetBlock.SetMechanic(BlockMechanicType.None);
                     }
+
+                    AudioManager.Instance.PlayMismatchedBlocksSfx();
                     
                     OnMissmatched?.Invoke();
                     TargetBlock.HandleMissmatchedUserBlock();
