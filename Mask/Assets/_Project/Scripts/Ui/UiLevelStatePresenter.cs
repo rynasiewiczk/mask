@@ -1,9 +1,10 @@
+using _Project.Scripts.Ui;
 using UnityEngine;
 
 public class UiLevelStatePresenter : MonoBehaviour
 {
     [SerializeField] private PreparingPanel _preparingPanel;
-    [SerializeField] private RectTransform _finishedStateContent;
+    [SerializeField] private UiLevelFinishedPanelPresenter _finishedPanel;
     [SerializeField] private StartGameHandler _startGameHandler;
 
     private void Start()
@@ -20,10 +21,12 @@ public class UiLevelStatePresenter : MonoBehaviour
     {
         if (state == LevelState.Playing)
         {
+            _finishedPanel.Hide();
             _preparingPanel.Hide();
         }
         else if (state == LevelState.Preparing)
         {
+            _finishedPanel.Hide();
             _preparingPanel.Show();
         }
 
@@ -31,7 +34,9 @@ public class UiLevelStatePresenter : MonoBehaviour
         {
             _startGameHandler.ShowGame();
         }
-        
-        _finishedStateContent.gameObject.SetActive(state == LevelState.Finished);
+        else if (state == LevelState.Finished)
+        {
+            _finishedPanel.Show();
+        }
     }
 }

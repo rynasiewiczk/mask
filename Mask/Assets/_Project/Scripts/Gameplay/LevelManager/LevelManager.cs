@@ -12,7 +12,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Transform _horizontalOrigin;
     
     private StartLevelSystem _startLevelSystem;
-    private ResetLevelSystem _resetLevelSystem;
+    //private ResetLevelSystem _resetLevelSystem;
 
     private ObservableProperty<LevelState> _state = new(LevelState.Preparing);
     public IObservableProperty<LevelState> State => _state;
@@ -29,13 +29,13 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         _startLevelSystem = new StartLevelSystem(_input, this);
-        _resetLevelSystem = new ResetLevelSystem(_input, this);
+       // _resetLevelSystem = new ResetLevelSystem(_input, this);
     }
 
     private void OnDestroy()
     {
         _startLevelSystem.Dispose();
-        _resetLevelSystem.Dispose();
+        //_resetLevelSystem.Dispose();
     }
 
     public void SetPreparing() => _state.Value = LevelState.Preparing;

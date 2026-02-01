@@ -18,7 +18,7 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.F1))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
@@ -40,25 +40,25 @@ public class InputManager : MonoBehaviour
             OnReset?.Invoke();
         }
         
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            OnNumber?.Invoke(1);
-        }
-        
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            OnNumber?.Invoke(2);
-        }
-        
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            OnNumber?.Invoke(3);
-        }
-        
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            OnNumber?.Invoke(4);
-        }
+        // if (Input.GetKeyDown(KeyCode.Alpha1))
+        // {
+        //     OnNumber?.Invoke(1);
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.Alpha2))
+        // {
+        //     OnNumber?.Invoke(2);
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.Alpha3))
+        // {
+        //     OnNumber?.Invoke(3);
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.Alpha4))
+        // {
+        //     OnNumber?.Invoke(4);
+        // }
         
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))// || Input.GetButtonDown("Jump"))
         {
