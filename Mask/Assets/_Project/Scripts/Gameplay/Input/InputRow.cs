@@ -24,7 +24,7 @@ namespace _Project.Scripts.Gameplay.Input
         [SerializeField] private Transform _underScreenPosition;
 
         [Space, SerializeField] private AudioClip _changeSelectionClip;
-        
+
         [SerializeField] private AudioClip _toggleBitClip;
         [SerializeField] private AudioClip _boosterExplosion;
         [SerializeField] private AudioClip _fireBlocksCLip;
@@ -122,6 +122,11 @@ namespace _Project.Scripts.Gameplay.Input
 
         private void OnRight()
         {
+            if (_locked)
+            {
+                return;
+            }
+
             _prevSelectedBlockIndex = _selectedBlockIndex;
             _selectedBlockIndex = (_selectedBlockIndex + 1) % _inputBlocks.Count;
             UpdateCurrentBlock();
@@ -129,6 +134,11 @@ namespace _Project.Scripts.Gameplay.Input
 
         private void OnLeft()
         {
+            if (_locked)
+            {
+                return;
+            }
+
             _prevSelectedBlockIndex = _selectedBlockIndex;
             _selectedBlockIndex = (_selectedBlockIndex - 1 + _inputBlocks.Count) % _inputBlocks.Count;
             UpdateCurrentBlock();
@@ -270,7 +280,8 @@ namespace _Project.Scripts.Gameplay.Input
                     continue;
                 }
 
-                var userBlocksWithChainAsTarget = newBlocks.Where(nb => blocksWithSameChain.Contains(nb.TargetBlock)).ToList();
+                var userBlocksWithChainAsTarget =
+                    newBlocks.Where(nb => blocksWithSameChain.Contains(nb.TargetBlock)).ToList();
                 var canAllBeDestroyed = userBlocksWithChainAsTarget.All(b => b.CanDestroyTarget());
                 if (canAllBeDestroyed)
                 {

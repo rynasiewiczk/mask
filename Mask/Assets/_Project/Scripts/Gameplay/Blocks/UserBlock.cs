@@ -33,6 +33,7 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
 
             if (TargetBlock == null)
             {
+                Destroy(gameObject);
                 return;
             }
 
