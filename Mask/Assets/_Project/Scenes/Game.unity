@@ -645,8 +645,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1297141268}
-  - {fileID: 212964811}
   - {fileID: 681515877}
+  - {fileID: 212964811}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1172,6 +1172,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 307717717}
     m_Modifications:
+    - target: {fileID: 3582572786406102488, guid: ce2f429b4c13a4b2693c365c572e65f6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 222.85487
+      objectReference: {fileID: 0}
     - target: {fileID: 7636285910471583166, guid: ce2f429b4c13a4b2693c365c572e65f6, type: 3}
       propertyPath: m_Name
       value: Scores (1)
