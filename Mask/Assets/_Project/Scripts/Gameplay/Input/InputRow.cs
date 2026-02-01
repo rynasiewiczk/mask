@@ -41,7 +41,7 @@ namespace _Project.Scripts.Gameplay.Input
             {
                 var hPos = horizontalOrigin + i * (_blockPrefab.GetSize().x + _gridConfig.HorizontalGap);
                 var pos = new Vector2(hPos, _verticalOrigin.position.y);
-                var block = Instantiate(_blockPrefab, pos, Quaternion.identity);
+                var block = Instantiate(_blockPrefab, pos, Quaternion.identity, transform);
                 _inputBlocks.Add(block);
             }
 

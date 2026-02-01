@@ -4,6 +4,7 @@ public class UiLevelStatePresenter : MonoBehaviour
 {
     [SerializeField] private PreparingPanel _preparingPanel;
     [SerializeField] private RectTransform _finishedStateContent;
+    [SerializeField] private StartGameHandler _startGameHandler;
 
     private void Start()
     {
@@ -24,6 +25,11 @@ public class UiLevelStatePresenter : MonoBehaviour
         else if (state == LevelState.Preparing)
         {
             _preparingPanel.Show();
+        }
+
+        if (state == LevelState.Playing)
+        {
+            _startGameHandler.ShowGame();
         }
         
         _finishedStateContent.gameObject.SetActive(state == LevelState.Finished);
