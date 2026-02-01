@@ -2,6 +2,7 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
 {
     using System;
     using DG.Tweening;
+    using LazySloth.Utilities;
     using UnityEngine;
     using Random = UnityEngine.Random;
 
@@ -21,7 +22,7 @@ namespace _Project.Scripts.Gameplay.Input.Blocks
         {
             var prefab = _showPoints;
             var position = transform.position;
-            DOVirtual.DelayedCall(Random.Range(0f, .05f), () =>
+            DOVirtual.DelayedCall(Random.Range(0f, .0f), () =>
             {
                 var points = Instantiate(prefab, position, Quaternion.identity);
                 points.Setup(score);

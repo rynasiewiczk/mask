@@ -908,10 +908,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a4b653468f44aec96ab4d5249e93e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _breakSfx: {fileID: 0}
-  _breakSfxPitch:
-    _min: 0
-    _max: 0
 --- !u!1 &742197665
 GameObject:
   m_ObjectHideFlags: 0
@@ -1172,9 +1168,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 307717717}
     m_Modifications:
+    - target: {fileID: 4513119689266193, guid: ce2f429b4c13a4b2693c365c572e65f6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -503.6001
+      objectReference: {fileID: 0}
+    - target: {fileID: 1840659250659013074, guid: ce2f429b4c13a4b2693c365c572e65f6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -717.30005
+      objectReference: {fileID: 0}
     - target: {fileID: 3582572786406102488, guid: ce2f429b4c13a4b2693c365c572e65f6, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 222.85487
+      objectReference: {fileID: 0}
+    - target: {fileID: 3776264153656611841, guid: ce2f429b4c13a4b2693c365c572e65f6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -771.6001
       objectReference: {fileID: 0}
     - target: {fileID: 7636285910471583166, guid: ce2f429b4c13a4b2693c365c572e65f6, type: 3}
       propertyPath: m_Name
@@ -2190,6 +2198,10 @@ PrefabInstance:
     - target: {fileID: 3826654040089318047, guid: 4961ea6e5f677431f86ca7863901872a, type: 3}
       propertyPath: m_Name
       value: Tutorials
+      objectReference: {fileID: 0}
+    - target: {fileID: 6320571492540478335, guid: 4961ea6e5f677431f86ca7863901872a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -347.80005
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
